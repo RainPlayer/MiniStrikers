@@ -12,12 +12,13 @@ public class Enemy : MonoBehaviour
     public uint HP = 1;
 
     Animator EnemyAnim;
-    Collider2D CollisionObject = null; //确保一个Bullet Sprite对应一个爆炸Sprite
+    IList<Collider2D> CollisionObjects = null; //确保一个Bullet Sprite对应一个爆炸Sprite
 
     // Start is called before the first frame update
     void Start()
     {
         EnemyAnim = GetComponent<Animator>();
+        CollisionObjects = new List<Collider2D>();
     }
 
     // Update is called once per frame
@@ -33,7 +34,7 @@ public class Enemy : MonoBehaviour
             EnemyAnim.speed = 1f;
         }
 
-        if (CollisionObject != null)
+        if (CollisionObjects.Count > 0)
         {
             HP -= 1;
 
@@ -65,23 +66,33 @@ public class Enemy : MonoBehaviour
             else
             {
                 //Bullet打中的效果
-                string name = CollisionObject.gameObject.name.Replace("(Clone)", "") + "Effect";
-                Transform bullet_effect = Instantiate(hide_layer.Find(name));
-                bullet_effect.SetParent(transform);
-                bullet_effect.localPosition = new Vector3(CollisionObject.transform.localPosition.x, CollisionObject.transform.localPosition.y + 0.5f, -1f);
-                bullet_effect.GetComponent<BulletEffect>().Play();
+                foreach (var item in CollisionObjects)
+                {
+                    string name = item.gameObject.name.Replace("(Clone)", "") + "Effect";
+                    Transform bullet_effect = Instantiate(hide_layer.Find(name));
+
+                    bullet_effect.SetParent(transform);
+                    bullet_effect.localPosition = new Vector3(item.transform.localPosition.x, item.transform.localPosition.y + 0.5f, -1f);
+                    bullet_effect.GetComponent<BulletEffect>().Play();
+                }
             }
 
             //销毁Bullet
-            CollisionObject.gameObject.transform.DOKill(true);
-            
+            foreach (var item in CollisionObjects)
+            {
+                item.gameObject.transform.DOKill(true);
+            }
+            CollisionObjects.Clear();
         }
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        Debug.Log(collision.name);
-        CollisionObject = collision;
+        //确保一个Bullet Sprite对应一个爆炸Sprite
+        if (!CollisionObjects.Contains(collision))
+        {
+            CollisionObjects.Add(collision);
+        }
         
     }
 

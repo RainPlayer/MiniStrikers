@@ -12,7 +12,7 @@ public class Enemy : MonoBehaviour
     public uint HP = 1;
 
     Animator EnemyAnim;
-    GameObject TriggerObject = null; //确保一个Bullet Sprite对应一个爆炸Sprite
+    Collider2D CollisionObject = null; //确保一个Bullet Sprite对应一个爆炸Sprite
 
     // Start is called before the first frame update
     void Start()
@@ -33,7 +33,7 @@ public class Enemy : MonoBehaviour
             EnemyAnim.speed = 1f;
         }
 
-        if (TriggerObject != null)
+        if (CollisionObject != null)
         {
             HP -= 1;
 
@@ -54,32 +54,35 @@ public class Enemy : MonoBehaviour
                 Blast blast_s = blast.GetComponent<Blast>();
                 blast_s.Play();
 
+                GetComponent<AudioSource>().Play();
+
                 //销毁当前Enemy
+                transform.localPosition = new Vector3(-100f, transform.localPosition.y, transform.localPosition.z);
                 transform.DOKill(true);
-                Destroy(gameObject);
+                Destroy(gameObject, 0.8f);
+
             }
             else
             {
                 //Bullet打中的效果
-                Transform bullet_hit_effect = Instantiate(hide_layer.Find("BulletHitEffect"));
-                ParticleSystem bullet_hit_effect_s = bullet_hit_effect.gameObject.GetComponent<ParticleSystem>();
-                bullet_hit_effect.SetParent(transform.parent);
-                bullet_hit_effect.localPosition = transform.localPosition;
-                bullet_hit_effect_s.Play();
+                string name = CollisionObject.gameObject.name.Replace("(Clone)", "") + "Effect";
+                Transform bullet_effect = Instantiate(hide_layer.Find(name));
+                bullet_effect.SetParent(transform);
+                bullet_effect.localPosition = new Vector3(CollisionObject.transform.localPosition.x, CollisionObject.transform.localPosition.y + 0.5f, -1f);
+                bullet_effect.GetComponent<BulletEffect>().Play();
             }
 
-
             //销毁Bullet
-            TriggerObject.transform.DOKill(true);
-            Destroy(TriggerObject);
+            CollisionObject.gameObject.transform.DOKill(true);
             
         }
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        TriggerObject = collision.gameObject;
-
+        Debug.Log(collision.name);
+        CollisionObject = collision;
+        
     }
 
 }

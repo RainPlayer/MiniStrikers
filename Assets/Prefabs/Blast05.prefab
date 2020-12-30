@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 7892790043744834900}
   - component: {fileID: 7892790043744834899}
   - component: {fileID: 7892790043744834898}
+  - component: {fileID: 4830291066040046716}
   m_Layer: 0
   m_Name: Blast05
   m_TagString: Untagged
@@ -102,3 +103,15 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!114 &4830291066040046716
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7892790043744834897}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0c5c5bd807c0542b4bf278d5253afbc2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

@@ -38,7 +38,7 @@ public class PlayerPlane : MonoBehaviour
 
     public float FireBTime = 0f;
     float NextFireBTime = 0f;
-    float NextFireBTime2 = 0f;
+    //float NextFireBTime2 = 0f;
 
     bool DoBulletA = false; //防止子弹AB的冲突
 
@@ -302,7 +302,7 @@ public class PlayerPlane : MonoBehaviour
                 NextFireBTime = Time.time + FireBTime;
             }
 
-            if (Time.time > NextFireBTime2)
+            /*if (Time.time > NextFireBTime2)
             {
                 if (PlaneName == "Plane0")
                 {
@@ -344,7 +344,7 @@ public class PlayerPlane : MonoBehaviour
                 }
 
                 NextFireBTime2 = Time.time + (FireBTime * 2.5f);
-            }
+            }*/
 
             //子弹B使用慢速移动模式
             if (PlaneSpeedMode == SpeedMode.Normal)

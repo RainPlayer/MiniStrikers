@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 2863743081972246402}
   - component: {fileID: 2863743081972246403}
   - component: {fileID: 2863743081972246400}
+  - component: {fileID: 6379766495664154646}
   m_Layer: 0
   m_Name: Blast02
   m_TagString: Untagged
@@ -102,3 +103,15 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!114 &6379766495664154646
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2863743081972246401}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0c5c5bd807c0542b4bf278d5253afbc2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

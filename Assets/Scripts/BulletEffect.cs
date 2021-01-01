@@ -33,8 +33,11 @@ public class BulletEffect : MonoBehaviour
     {
         if (Constant.GameIsPause)
         {
-            BulletEffectAnim.speed = 0f;
-            Status = BulletEffectStatus.Pause;
+            if (transform.parent.name != "HideLayer")
+            {
+                BulletEffectAnim.speed = 0f;
+                Status = BulletEffectStatus.Pause;
+            }
 
             return;
         }

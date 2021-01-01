@@ -33,8 +33,11 @@ public class Blast : MonoBehaviour
     {
         if (Constant.GameIsPause)
         {
-            BlastAnim.speed = 0f;
-            Status = BlastStatus.Pause;
+            if (transform.parent.name != "HideLayer")
+            {
+                BlastAnim.speed = 0f;
+                Status = BlastStatus.Pause;
+            }
 
             return;
         }

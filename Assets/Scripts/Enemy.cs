@@ -66,11 +66,17 @@ public class Enemy : MonoBehaviour
                 foreach (var item in CollisionObjects)
                 {
                     string name = item.gameObject.name.Replace("(Clone)", "") + "Effect";
-                    Transform bullet_effect = Instantiate(hide_layer.Find(name));
 
-                    bullet_effect.SetParent(transform);
-                    bullet_effect.localPosition = new Vector3(item.transform.localPosition.x, item.transform.localPosition.y + 0.5f, -1f);
-                    bullet_effect.GetComponent<BulletEffect>().Play();
+                    Transform bullet_effect_src = hide_layer.Find(name);
+                    if (bullet_effect_src != null)
+                    {
+                        Transform bullet_effect = Instantiate(bullet_effect_src);
+
+                        bullet_effect.SetParent(transform);
+                        bullet_effect.localPosition = new Vector3(item.transform.localPosition.x, item.transform.localPosition.y + 0.5f, -1f);
+                        bullet_effect.GetComponent<BulletEffect>().Play();
+                    }
+                    
                 }
             }
 
@@ -81,6 +87,11 @@ public class Enemy : MonoBehaviour
             }
             CollisionObjects.Clear();
         }
+    }
+
+    private void OnDestroy()
+    {
+        CollisionObjects.Clear();
     }
 
     private void OnTriggerEnter2D(Collider2D collision)

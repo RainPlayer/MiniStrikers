@@ -10,7 +10,7 @@ public class Test : MonoBehaviour
     {
         Transform bullet = transform.Find("Bullet03");
 
-        float r = Constant.Angle360(Vector2.zero, new Vector2(-100, 0));
+        float r = FHUtility.Angle360(Vector2.zero, new Vector2(-100, 0));
 
         bullet.Rotate(0, 0, r + 90f);
 

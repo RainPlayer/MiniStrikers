@@ -42,7 +42,7 @@ public class Enemy : MonoBehaviour
             if (HP <= 0)
             {
                 //加分逻辑
-                SpriteString score = transform.root.Find("PlayerInfo").Find("Score").GetComponent<SpriteString>();
+                FHSpriteText score = transform.root.Find("PlayerInfo").Find("Score").GetComponent<FHSpriteText>();
                 uint score_int = uint.Parse(score.StringContent);
                 score_int += Score;
                 score.SetStringContent(score_int.ToString());
@@ -55,12 +55,9 @@ public class Enemy : MonoBehaviour
                 Blast blast_s = blast.GetComponent<Blast>();
                 blast_s.Play();
 
-                GetComponent<AudioSource>().Play();
-
-                //销毁当前Enemy
                 transform.localPosition = new Vector3(-100f, transform.localPosition.y, transform.localPosition.z);
                 transform.DOKill(true);
-                Destroy(gameObject, 0.8f);
+                PlayAudioCallback(GetComponent<AudioSource>(), OnAudioCallBack);
 
             }
             else
@@ -95,5 +92,25 @@ public class Enemy : MonoBehaviour
         }
         
     }
+
+    void OnAudioCallBack()
+    {
+        //销毁当前Enemy
+        Destroy(gameObject);
+    }
+
+    //声音播放的回调
+    delegate void AudioCallBack();
+    void PlayAudioCallback(AudioSource audio, AudioCallBack callback)
+    {
+        audio.Play();
+        StartCoroutine(DelayedCallback(audio.clip.length, callback));
+    }
+    IEnumerator DelayedCallback(float time, AudioCallBack callback)
+    {
+        yield return new WaitForSeconds(time);
+        callback();
+    }
+    //声音播放的回调 end
 
 }

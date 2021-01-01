@@ -322,7 +322,7 @@ public class PlayerPlane : MonoBehaviour
                     target_pos.x -= 5f;
                     target_pos.y = target_y;
 
-                    float r = Constant.Angle360(bullet_left.localPosition, target_pos);
+                    float r = FHUtility.Angle360(bullet_left.localPosition, target_pos);
                     bullet_left.Rotate(0, 0, r + 90f);
 
                     bullet_left.DOLocalMove(target_pos, 1.2f);
@@ -337,7 +337,7 @@ public class PlayerPlane : MonoBehaviour
 
                     target_pos.x += 10f;
 
-                    r = Constant.Angle360(bullet_right.localPosition, target_pos);
+                    r = FHUtility.Angle360(bullet_right.localPosition, target_pos);
                     bullet_right.Rotate(0, 0, r + 90f);
 
                     bullet_right.DOLocalMove(target_pos, 1.2f);

@@ -3,10 +3,10 @@ using System.Collections.Generic;
 using UnityEngine;
 
 /*
- * Sprite字符串，用字符映射到对应的Sprite，对应SpriteString.prefab。
+ * Sprite字符串，用字符映射到对应的Sprite，对应FHSpriteText.prefab。
  * 设置Sprite集合的时候，每个Sprite的大小尽可能一致，如果没法一致尽量接近第1个sprite的大小，因为计算总长度的时候会根据第1个sprite来计算的。
 */
-public class SpriteString : MonoBehaviour
+public class FHSpriteText : MonoBehaviour
 {
     public string SpritesNamePrefix = ""; //字符对应的精灵的name属性的前缀
     public string StringContent = ""; //要显示的字符串
@@ -33,7 +33,7 @@ public class SpriteString : MonoBehaviour
             SpriteData[v.name] = v;
         }
 
-        //Debug.Log("SpriteString初始化");
+        //Debug.Log("FHSpriteText初始化");
     }
 
     // Start is called before the first frame update
@@ -53,7 +53,7 @@ public class SpriteString : MonoBehaviour
     {
         SpriteData.Clear();
 
-        //Debug.Log("SpriteString释放");
+        //Debug.Log("FHSpriteText释放");
     }
 
     /// <summary>
@@ -149,7 +149,7 @@ public class SpriteString : MonoBehaviour
             }
             else
             {
-                Debug.Log("SpriteString找不到Sprite的前缀名或Sprite的名称，请正确设置NamePrefix属性和Sprites里面的元素名称");
+                Debug.Log("FHSpriteText找不到Sprite的前缀名或Sprite的名称，请正确设置NamePrefix属性和Sprites里面的元素名称");
                 break;
             }
         }

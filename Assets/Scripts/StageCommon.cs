@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class StageCommon : MonoBehaviour
 {
-    SpriteString Score;
-    SpriteString PlayerNum;
+    FHSpriteText Score;
+    FHSpriteText PlayerNum;
 
     // Start is called before the first frame update
     void Start()
@@ -19,10 +19,10 @@ public class StageCommon : MonoBehaviour
         Transform player_layer = transform.Find("PlayerLayer");
         Transform player_num_ico = player_info.Find("PlayerNumIco");
 
-        Score = player_info.Find("Score").GetComponent<SpriteString>();
+        Score = player_info.Find("Score").GetComponent<FHSpriteText>();
         Score.SetStringContent(score.ToString());
 
-        PlayerNum = player_num_ico.Find("PlayerNum").GetComponent<SpriteString>();
+        PlayerNum = player_num_ico.Find("PlayerNum").GetComponent<FHSpriteText>();
         PlayerNum.SetStringContent(player_num.ToString());
 
         Transform plane = player_layer.Find(plane_name);

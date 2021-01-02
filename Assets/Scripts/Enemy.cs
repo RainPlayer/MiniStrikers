@@ -7,9 +7,9 @@ using DG.Tweening;
 public class Enemy : MonoBehaviour
 {
     public string BlastName = "Blast01";
-    public uint BlastMode = 0;
-    public uint Score = 100;
-    public uint HP = 1;
+    public int BlastMode = 0;
+    public int Score = 100;
+    public int HP = 1;
 
     Animator EnemyAnim;
     IList<Collider2D> CollisionObjects = null; //确保一个Bullet Sprite对应一个爆炸Sprite
@@ -42,10 +42,10 @@ public class Enemy : MonoBehaviour
             if (HP <= 0)
             {
                 //加分逻辑
-                FHSpriteText score = transform.root.Find("PlayerInfo").Find("Score").GetComponent<FHSpriteText>();
-                uint score_int = uint.Parse(score.StringContent);
+                FHSpriteText score_text = transform.root.Find("PlayerInfo").Find("Score").GetComponent<FHSpriteText>();
+                int score_int = int.Parse(score_text.StringContent);
                 score_int += Score;
-                score.SetStringContent(score_int.ToString());
+                score_text.SetStringContent(score_int.ToString());
 
                 //爆炸效果对象相关
                 Transform blast = Instantiate(hide_layer.Find(BlastName));
@@ -55,7 +55,7 @@ public class Enemy : MonoBehaviour
                 Blast blast_s = blast.GetComponent<Blast>();
                 blast_s.Play();
 
-                transform.localPosition = new Vector3(-100f, transform.localPosition.y, transform.localPosition.z);
+                transform.localPosition = new Vector3(-500f, 500f, transform.localPosition.z);
                 transform.DOKill(true);
                 PlayAudioCallback(GetComponent<AudioSource>(), OnAudioCallBack);
 
@@ -73,7 +73,7 @@ public class Enemy : MonoBehaviour
                         Transform bullet_effect = Instantiate(bullet_effect_src);
 
                         bullet_effect.SetParent(transform);
-                        bullet_effect.localPosition = new Vector3(item.transform.localPosition.x, item.transform.localPosition.y + 0.5f, -1f);
+                        bullet_effect.position = new Vector3(item.transform.localPosition.x, item.transform.localPosition.y + Camera.main.transform.position.y + 0.3f, -1f);
                         bullet_effect.GetComponent<BulletEffect>().Play();
                     }
                     
@@ -97,7 +97,10 @@ public class Enemy : MonoBehaviour
     private void OnTriggerEnter2D(Collider2D collision)
     {
         //确保一个Bullet Sprite对应一个爆炸Sprite
-        if (!CollisionObjects.Contains(collision))
+        //判断1：碰撞体不是player
+        //判断2：不是来自隐藏层的元素
+        //判断3：不是已经存在的碰撞体
+        if (collision.transform.name != "plane_center" && transform.parent.name != "HideLayer" && !CollisionObjects.Contains(collision))
         {
             CollisionObjects.Add(collision);
         }

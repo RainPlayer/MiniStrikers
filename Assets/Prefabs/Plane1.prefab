@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 4884183032085179326}
   - component: {fileID: 7190974260111499283}
   - component: {fileID: 7766102582423163245}
+  - component: {fileID: 2250171434709568243}
   m_Layer: 8
   m_Name: plane_center
   m_TagString: Untagged
@@ -150,6 +151,18 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 0.84, y: 0.84}
   m_EdgeRadius: 0
+--- !u!114 &2250171434709568243
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4884183032085179325}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0c5053f692b934457a484a6c88ecf5c0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &4884183032867294567
 GameObject:
   m_ObjectHideFlags: 0

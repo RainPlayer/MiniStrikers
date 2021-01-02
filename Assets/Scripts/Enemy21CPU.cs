@@ -41,7 +41,7 @@ public class Enemy21CPU : MonoBehaviour
         //target_pos.x -= 5f;
         target_pos.y = target_y;
 
-        bullet.DOLocalMove(target_pos, 2f);
+        bullet.DOLocalMove(target_pos, 2.5f);
 
     }
 

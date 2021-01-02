@@ -11,8 +11,8 @@ public class StageCommon : MonoBehaviour
     void Start()
     {
         //临时数据
-        uint player_num = 2;
-        uint score = 0;
+        int player_num = 2;
+        int score = 0;
         string plane_name = "Plane0";
 
         Transform player_info = transform.Find("PlayerInfo");

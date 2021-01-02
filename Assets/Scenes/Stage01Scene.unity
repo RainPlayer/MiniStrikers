@@ -389,6 +389,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Enemy21
       objectReference: {fileID: 0}
+    - target: {fileID: 728016916341558473, guid: 75b7304482dd5844e92cb73583169d19,
+        type: 3}
+      propertyPath: m_Layer
+      value: 10
+      objectReference: {fileID: 0}
     - target: {fileID: 728016916341558478, guid: 75b7304482dd5844e92cb73583169d19,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -517,6 +522,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Enemy12
+      objectReference: {fileID: 0}
+    - target: {fileID: 3124728363573555706, guid: b0f82174468ee6c4f8cb29e92bdcc115,
+        type: 3}
+      propertyPath: m_Layer
+      value: 10
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b0f82174468ee6c4f8cb29e92bdcc115, type: 3}
@@ -690,7 +700,7 @@ PrefabInstance:
     - target: {fileID: 7789768878135722956, guid: 9d22190a5caab3c49bd801c8c3f95c50,
         type: 3}
       propertyPath: StringContent
-      value: 2
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7789768878135722956, guid: 9d22190a5caab3c49bd801c8c3f95c50,
         type: 3}
@@ -771,6 +781,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Bullet06
+      objectReference: {fileID: 0}
+    - target: {fileID: 5839981209283031594, guid: 359cbabd2b64b854481e8d3e4307eea8,
+        type: 3}
+      propertyPath: m_Layer
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 5839981209283031597, guid: 359cbabd2b64b854481e8d3e4307eea8,
         type: 3}
@@ -1328,7 +1343,7 @@ GameObject:
   - component: {fileID: 1059095441}
   - component: {fileID: 1059095440}
   m_Layer: 0
-  m_Name: stage_air_base_bg_1
+  m_Name: stage_bg_1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1407,6 +1422,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1083615832}
+  - component: {fileID: 1083615833}
   m_Layer: 0
   m_Name: BulletLayer
   m_TagString: Untagged
@@ -1428,6 +1444,18 @@ Transform:
   m_Father: {fileID: 1684860548}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1083615833
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1083615831}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 45b92d59fefe33e4cb6096954c87863e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1094136891
 GameObject:
   m_ObjectHideFlags: 0
@@ -1559,7 +1587,7 @@ GameObject:
   - component: {fileID: 1138099724}
   - component: {fileID: 1138099725}
   m_Layer: 0
-  m_Name: stage_air_base_bg_2
+  m_Name: stage_bg_2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2233,6 +2261,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Bullet02
       objectReference: {fileID: 0}
+    - target: {fileID: 2109455380381045528, guid: 8002520506006b7478a1eccc3884688d,
+        type: 3}
+      propertyPath: m_Layer
+      value: 9
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 8002520506006b7478a1eccc3884688d, type: 3}
 --- !u!4 &3285277923549967106 stripped
@@ -2307,6 +2340,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Bullet01
+      objectReference: {fileID: 0}
+    - target: {fileID: 7666039425600064589, guid: 4a336d5543a0adc48b39664b7f448e98,
+        type: 3}
+      propertyPath: m_Layer
+      value: 9
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 4a336d5543a0adc48b39664b7f448e98, type: 3}

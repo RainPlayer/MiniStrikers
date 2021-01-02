@@ -14,9 +14,9 @@ TagManager:
   - 
   - 
   - Player
-  - Enemies
-  - 
-  - 
+  - PlayerBullet
+  - Enemy
+  - EnemyBullet
   - 
   - 
   - 

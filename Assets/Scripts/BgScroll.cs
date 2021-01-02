@@ -17,8 +17,8 @@ public class BgScroll : MonoBehaviour
         MainCamera = FindObjectOfType<Camera>();
         CurrBgIndex = 0;
 
-        Bg1 = transform.Find("stage_air_base_bg_1");
-        Bg2 = transform.Find("stage_air_base_bg_2");
+        Bg1 = transform.Find("stage_bg_1");
+        Bg2 = transform.Find("stage_bg_2");
     }
 
     // Update is called once per frame

@@ -42,10 +42,10 @@ public class Enemy : MonoBehaviour
             if (HP <= 0)
             {
                 //加分逻辑
-                FHSpriteText score_text = transform.root.Find("PlayerInfo").Find("Score").GetComponent<FHSpriteText>();
-                int score_int = int.Parse(score_text.StringContent);
+                StageCommon stage_common = Camera.main.GetComponent<StageCommon>();
+                int score_int = stage_common.GetScore();
                 score_int += Score;
-                score_text.SetStringContent(score_int.ToString());
+                stage_common.SetScore(score_int);
 
                 //爆炸效果对象相关
                 Transform blast = Instantiate(hide_layer.Find(BlastName));

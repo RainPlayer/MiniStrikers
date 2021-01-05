@@ -4,5 +4,38 @@
 EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
-  m_Scenes: []
+  m_Scenes:
+  - enabled: 1
+    path: Assets/Scenes/OpeningScene.unity
+    guid: fc404c3bd158c9745a8f32479ce9d9e3
+  - enabled: 1
+    path: Assets/Scenes/LoadingScene.unity
+    guid: 4070d430d5447ca4996028ca0919dd98
+  - enabled: 1
+    path: Assets/Scenes/GameOverScene.unity
+    guid: 91ad00ef8a2888144a7dd3499575b605
+  - enabled: 1
+    path: Assets/Scenes/Stage01Scene.unity
+    guid: 2cda990e2423bbf4892e6590ba056729
+  - enabled: 1
+    path: Assets/Scenes/Stage02Scene.unity
+    guid: 31e17bfe498b0414bb0f0e9881919560
+  - enabled: 1
+    path: Assets/Scenes/Stage03Scene.unity
+    guid: f0a3eef9cceba664eb93e6e1924bfe57
+  - enabled: 1
+    path: Assets/Scenes/Stage04Scene.unity
+    guid: 4fe179687110e1643813b382ad7d1c59
+  - enabled: 1
+    path: Assets/Scenes/Stage05Scene.unity
+    guid: b98347903100aa042bf476cdcfad405d
+  - enabled: 1
+    path: Assets/Scenes/Stage06Scene.unity
+    guid: e848cb6eb5fc5ab42a87201605381420
+  - enabled: 1
+    path: Assets/Scenes/Stage07Scene.unity
+    guid: c2c3afc42d4a68146abe7c5642351ba0
+  - enabled: 1
+    path: Assets/Scenes/EndingScene.unity
+    guid: efb12abdec007994aa4cf0ada355c4b7
   m_configObjects: {}

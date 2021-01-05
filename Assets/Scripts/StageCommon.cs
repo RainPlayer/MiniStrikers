@@ -7,26 +7,28 @@ public class StageCommon : MonoBehaviour
     FHSpriteText Score;
     FHSpriteText PlayerNum;
 
+    Transform PlayerLayer;
+    Transform HideLayer;
+
     // Start is called before the first frame update
     void Start()
     {
-        //临时数据
-        int player_num = 2;
-        int score = 0;
-        string plane_name = "Plane0";
-
+        PlayerLayer = transform.root.Find("PlayerLayer");
+        HideLayer = transform.root.Find("HideLayer");
         Transform player_info = transform.Find("PlayerInfo");
         Transform player_layer = transform.Find("PlayerLayer");
         Transform player_num_ico = player_info.Find("PlayerNumIco");
 
         Score = player_info.Find("Score").GetComponent<FHSpriteText>();
-        Score.SetStringContent(score.ToString());
-
         PlayerNum = player_num_ico.Find("PlayerNum").GetComponent<FHSpriteText>();
-        PlayerNum.SetStringContent(player_num.ToString());
 
-        Transform plane = player_layer.Find(plane_name);
-        player_num_ico.GetComponent<SpriteRenderer>().sprite = plane.Find(plane_name.ToLower()).GetComponent<SpriteRenderer>().sprite;
+        SetScore(Constant.ScoreCurr);
+        SetPlayerNum(Constant.PlayerNumCurr);
+        PlayerPlaneGo();
+
+        //右上角的icon
+        Transform plane = player_layer.Find(Constant.PlayerPlane);
+        player_num_ico.GetComponent<SpriteRenderer>().sprite = plane.Find(Constant.PlayerPlane.ToLower()).GetComponent<SpriteRenderer>().sprite;
 
     }
 
@@ -59,6 +61,37 @@ public class StageCommon : MonoBehaviour
             }
             
         }
+
+    }
+
+    public int GetPlayerNum()
+    {
+        return int.Parse(PlayerNum.StringContent);
+    }
+
+    public void SetPlayerNum(int player_num)
+    {
+        PlayerNum.SetStringContent(player_num.ToString());
+        Constant.PlayerNumCurr = player_num;
+    }
+
+    public int GetScore()
+    {
+        return int.Parse(Score.StringContent);
+    }
+
+    public void SetScore(int score)
+    {
+        Score.SetStringContent(score.ToString());
+        Constant.ScoreCurr = score;
+    }
+
+    public void PlayerPlaneGo()
+    {
+        Transform PlayerPlane = Instantiate(HideLayer.Find(Constant.PlayerPlane));
+        PlayerPlane.name = Constant.PlayerPlane;
+        PlayerPlane.SetParent(PlayerLayer);
+        PlayerPlane.localPosition = new Vector3(0, -4.5f, 12f);
 
     }
 

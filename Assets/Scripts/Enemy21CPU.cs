@@ -18,7 +18,8 @@ public class Enemy21CPU : MonoBehaviour
         BulletLayer = EnemyLayer.Find("BulletLayer");
 
         //test
-        Bullet01();
+        float target_y = transform.localPosition.y + (Camera.main.orthographicSize * -2f) - 10f;
+        Bullet(new Vector2(0f, target_y), 8f);
     }
 
     // Update is called once per frame
@@ -27,7 +28,7 @@ public class Enemy21CPU : MonoBehaviour
         
     }
 
-    void Bullet01()
+    void Bullet(Vector2 pos, float time)
     {
         Transform bullet = Instantiate(HideLayer.Find("Bullet06"));
         bullet.SetParent(BulletLayer);
@@ -36,13 +37,12 @@ public class Enemy21CPU : MonoBehaviour
         bullet_pos.z = 11f;
         bullet.localPosition = bullet_pos;
 
-        float target_y = -10f - (-Camera.main.orthographicSize + bullet.localPosition.y);
+        
         Vector3 target_pos = bullet_pos;
-        //target_pos.x -= 5f;
-        target_pos.y = target_y;
+        target_pos.x = pos.x;
+        target_pos.y = pos.y;
 
-        bullet.DOLocalMove(target_pos, 2.5f);
-
+        bullet.DOLocalMove(target_pos, time);
     }
 
     void Move01()

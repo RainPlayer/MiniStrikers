@@ -12,7 +12,6 @@ public class PlayerPlane : MonoBehaviour
         Slow,
     }
 
-    public string PlaneName = "Plane0";
     public float PlaneSpeed = 0f;
 
     bool IsDirectionUp = false;
@@ -27,7 +26,6 @@ public class PlayerPlane : MonoBehaviour
 
     Transform PlayerLayer;
     Transform BulletLayer;
-    Transform EnemyLayer;
     Transform HideLayer;
     
     float PxUnit;
@@ -48,7 +46,7 @@ public class PlayerPlane : MonoBehaviour
     void Start()
     {
         MainCamera = FindObjectOfType<Camera>();
-        PlaneAnimator = transform.Find(PlaneName.ToLower()).GetComponent<Animator>();
+        PlaneAnimator = transform.Find(gameObject.name.ToLower()).GetComponent<Animator>();
         PlaneCenterAnimator = transform.Find("plane_center").GetComponent<Animator>();
 
         SpriteRenderer plane_center = transform.Find("plane_center").GetComponent<SpriteRenderer>();
@@ -56,7 +54,6 @@ public class PlayerPlane : MonoBehaviour
 
         PlayerLayer = transform.root.Find("PlayerLayer");
         BulletLayer = PlayerLayer.Find("BulletLayer");
-        EnemyLayer = transform.root.Find("EnemyLayer");
         HideLayer = transform.root.Find("HideLayer");
         
         PxUnit = MainCamera.orthographicSize * 2f / Screen.height;
@@ -102,6 +99,12 @@ public class PlayerPlane : MonoBehaviour
                     anim.speed = 1f;
                 }
             }
+        }
+
+        //隐藏层的对象不接受Player的输入
+        if (transform.parent.name == "HideLayer")
+        {
+            return;
         }
 
 #if UNITY_STANDALONE || UNITY_EDITOR
@@ -170,7 +173,7 @@ public class PlayerPlane : MonoBehaviour
         {
             if (!IsDirectionLeft)
             {
-                PlaneAnimator.Play(PlaneName + "_Left");
+                PlaneAnimator.Play(gameObject.name + "_Left");
                 IsDirectionLeft = true;
             }
             else
@@ -185,7 +188,7 @@ public class PlayerPlane : MonoBehaviour
         {
             if (IsDirectionLeft)
             {
-                PlaneAnimator.Play(PlaneName + "_Normal");
+                PlaneAnimator.Play(gameObject.name + "_Normal");
                 IsDirectionLeft = false;
             }
         }
@@ -198,7 +201,7 @@ public class PlayerPlane : MonoBehaviour
         {
             if (!IsDirectionRight)
             {
-                PlaneAnimator.Play(PlaneName + "_Right");
+                PlaneAnimator.Play(gameObject.name + "_Right");
                 IsDirectionRight = true;
             }
             else
@@ -213,7 +216,7 @@ public class PlayerPlane : MonoBehaviour
         {
             if (IsDirectionRight)
             {
-                PlaneAnimator.Play(PlaneName + "_Normal");
+                PlaneAnimator.Play(gameObject.name + "_Normal");
                 IsDirectionRight = false;
             }
         }
@@ -224,7 +227,7 @@ public class PlayerPlane : MonoBehaviour
         //子弹A
         if ((Input.GetKey(KeyCode.K) || Input.GetButton("Fire1_JS")) && Time.time > NextFireATime)
         {
-            if (PlaneName == "Plane0")
+            if (gameObject.name == "Plane0")
             {
                 //布局子弹A
                 int bullet_count = 4;
@@ -273,10 +276,10 @@ public class PlayerPlane : MonoBehaviour
         {
             if (Time.time > NextFireBTime)
             {
-                if (PlaneName == "Plane0")
+                if (gameObject.name == "Plane0")
                 {
                     //布局子弹B
-                    int bullet_count = 3;
+                    int bullet_count = 4;
                     for (int i = 0; i < bullet_count; i++)
                     {
                         Transform bullet = Instantiate(HideLayer.Find("Bullet02"));
@@ -296,7 +299,6 @@ public class PlayerPlane : MonoBehaviour
                         bullet.DOLocalMoveY(target_y, 1.2f);
                     }
 
-
                 }
 
                 NextFireBTime = Time.time + FireBTime;
@@ -304,7 +306,7 @@ public class PlayerPlane : MonoBehaviour
 
             /*if (Time.time > NextFireBTime2)
             {
-                if (PlaneName == "Plane0")
+                if (gameObject.name == "Plane0")
                 {
                     //布局子弹B(2)
 

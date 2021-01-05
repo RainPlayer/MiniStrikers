@@ -6,16 +6,12 @@ using DG.Tweening;
 
 public class BulletLayer : MonoBehaviour
 {
-    Camera MainCamera;
-    IList<Transform> DeleteBulletArr;
-
     bool GameIsPause;
 
     // Start is called before the first frame update
     void Start()
     {
-        MainCamera = FindObjectOfType<Camera>();
-        DeleteBulletArr = new List<Transform>();
+
     }
 
     // Update is called once per frame
@@ -32,6 +28,11 @@ public class BulletLayer : MonoBehaviour
                 for (int i = 0; i < transform.childCount; i++)
                 {
                     Transform bullet = transform.GetChild(i);
+                    Animator anim = bullet.gameObject.GetComponent<Animator>();
+                    if (anim != null)
+                    {
+                        anim.speed = 0f;
+                    }
                     bullet.DOPause();
                 }
             }
@@ -44,33 +45,16 @@ public class BulletLayer : MonoBehaviour
                 for (int i = 0; i < transform.childCount; i++)
                 {
                     Transform bullet = transform.GetChild(i);
+                    Animator anim = bullet.gameObject.GetComponent<Animator>();
+                    if (anim != null)
+                    {
+                        anim.speed = 1f;
+                    }
                     bullet.DOPlay();
                 }
             }
             GameIsPause = Constant.GameIsPause;
         }
-
-        //子弹超出了屏幕就释放
-        for (int i = 0; i < transform.childCount; i++)
-        {
-            Transform bullet = transform.GetChild(i);
-            SpriteRenderer bullet_sprite_renderer = bullet.GetComponent<SpriteRenderer>();
-
-            //计算是否超出屏幕，以下是本地坐标的(y的范围是-6到6之间)，摄像机大小加上子弹的一半大小（子弹大小*子弹的放缩）
-            if (bullet.localPosition.y > MainCamera.orthographicSize + (bullet.localScale.y * bullet_sprite_renderer.size.y / 2f))
-            {
-                //超出了就释放
-                DeleteBulletArr.Add(bullet);
-            }
-        }
-
-        //统一做释放处理
-        foreach (var bullet in DeleteBulletArr)
-        {
-            bullet.DOKill(true);
-            Destroy(bullet.gameObject);
-        }
-        DeleteBulletArr.Clear();
 
     }
 }

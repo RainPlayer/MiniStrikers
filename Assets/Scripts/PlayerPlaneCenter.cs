@@ -95,12 +95,12 @@ public class PlayerPlaneCenter : MonoBehaviour
 
         //减命逻辑
         StageCommon stage_common = Camera.main.GetComponent<StageCommon>();
-        int player_num_int = Constant.PlayerNumCurr;
-        if (player_num_int > 0)
+        int player_life_int = Constant.PlayerLifeCurr;
+        if (player_life_int > 0)
         {
             //复活
-            player_num_int--;
-            stage_common.SetPlayerNum(player_num_int);
+            player_life_int--;
+            stage_common.SetPlayerLife(player_life_int);
             stage_common.PlayerPlaneGo();
         }
         else

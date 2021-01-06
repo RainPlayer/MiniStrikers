@@ -2,14 +2,19 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
-public class GameOverMenu : MonoBehaviour
+public class OptionMenu : MonoBehaviour
 {
     bool IsDirectionUp = false;
     bool IsDirectionDown = false;
+    bool IsDirectionLeft = false;
+    bool IsDirectionRight = false;
 
     int MenuSelectedIndex = 0;
     Transform Items;
+    Transform ItemPlayerLifeText;
+    Transform ItemSoundText;
     Transform MenuCursor;
     int MenuLength = 0;
 
@@ -19,6 +24,15 @@ public class GameOverMenu : MonoBehaviour
         Items = transform.Find("Items");
         MenuCursor = transform.Find("MenuCursor");
         MenuLength = Items.childCount;
+
+        Transform item_player_life = Items.Find("Item_PlayerLife");
+        Transform item_sound = Items.Find("Item_Sound");
+
+        ItemPlayerLifeText = item_player_life.Find("Text");
+        ItemSoundText = item_sound.Find("Text");
+
+        ItemPlayerLifeText.GetComponent<Text>().text = Constant.PlayerLife.ToString();
+        ItemSoundText.GetComponent<Text>().text = Constant.GameDoSound ? "On" : "Off";
 
         //移动端不显示光标
 #if UNITY_ANDROID || UNITY_IPHONE
@@ -95,25 +109,81 @@ public class GameOverMenu : MonoBehaviour
         //======================================
 
         //======================================
+        //方向左
+        if (Input.GetKey(KeyCode.A) || Input.GetAxis("Horizontal") < -0.5f)
+        {
+            if (!IsDirectionLeft)
+            {
+                IsDirectionLeft = true;
+            }
+        }
+        else
+        {
+            if (IsDirectionLeft)
+            {
+                IsDirectionLeft = false;
+
+                if (MenuSelectedIndex == 0)
+                {
+                    if (Constant.PlayerLife > 0)
+                    {
+                        Constant.PlayerLife--;
+                    }
+                    ItemPlayerLifeText.GetComponent<Text>().text = Constant.PlayerLife.ToString();
+                }
+                else if (MenuSelectedIndex == 1)
+                {
+                    Constant.GameDoSound = !Constant.GameDoSound;
+                    ItemSoundText.GetComponent<Text>().text = Constant.GameDoSound ? "On" : "Off";
+                }
+            }
+        }
+        //方向左
+        //======================================
+
+        //======================================
+        //方向右
+        if (Input.GetKey(KeyCode.D) || Input.GetAxis("Horizontal") > 0.5f)
+        {
+            if (!IsDirectionRight)
+            {
+                IsDirectionRight = true;
+            }
+        }
+        else
+        {
+            if (IsDirectionRight)
+            {
+                IsDirectionRight = false;
+
+                if (MenuSelectedIndex == 0)
+                {
+                    if (Constant.PlayerLife < 5)
+                    {
+                        Constant.PlayerLife++;
+                    }
+                    ItemPlayerLifeText.GetComponent<Text>().text = Constant.PlayerLife.ToString();
+                }
+                else if (MenuSelectedIndex == 1)
+                {
+                    Constant.GameDoSound = !Constant.GameDoSound;
+                    ItemSoundText.GetComponent<Text>().text = Constant.GameDoSound ? "On" : "Off";
+                }
+            }
+        }
+        //方向右
+        //======================================
+
+        //======================================
         //按了确认键
         if (Input.GetKey(KeyCode.L) || Input.GetButton("Fire2_JS"))
         {
-            if (MenuSelectedIndex == 0)
+            if (MenuSelectedIndex == 2)
             {
-                //Continue，初始化
-                Constant.PlayerLifeCurr = Constant.PlayerLife;
-                Constant.ScoreCurr = 0;
-
-                PlayerPrefs.SetInt(Constant.NextSceneIndex, Constant.StageSurr);
-                SceneManager.LoadScene(Constant.LoadingScene);
-            }
-            else if (MenuSelectedIndex == 1)
-            {
-                //End
+                //Exit
                 PlayerPrefs.SetInt(Constant.NextSceneIndex, Constant.OpeningScene);
                 SceneManager.LoadScene(Constant.LoadingScene);
             }
-
         }
         //按了确认键
         //======================================

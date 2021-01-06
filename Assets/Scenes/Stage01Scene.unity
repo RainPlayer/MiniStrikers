@@ -685,7 +685,7 @@ PrefabInstance:
     - target: {fileID: 3340265743126888422, guid: 9d22190a5caab3c49bd801c8c3f95c50,
         type: 3}
       propertyPath: m_Name
-      value: PlayerNum
+      value: PlayerLife
       objectReference: {fileID: 0}
     - target: {fileID: 7789768878135722956, guid: 9d22190a5caab3c49bd801c8c3f95c50,
         type: 3}
@@ -2075,7 +2075,7 @@ GameObject:
   - component: {fileID: 1889443312}
   - component: {fileID: 1889443313}
   m_Layer: 0
-  m_Name: PlayerNumIco
+  m_Name: PlayerLifeIco
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

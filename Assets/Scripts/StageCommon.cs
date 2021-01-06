@@ -5,7 +5,7 @@ using UnityEngine;
 public class StageCommon : MonoBehaviour
 {
     FHSpriteText Score;
-    FHSpriteText PlayerNum;
+    FHSpriteText PlayerLife;
 
     Transform PlayerLayer;
     Transform HideLayer;
@@ -17,18 +17,18 @@ public class StageCommon : MonoBehaviour
         HideLayer = transform.root.Find("HideLayer");
         Transform player_info = transform.Find("PlayerInfo");
         Transform player_layer = transform.Find("PlayerLayer");
-        Transform player_num_ico = player_info.Find("PlayerNumIco");
+        Transform player_life_ico = player_info.Find("PlayerLifeIco");
 
         Score = player_info.Find("Score").GetComponent<FHSpriteText>();
-        PlayerNum = player_num_ico.Find("PlayerNum").GetComponent<FHSpriteText>();
+        PlayerLife = player_life_ico.Find("PlayerLife").GetComponent<FHSpriteText>();
 
         SetScore(Constant.ScoreCurr);
-        SetPlayerNum(Constant.PlayerNumCurr);
+        SetPlayerLife(Constant.PlayerLifeCurr);
         PlayerPlaneGo();
 
         //右上角的icon
         Transform plane = player_layer.Find(Constant.PlayerPlane);
-        player_num_ico.GetComponent<SpriteRenderer>().sprite = plane.Find(Constant.PlayerPlane.ToLower()).GetComponent<SpriteRenderer>().sprite;
+        player_life_ico.GetComponent<SpriteRenderer>().sprite = plane.Find(Constant.PlayerPlane.ToLower()).GetComponent<SpriteRenderer>().sprite;
 
     }
 
@@ -64,15 +64,15 @@ public class StageCommon : MonoBehaviour
 
     }
 
-    public int GetPlayerNum()
+    public int GetPlayerLife()
     {
-        return int.Parse(PlayerNum.StringContent);
+        return int.Parse(PlayerLife.StringContent);
     }
 
-    public void SetPlayerNum(int player_num)
+    public void SetPlayerLife(int player_life)
     {
-        PlayerNum.SetStringContent(player_num.ToString());
-        Constant.PlayerNumCurr = player_num;
+        PlayerLife.SetStringContent(player_life.ToString());
+        Constant.PlayerLifeCurr = player_life;
     }
 
     public int GetScore()

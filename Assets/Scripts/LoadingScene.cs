@@ -23,7 +23,8 @@ public class LoadingScene : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-
+		Constant.ObjectIsPlayingSound(this);
+		
         LoadingIco = Camera.main.transform.Find("LoadingIco");
         SpriteRenderer loading_ico_sprite_renderer = LoadingIco.GetComponent<SpriteRenderer>();
 

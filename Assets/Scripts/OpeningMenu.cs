@@ -2,8 +2,9 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
-public class GameOverMenu : MonoBehaviour
+public class OpeningMenu : MonoBehaviour
 {
     bool IsDirectionUp = false;
     bool IsDirectionDown = false;
@@ -16,8 +17,8 @@ public class GameOverMenu : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-		Constant.ObjectIsPlayingSound(this);
-		
+        Constant.ObjectIsPlayingSound(this);
+
         Items = transform.Find("Items");
         MenuCursor = transform.Find("MenuCursor");
         MenuLength = Items.childCount;
@@ -102,20 +103,26 @@ public class GameOverMenu : MonoBehaviour
         {
             if (MenuSelectedIndex == 0)
             {
-                //Continue，初始化
-                Constant.PlayerLifeCurr = Constant.PlayerLife;
-                Constant.ScoreCurr = 0;
-
-                PlayerPrefs.SetInt(Constant.NextSceneIndex, Constant.StageSurr);
+                //Start
+                PlayerPrefs.SetInt(Constant.NextSceneIndex, Constant.PlayerSelectScene);
                 SceneManager.LoadScene(Constant.LoadingScene);
             }
             else if (MenuSelectedIndex == 1)
             {
-                //End
-                PlayerPrefs.SetInt(Constant.NextSceneIndex, Constant.OpeningScene);
-                SceneManager.LoadScene(Constant.LoadingScene);
-            }
+                //Option
 
+                //加载资源少，用同步加载高效一点
+                SceneManager.LoadScene(Constant.OptionScene);
+            }
+            else if (MenuSelectedIndex == 2)
+            {
+                //Exit
+#if UNITY_EDITOR
+                UnityEditor.EditorApplication.isPlaying = false;
+#else
+            Application.Quit();
+#endif
+            }
         }
         //按了确认键
         //======================================

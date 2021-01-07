@@ -9,7 +9,8 @@ public class OpeningSceneTemp : MonoBehaviour
     void Start()
     {
         //这个是临时文件
-
+		Constant.ObjectIsPlayingSound(this);
+		
     }
 
     // Update is called once per frame

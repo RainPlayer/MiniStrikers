@@ -377,12 +377,22 @@ PrefabInstance:
     - target: {fileID: -1708709683602082773, guid: 75b7304482dd5844e92cb73583169d19,
         type: 3}
       propertyPath: HP
-      value: 100
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: -1708709683602082773, guid: 75b7304482dd5844e92cb73583169d19,
         type: 3}
       propertyPath: Score
       value: 1000
+      objectReference: {fileID: 0}
+    - target: {fileID: -1708709683602082773, guid: 75b7304482dd5844e92cb73583169d19,
+        type: 3}
+      propertyPath: BlastMode
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: -1708709683602082773, guid: 75b7304482dd5844e92cb73583169d19,
+        type: 3}
+      propertyPath: BlastName
+      value: Blast02
       objectReference: {fileID: 0}
     - target: {fileID: 728016916341558473, guid: 75b7304482dd5844e92cb73583169d19,
         type: 3}
@@ -889,7 +899,7 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 8300000, guid: 953f4a31fc578ef4aac798475b941bb0, type: 3}
+  m_audioClip: {fileID: 8300000, guid: fd7ec851d30219046bbea05994242e78, type: 3}
   m_PlayOnAwake: 1
   m_Volume: 1
   m_Pitch: 1

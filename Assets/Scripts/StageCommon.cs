@@ -13,6 +13,8 @@ public class StageCommon : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        Constant.ObjectIsPlayingSound(this);
+
         PlayerLayer = transform.root.Find("PlayerLayer");
         HideLayer = transform.root.Find("HideLayer");
         Transform player_info = transform.Find("PlayerInfo");
@@ -21,6 +23,8 @@ public class StageCommon : MonoBehaviour
 
         Score = player_info.Find("Score").GetComponent<FHSpriteText>();
         PlayerLife = player_life_ico.Find("PlayerLife").GetComponent<FHSpriteText>();
+
+        Constant.PlayerLifeCurr = Constant.PlayerLife;
 
         SetScore(Constant.ScoreCurr);
         SetPlayerLife(Constant.PlayerLifeCurr);
@@ -88,11 +92,13 @@ public class StageCommon : MonoBehaviour
 
     public void PlayerPlaneGo()
     {
-        Transform PlayerPlane = Instantiate(HideLayer.Find(Constant.PlayerPlane));
-        PlayerPlane.name = Constant.PlayerPlane;
-        PlayerPlane.SetParent(PlayerLayer);
-        PlayerPlane.localPosition = new Vector3(0, -4.5f, 12f);
-
+        if (PlayerLayer.Find("Constant.PlayerPlane") == null)
+        {
+            Transform PlayerPlane = Instantiate(HideLayer.Find(Constant.PlayerPlane));
+            PlayerPlane.name = Constant.PlayerPlane;
+            PlayerPlane.SetParent(PlayerLayer);
+            PlayerPlane.localPosition = new Vector3(0, -4.5f, 12f);
+        }
     }
 
 }

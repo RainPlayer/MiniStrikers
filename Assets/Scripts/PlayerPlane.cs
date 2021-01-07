@@ -21,7 +21,6 @@ public class PlayerPlane : MonoBehaviour
 
     Camera MainCamera;
     Animator PlaneAnimator;
-    Animator PlaneCenterAnimator;
     Vector2 PlaneCenterSize;
 
     Transform PlayerLayer;
@@ -45,9 +44,10 @@ public class PlayerPlane : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+		Constant.ObjectIsPlayingSound(this);
+		
         MainCamera = FindObjectOfType<Camera>();
         PlaneAnimator = transform.Find(gameObject.name.ToLower()).GetComponent<Animator>();
-        PlaneCenterAnimator = transform.Find("plane_center").GetComponent<Animator>();
 
         SpriteRenderer plane_center = transform.Find("plane_center").GetComponent<SpriteRenderer>();
         PlaneCenterSize = plane_center.size * plane_center.gameObject.transform.localScale;
@@ -66,8 +66,6 @@ public class PlayerPlane : MonoBehaviour
         if (Constant.GameIsPause)
         {
             PlaneAnimator.speed = 0f;
-            PlaneCenterAnimator.speed = 0f;
-
             for (int i = 0; i < BulletLayer.childCount; i++)
             {
                 Transform bullet = BulletLayer.GetChild(i);
@@ -77,7 +75,6 @@ public class PlayerPlane : MonoBehaviour
                     anim.speed = 0f;
                 }
             }
-
             return;
         }
 
@@ -85,10 +82,6 @@ public class PlayerPlane : MonoBehaviour
         if (PlaneAnimator.speed == 0f)
         {
             PlaneAnimator.speed = 1f;
-        }
-        if (PlaneCenterAnimator.speed == 0f)
-        {
-            PlaneCenterAnimator.speed = 1f;
 
             for (int i = 0; i < BulletLayer.childCount; i++)
             {

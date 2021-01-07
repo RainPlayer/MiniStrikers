@@ -13,9 +13,15 @@ public class PlayerPlaneCenter : MonoBehaviour
     float NextForceTime = 0f;
     float ForceAnimIntervalTime = 0.15f; //无敌状态闪烁的时间间隔
 
+    Animator PlaneCenterAnimator;
+
     // Start is called before the first frame update
     void Start()
     {
+		Constant.ObjectIsPlayingSound(this);
+
+        PlaneCenterAnimator = GetComponent<Animator>();
+
         //无敌时间
         ForceTime = 0.25f;
 
@@ -24,6 +30,17 @@ public class PlayerPlaneCenter : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (Constant.GameIsPause)
+        {
+            PlaneCenterAnimator.speed = 0f;
+            return;
+        }
+
+        if (PlaneCenterAnimator.speed == 0f)
+        {
+            PlaneCenterAnimator.speed = 1f;
+        }
+
         //无敌状态的处理
         if (ForceTime > 0f && Time.time > NextForceTime)
         {

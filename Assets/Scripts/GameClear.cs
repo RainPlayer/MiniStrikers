@@ -8,6 +8,8 @@ public class GameClear : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+		Constant.ObjectIsPlayingSound(this);
+		
         StartCoroutine(AutoChangeScene());
     }
 

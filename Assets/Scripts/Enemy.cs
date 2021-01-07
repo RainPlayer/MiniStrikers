@@ -17,6 +17,8 @@ public class Enemy : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+		Constant.ObjectIsPlayingSound(this);
+		
         EnemyAnim = GetComponent<Animator>();
         CollisionObjects = new List<Collider2D>();
     }
@@ -26,10 +28,13 @@ public class Enemy : MonoBehaviour
     {
         if (Constant.GameIsPause)
         {
-            EnemyAnim.speed = 0f;
+            if (EnemyAnim != null)
+            {
+                EnemyAnim.speed = 0f;
+            }
             return;
         }
-        if (EnemyAnim.speed == 0f)
+        if (EnemyAnim != null && EnemyAnim.speed == 0f)
         {
             EnemyAnim.speed = 1f;
         }
@@ -48,12 +53,39 @@ public class Enemy : MonoBehaviour
                 stage_common.SetScore(score_int);
 
                 //爆炸效果对象相关
-                Transform blast = Instantiate(hide_layer.Find(BlastName));
-                blast.SetParent(transform.parent);
-                blast.localPosition = transform.localPosition;
+                if (BlastMode == 1)
+                {
+                    //用在中敌机的爆炸效果
+                    Transform blast = Instantiate(hide_layer.Find(BlastName));
+                    blast.SetParent(transform.parent);
+                    blast.localPosition = transform.localPosition;
+                    blast.localScale = new Vector3(3f, 3f, 3f);
 
-                Blast blast_s = blast.GetComponent<Blast>();
-                blast_s.Play();
+                    Blast blast_s = blast.GetComponent<Blast>();
+                    blast_s.Play();
+                }
+                else if (BlastMode == 2)
+                {
+                    //用在boss级的爆炸效果
+                    Transform blast = Instantiate(hide_layer.Find(BlastName));
+                    blast.SetParent(transform.parent);
+                    blast.localPosition = transform.localPosition;
+                    blast.localScale = new Vector3(6f, 6f, 6f);
+
+                    Blast blast_s = blast.GetComponent<Blast>();
+                    blast_s.Play();
+                }
+				else
+				{
+					//用在小敌机的爆炸效果
+                    Transform blast = Instantiate(hide_layer.Find(BlastName));
+                    blast.SetParent(transform.parent);
+                    blast.localPosition = transform.localPosition;
+
+                    Blast blast_s = blast.GetComponent<Blast>();
+                    blast_s.Play();
+				}
+                //爆炸效果对象相关 end
 
                 transform.localPosition = new Vector3(-500f, 500f, transform.localPosition.z);
                 transform.DOKill(true);

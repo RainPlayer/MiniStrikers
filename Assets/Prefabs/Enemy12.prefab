@@ -166,10 +166,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 588186bee3f9d48dfbdc59220129dbc0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  BlastName: Blast01
-  BlastMode: 0
-  Score: 100
-  HP: 1
+  BlastName: Blast03
+  BlastMode: 1
+  Score: 300
+  HP: 5
 --- !u!114 &5438833999124666939
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -25,7 +25,8 @@ public class Blast : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
+        Constant.ObjectIsPlayingSound(this);
+		
     }
 
     // Update is called once per frame

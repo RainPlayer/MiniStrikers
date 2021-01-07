@@ -21,6 +21,8 @@ public class OptionMenu : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+		Constant.ObjectIsPlayingSound(this);
+		
         Items = transform.Find("Items");
         MenuCursor = transform.Find("MenuCursor");
         MenuLength = Items.childCount;
@@ -32,7 +34,7 @@ public class OptionMenu : MonoBehaviour
         ItemSoundText = item_sound.Find("Text");
 
         ItemPlayerLifeText.GetComponent<Text>().text = Constant.PlayerLife.ToString();
-        ItemSoundText.GetComponent<Text>().text = Constant.GameDoSound ? "On" : "Off";
+        ItemSoundText.GetComponent<Text>().text = Constant.GameIsPlayingSound ? "On" : "Off";
 
         //移动端不显示光标
 #if UNITY_ANDROID || UNITY_IPHONE
@@ -133,8 +135,8 @@ public class OptionMenu : MonoBehaviour
                 }
                 else if (MenuSelectedIndex == 1)
                 {
-                    Constant.GameDoSound = !Constant.GameDoSound;
-                    ItemSoundText.GetComponent<Text>().text = Constant.GameDoSound ? "On" : "Off";
+                    Constant.GameIsPlayingSound = !Constant.GameIsPlayingSound;
+                    ItemSoundText.GetComponent<Text>().text = Constant.GameIsPlayingSound ? "On" : "Off";
                 }
             }
         }
@@ -166,8 +168,8 @@ public class OptionMenu : MonoBehaviour
                 }
                 else if (MenuSelectedIndex == 1)
                 {
-                    Constant.GameDoSound = !Constant.GameDoSound;
-                    ItemSoundText.GetComponent<Text>().text = Constant.GameDoSound ? "On" : "Off";
+                    Constant.GameIsPlayingSound = !Constant.GameIsPlayingSound;
+                    ItemSoundText.GetComponent<Text>().text = Constant.GameIsPlayingSound ? "On" : "Off";
                 }
             }
         }

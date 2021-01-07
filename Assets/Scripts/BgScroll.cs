@@ -14,6 +14,8 @@ public class BgScroll : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+		Constant.ObjectIsPlayingSound(this);
+		
         MainCamera = FindObjectOfType<Camera>();
         CurrBgIndex = 0;
 

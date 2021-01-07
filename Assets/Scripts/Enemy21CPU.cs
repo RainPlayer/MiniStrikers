@@ -13,6 +13,8 @@ public class Enemy21CPU : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+		Constant.ObjectIsPlayingSound(this);
+		
         EnemyLayer = Camera.main.transform.Find("EnemyLayer");
         HideLayer = Camera.main.transform.Find("HideLayer");
         BulletLayer = EnemyLayer.Find("BulletLayer");

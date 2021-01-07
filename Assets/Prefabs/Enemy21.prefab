@@ -167,9 +167,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   BlastName: Blast02
-  BlastMode: 0
-  Score: 1000
-  HP: 100
+  BlastMode: 2
+  Score: 5000
+  HP: 8000
 --- !u!114 &938544048105521429
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -170,6 +170,7 @@ MonoBehaviour:
   BlastMode: 1
   Score: 300
   HP: 5
+  EnemyLevel: 0
 --- !u!114 &5438833999124666939
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -10,6 +10,7 @@ public class Enemy : MonoBehaviour
     public int BlastMode = 0;
     public int Score = 100;
     public int HP = 1;
+    public int EnemyLevel = 0;
 
     Animator EnemyAnim;
     IList<Collider2D> CollisionObjects = null; //确保一个Bullet Sprite对应一个爆炸Sprite

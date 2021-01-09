@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 8217665431986685033}
   - component: {fileID: -7489789146278289421}
   - component: {fileID: 2945146146458389339}
+  - component: {fileID: 2846387671132849970}
   - component: {fileID: -5758020813218526950}
   m_Layer: 10
   m_Name: Enemy22
@@ -169,6 +170,19 @@ MonoBehaviour:
   BlastMode: 2
   Score: 5000
   HP: 8000
+  EnemyLevel: 10
+--- !u!114 &2846387671132849970
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8006823387857040860}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 68af1523a231ebb43a085c351c3ed242, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!82 &-5758020813218526950
 AudioSource:
   m_ObjectHideFlags: 0

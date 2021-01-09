@@ -131,6 +131,8 @@ public class PlayerSelect : MonoBehaviour
             float a = PlayerSelectedIndex == i ? 1f : 0.4f;
             plane_sprite_renderer.color = new Color(plane_sprite_renderer.color.r, plane_sprite_renderer.color.g, plane_sprite_renderer.color.b, a);
         }
+
+        Constant.PlayerPlane = PlayerLayer.GetChild(PlayerSelectedIndex).name;
     }
 
     void FlashPlane()

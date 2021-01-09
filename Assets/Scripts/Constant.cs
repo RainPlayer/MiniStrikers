@@ -18,6 +18,10 @@ public class Constant
     public static readonly int Stage07Scene = 11;
     public static readonly int GameClearScene = 12;
 
+    //敌机的等级
+    public static readonly int EnemyLevelNormal = 0;
+    public static readonly int EnemyLevelBoss = 10;
+
     //背景滚动速度
     public static readonly float BgScroll = 0.5f;
 

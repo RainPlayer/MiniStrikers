@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 4022759995362628580}
   - component: {fileID: -7379841075460924182}
   - component: {fileID: 6935738895243372666}
+  - component: {fileID: -7223007520788975984}
   - component: {fileID: 5302704060394845798}
   m_Layer: 10
   m_Name: Enemy08
@@ -169,6 +170,19 @@ MonoBehaviour:
   BlastMode: 1
   Score: 300
   HP: 5
+  EnemyLevel: 0
+--- !u!114 &-7223007520788975984
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7549673236447027268}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 02da095109a4e8a4cb4d16e606ee4165, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!82 &5302704060394845798
 AudioSource:
   m_ObjectHideFlags: 0

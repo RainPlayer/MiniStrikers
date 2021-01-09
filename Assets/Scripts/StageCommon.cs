@@ -49,7 +49,7 @@ public class StageCommon : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Space) || Input.GetButtonDown("Start"))
         {
             //按了暂停游戏
-            GetComponents<AudioSource>()[1].Play();
+            GetComponents<AudioSource>()[2].Play();
 
             if (Constant.GameIsPause)
             {

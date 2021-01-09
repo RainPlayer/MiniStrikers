@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 8078714125288750236}
   - component: {fileID: 3998303558234368858}
   - component: {fileID: -8761940634712825575}
+  - component: {fileID: 6306965371816562565}
   - component: {fileID: 6507738994833028957}
   m_Layer: 10
   m_Name: Enemy15
@@ -148,6 +149,19 @@ MonoBehaviour:
   BlastMode: 0
   Score: 100
   HP: 1
+  EnemyLevel: 0
+--- !u!114 &6306965371816562565
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6846733019423680566}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8d40c12f403628e44aba38314125f91f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!82 &6507738994833028957
 AudioSource:
   m_ObjectHideFlags: 0

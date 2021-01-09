@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: -6174734750163462646}
   - component: {fileID: -6883178330632265160}
   - component: {fileID: 3112447728547663161}
+  - component: {fileID: -2146408921680383159}
   - component: {fileID: -6282695431881286637}
   m_Layer: 10
   m_Name: Enemy07
@@ -168,6 +169,19 @@ MonoBehaviour:
   BlastMode: 1
   Score: 500
   HP: 20
+  EnemyLevel: 0
+--- !u!114 &-2146408921680383159
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7673314993183608890}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7c0f2de9fa027f54b9d060e341c1095b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!82 &-6282695431881286637
 AudioSource:
   m_ObjectHideFlags: 0

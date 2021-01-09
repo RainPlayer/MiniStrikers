@@ -36,8 +36,9 @@ public class Test : MonoBehaviour
         });
         */
 
-        Camera.main.transform.Find("EnemyLayer").GetComponent<EnemyLayer>().InitEnemy("Enemy10", 0f);
-
+        //Camera.main.transform.Find("EnemyLayer").GetComponent<EnemyLayer>().InitEnemy("Enemy10", 0f);
+        Camera.main.transform.Find("EnemyLayer").GetComponent<EnemyLayer>().InitEnemy("Enemy01_0", -2f);
+        Camera.main.transform.Find("EnemyLayer").GetComponent<EnemyLayer>().InitEnemy("Enemy01_1", 1f);
     }
 
     // Update is called once per frame

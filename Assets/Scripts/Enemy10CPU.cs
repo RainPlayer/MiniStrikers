@@ -15,8 +15,8 @@ public class Enemy10CPU : MonoBehaviour
         {
             Vector3 target_pos = new Vector3(transform.localPosition.x, 4.6f, transform.localPosition.z);
             Sequence seq = DOTween.Sequence();
-            seq.Append(transform.DOLocalMove(target_pos, 3.0f));
-            seq.Append(transform.DOLocalMoveX(-1.3f, 5.0f).OnComplete(() =>
+            seq.Append(transform.DOLocalMove(target_pos, 3.0f).SetEase(Ease.Linear));
+            seq.Append(transform.DOLocalMoveX(-1.3f, 5.0f).SetEase(Ease.Linear).OnComplete(() =>
             {
                 EnemyMove();
             }));
@@ -26,7 +26,10 @@ public class Enemy10CPU : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+        if (transform.parent.name != "HideLayer")
+        {
+			
+		}
     }
 
     void EnemyMove()
@@ -34,7 +37,7 @@ public class Enemy10CPU : MonoBehaviour
         if (transform.localPosition.x < 0)
         {
             //往右移动
-            transform.DOLocalMoveX(1.3f, 10.0f).OnComplete(() =>
+            transform.DOLocalMoveX(1.3f, 10.0f).SetEase(Ease.Linear).OnComplete(() =>
             {
                 EnemyMove();
             });
@@ -42,7 +45,7 @@ public class Enemy10CPU : MonoBehaviour
         }
 
         //往左移动
-        transform.DOLocalMoveX(-1.3f, 10.0f).OnComplete(() =>
+        transform.DOLocalMoveX(-1.3f, 10.0f).SetEase(Ease.Linear).OnComplete(() =>
         {
             EnemyMove();
         });

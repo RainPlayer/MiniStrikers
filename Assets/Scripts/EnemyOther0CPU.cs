@@ -11,11 +11,18 @@ public class EnemyOther0CPU : MonoBehaviour
     {
         Constant.ObjectIsPlayingSound(this);
 		
+		if (transform.parent.name != "HideLayer")
+        {
+			
+		}
     }
 
     // Update is called once per frame
     void Update()
     {
-        
+        if (transform.parent.name != "HideLayer")
+        {
+			
+		}
     }
 }

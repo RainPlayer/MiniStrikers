@@ -15,19 +15,27 @@ public class Enemy21CPU : MonoBehaviour
     {
 		Constant.ObjectIsPlayingSound(this);
 		
-        EnemyLayer = Camera.main.transform.Find("EnemyLayer");
-        HideLayer = Camera.main.transform.Find("HideLayer");
-        BulletLayer = EnemyLayer.Find("BulletLayer");
+		if (transform.parent.name != "HideLayer")
+        {
+			
+		}
+		
+        //EnemyLayer = Camera.main.transform.Find("EnemyLayer");
+        //HideLayer = Camera.main.transform.Find("HideLayer");
+        //BulletLayer = EnemyLayer.Find("BulletLayer");
 
         //test
-        float target_y = transform.localPosition.y + (Camera.main.orthographicSize * -2f) - 10f;
-        Bullet(new Vector2(0f, target_y), 8f);
+        //float target_y = transform.localPosition.y + (Camera.main.orthographicSize * -2f) - 10f;
+        //Bullet(new Vector2(0f, target_y), 8f);
     }
 
     // Update is called once per frame
     void Update()
     {
-        
+        if (transform.parent.name != "HideLayer")
+        {
+			
+		}
     }
 
     void Bullet(Vector2 pos, float time)

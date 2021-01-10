@@ -88,7 +88,7 @@ public class Enemy : MonoBehaviour
 				}
                 //爆炸效果对象相关 end
 
-                transform.localPosition = new Vector3(-500f, 500f, transform.localPosition.z);
+                transform.localPosition = new Vector3(-5000f, 5000f, 5000f);
                 transform.DOKill(true);
                 PlayAudioCallback(GetComponent<AudioSource>(), OnAudioCallBack);
 

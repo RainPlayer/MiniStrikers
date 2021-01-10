@@ -14,12 +14,12 @@ public class Enemy23CPU : MonoBehaviour
 		if (transform.parent.name != "HideLayer")
         {
             Vector3 target_pos = new Vector3(transform.localPosition.x, 4.6f, transform.localPosition.z);
-            Sequence seq = DOTween.Sequence();
-            seq.Append(transform.DOLocalMove(target_pos, 3.0f).SetEase(Ease.Linear));
-            seq.Append(transform.DOLocalMoveX(-1.3f, 5.0f).SetEase(Ease.Linear).OnComplete(() =>
+
+            //用DOTween.Sequence会报错，不知道是什么问题
+            transform.DOLocalMove(target_pos, 3.0f).SetEase(Ease.Linear).OnComplete(() =>
             {
-                EnemyMove();
-            }));
+                transform.DOLocalMoveX(-1.3f, 5.0f).SetEase(Ease.Linear).OnComplete(() => EnemyMove());
+            });
         }
     }
 

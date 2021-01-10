@@ -57,7 +57,12 @@ public class PlayerPlane : MonoBehaviour
         HideLayer = transform.root.Find("HideLayer");
         
         PxUnit = MainCamera.orthographicSize * 2f / Screen.height;
-        WidthUnit = PxUnit * Screen.width;
+
+        GameObject bg = GameObject.FindGameObjectWithTag("Bg");
+        Transform bg_0 = bg.transform.GetChild(0);
+        SpriteRenderer bg_sprite_renderer = bg_0.GetComponent<SpriteRenderer>();
+        float w = bg_sprite_renderer.sprite.texture.width * bg_0.localScale.x;
+        WidthUnit = PxUnit * w / 2;
     }
 
     // Update is called once per frame

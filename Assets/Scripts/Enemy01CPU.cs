@@ -16,6 +16,8 @@ public class Enemy01CPU : MonoBehaviour
     Transform BulletLayer;
     Transform HideLayer;
 
+    bool GameIsPause = false;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -38,6 +40,19 @@ public class Enemy01CPU : MonoBehaviour
     {
         if (transform.parent.name != "HideLayer")
         {
+            if (Constant.GameIsPause && !GameIsPause)
+            {
+                transform.DOPause();
+                GameIsPause = Constant.GameIsPause;
+                return;
+            }
+            else if (!Constant.GameIsPause && GameIsPause)
+            {
+                transform.DOPlay();
+                GameIsPause = Constant.GameIsPause;
+                return;
+            }
+
             float angle = FHUtility.Angle360(transform.localPosition, Vector3.zero);
             angle += 90f;
             transform.eulerAngles = new Vector3(transform.eulerAngles.x, transform.eulerAngles.y, angle);

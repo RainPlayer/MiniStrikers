@@ -1,19 +1,31 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class StageCommon : MonoBehaviour
 {
+    //游戏进行到什么状态
+    public enum GameProgress
+    {
+        Normal,
+        Boss //boss战
+    };
+
     FHSpriteText Score;
     FHSpriteText PlayerLife;
 
     Transform PlayerLayer;
     Transform HideLayer;
 
+    GameProgress CurrGameProgress;
+
     // Start is called before the first frame update
     void Start()
     {
         Constant.ObjectIsPlayingSound(this);
+
+        CurrGameProgress = GameProgress.Normal;
 
         PlayerLayer = transform.root.Find("PlayerLayer");
         HideLayer = transform.root.Find("HideLayer");
@@ -48,24 +60,33 @@ public class StageCommon : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.Space) || Input.GetButtonDown("Start"))
         {
+            AudioSource[] audios = GetComponents<AudioSource>();
+
             //按了暂停游戏
-            GetComponents<AudioSource>()[2].Play();
+            audios[2].Play();
+
+            int bgm_index = CurrGameProgress == GameProgress.Boss ? 1 : 0;
 
             if (Constant.GameIsPause)
             {
                 //暂停游戏的情况下继续游戏
-                GetComponents<AudioSource>()[0].Play();
+                audios[bgm_index].Play();
                 Constant.GameIsPause = false;
             }
             else
             {
                 //正常游戏的情况下暂停游戏
-                GetComponents<AudioSource>()[0].Pause();
+                audios[bgm_index].Pause();
                 Constant.GameIsPause = true;
             }
             
         }
-
+        if (Input.GetKeyDown(KeyCode.Escape) && Constant.GameIsPause)
+        {
+            //暂停游戏的时候按ESC键就退出游戏
+            PlayerPrefs.SetInt(Constant.NextSceneIndex, Constant.OpeningScene);
+            SceneManager.LoadScene(Constant.LoadingScene);
+        }
     }
 
     public int GetPlayerLife()

@@ -10,6 +10,8 @@ public class Enemy21CPU : MonoBehaviour
     Transform HideLayer;
     Transform BulletLayer;
 
+    bool GameIsPause = false;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -41,8 +43,21 @@ public class Enemy21CPU : MonoBehaviour
     {
         if (transform.parent.name != "HideLayer")
         {
-			
-		}
+            if (Constant.GameIsPause && !GameIsPause)
+            {
+                transform.DOPause();
+                GameIsPause = Constant.GameIsPause;
+                return;
+            }
+            else if (!Constant.GameIsPause && GameIsPause)
+            {
+                transform.DOPlay();
+                GameIsPause = Constant.GameIsPause;
+                return;
+            }
+
+        }
+        
     }
 
     void Bullet(Vector2 pos, float time)

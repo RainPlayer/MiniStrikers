@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 /// <summary>
-/// FunnyHippoStudio公用文件，v20210101
+/// FunnyHippoStudio公用文件，v20210110
 /// </summary>
 public class FHUtility
 {
@@ -86,6 +86,27 @@ public class FHUtility
             angle = 180;
         }
         return angle;
+    }
+
+    /// <summary>
+    ///  已知斜边长度和角度计算xy坐标，例如2D STG中朝某个方向发射子弹会用到
+    /// </summary>
+    /// <param name="z">斜边长度</param>
+    /// <param name="angle">角度（欧拉角）</param>
+    /// <returns></returns>
+    public static Vector2 HypotenuseAngle2Position(float z, float angle)
+    {
+        //获得弧度
+        float radian = 2f * Mathf.PI / 360f * angle;
+
+        //原版
+        /*float x = Mathf.Sin(radian) * z;
+        float y = Mathf.Cos(radian) * z; */
+
+        float x = Mathf.Cos(radian) * z;
+        float y = Mathf.Sin(radian) * z;
+
+        return new Vector2(x, y);
     }
 
 }

@@ -17,8 +17,14 @@ public class Enemy21CPU : MonoBehaviour
 		
 		if (transform.parent.name != "HideLayer")
         {
-			
-		}
+            Vector3 target_pos = new Vector3(transform.localPosition.x, 4.6f, transform.localPosition.z);
+            Sequence seq = DOTween.Sequence();
+            seq.Append(transform.DOLocalMove(target_pos, 3.0f).SetEase(Ease.Linear));
+            seq.Append(transform.DOLocalMoveX(-1.3f, 5.0f).SetEase(Ease.Linear).OnComplete(() =>
+            {
+                EnemyMove();
+            }));
+        }
 		
         //EnemyLayer = Camera.main.transform.Find("EnemyLayer");
         //HideLayer = Camera.main.transform.Find("HideLayer");
@@ -55,9 +61,23 @@ public class Enemy21CPU : MonoBehaviour
         bullet.DOLocalMove(target_pos, time);
     }
 
-    void Move01()
+    void EnemyMove()
     {
+        if (transform.localPosition.x < 0)
+        {
+            //往右移动
+            transform.DOLocalMoveX(1.3f, 10.0f).SetEase(Ease.Linear).OnComplete(() =>
+            {
+                EnemyMove();
+            });
+            return;
+        }
 
+        //往左移动
+        transform.DOLocalMoveX(-1.3f, 10.0f).SetEase(Ease.Linear).OnComplete(() =>
+        {
+            EnemyMove();
+        });
     }
 
 }

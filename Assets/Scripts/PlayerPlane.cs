@@ -27,7 +27,6 @@ public class PlayerPlane : MonoBehaviour
     Transform BulletLayer;
     Transform HideLayer;
     
-    float PxUnit;
     float WidthUnit;
 
     public float FireATime = 0f;
@@ -55,14 +54,11 @@ public class PlayerPlane : MonoBehaviour
         PlayerLayer = transform.root.Find("PlayerLayer");
         BulletLayer = PlayerLayer.Find("BulletLayer");
         HideLayer = transform.root.Find("HideLayer");
-        
-        PxUnit = MainCamera.orthographicSize * 2f / Screen.height;
 
         GameObject bg = GameObject.FindGameObjectWithTag("Bg");
         Transform bg_0 = bg.transform.GetChild(0);
         SpriteRenderer bg_sprite_renderer = bg_0.GetComponent<SpriteRenderer>();
-        float w = bg_sprite_renderer.sprite.texture.width * bg_0.localScale.x;
-        WidthUnit = PxUnit * w / 2;
+        WidthUnit = bg_sprite_renderer.size.x * bg_0.localScale.x;
     }
 
     // Update is called once per frame

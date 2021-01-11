@@ -19,6 +19,8 @@ public class OpeningMenu : MonoBehaviour
     {
         Constant.ObjectIsPlayingSound(this);
 
+        Constant.GameIsPause = false;
+
         Items = transform.Find("Items");
         MenuCursor = transform.Find("MenuCursor");
         MenuLength = Items.childCount;

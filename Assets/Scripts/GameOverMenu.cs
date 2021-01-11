@@ -103,6 +103,7 @@ public class GameOverMenu : MonoBehaviour
             if (MenuSelectedIndex == 0)
             {
                 //Continue，初始化
+                Constant.GameIsPause = false;
                 Constant.PlayerLifeCurr = Constant.PlayerLife;
                 Constant.ScoreCurr = 0;
 

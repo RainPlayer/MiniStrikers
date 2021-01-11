@@ -6,7 +6,12 @@ using DG.Tweening;
 
 public class Enemy16CPU : MonoBehaviour
 {
+	Transform PlayerLayer;
+    Transform BulletLayer;
+    Transform HideLayer;
 
+    Transform PlayerPlane;
+	
     bool GameIsPause = false;
 
     // Start is called before the first frame update
@@ -16,7 +21,11 @@ public class Enemy16CPU : MonoBehaviour
 		
 		if (transform.parent.name != "HideLayer")
         {
-			
+			PlayerLayer = Camera.main.transform.Find("PlayerLayer");
+            BulletLayer = transform.parent.Find("BulletLayer");
+            HideLayer = Camera.main.transform.Find("HideLayer");
+
+            PlayerPlane = PlayerLayer.Find(Constant.PlayerPlane);
 		}
     }
 

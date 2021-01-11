@@ -6,7 +6,12 @@ using DG.Tweening;
 
 public class Enemy10CPU : MonoBehaviour
 {
+	Transform PlayerLayer;
+    Transform BulletLayer;
+    Transform HideLayer;
 
+    Transform PlayerPlane;
+	
     bool GameIsPause = false;
 
     // Start is called before the first frame update
@@ -16,6 +21,12 @@ public class Enemy10CPU : MonoBehaviour
 
         if (transform.parent.name != "HideLayer")
         {
+			PlayerLayer = Camera.main.transform.Find("PlayerLayer");
+            BulletLayer = transform.parent.Find("BulletLayer");
+            HideLayer = Camera.main.transform.Find("HideLayer");
+
+            PlayerPlane = PlayerLayer.Find(Constant.PlayerPlane);
+			
             Vector3 target_pos = new Vector3(transform.localPosition.x, 4.6f, transform.localPosition.z);
 
             //用DOTween.Sequence会报错，不知道是什么问题

@@ -6,9 +6,12 @@ using DG.Tweening;
 
 public class Enemy21CPU : MonoBehaviour
 {
+	Transform PlayerLayer;
     Transform EnemyLayer;
     Transform HideLayer;
     Transform BulletLayer;
+
+    Transform PlayerPlane;
 
     bool GameIsPause = false;
 
@@ -19,6 +22,12 @@ public class Enemy21CPU : MonoBehaviour
 		
 		if (transform.parent.name != "HideLayer")
         {
+			PlayerLayer = Camera.main.transform.Find("PlayerLayer");
+            BulletLayer = transform.parent.Find("BulletLayer");
+            HideLayer = Camera.main.transform.Find("HideLayer");
+
+            PlayerPlane = PlayerLayer.Find(Constant.PlayerPlane);
+			
             Vector3 target_pos = new Vector3(transform.localPosition.x, 4.6f, transform.localPosition.z);
 
             //用DOTween.Sequence会报错，不知道是什么问题

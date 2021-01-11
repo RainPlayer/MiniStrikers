@@ -6,6 +6,14 @@ using DG.Tweening;
 
 public class Enemy03CPU : MonoBehaviour
 {
+    public float FireTime = 0.6f; //子弹发射时间密度，越小越多子弹
+    float NextFireTime = 0f;
+
+    Transform PlayerLayer;
+    Transform BulletLayer;
+    Transform HideLayer;
+
+    Transform PlayerPlane;
 
     bool GameIsPause = false;
 
@@ -16,8 +24,12 @@ public class Enemy03CPU : MonoBehaviour
 		
 		if (transform.parent.name != "HideLayer")
         {
-			
-		}
+			PlayerLayer = Camera.main.transform.Find("PlayerLayer");
+            BulletLayer = transform.parent.Find("BulletLayer");
+            HideLayer = Camera.main.transform.Find("HideLayer");
+
+            PlayerPlane = PlayerLayer.Find(Constant.PlayerPlane);
+        }
     }
 
     // Update is called once per frame
@@ -36,6 +48,52 @@ public class Enemy03CPU : MonoBehaviour
                 transform.DOPlay();
                 GameIsPause = Constant.GameIsPause;
                 return;
+            }
+
+            //找不到player的处理
+            if (PlayerPlane == null)
+            {
+                Vector2 tmp = FHUtility.HypotenuseAngle2Position(20f, transform.eulerAngles.z - 90f);
+                Vector3 pos = new Vector3(tmp.x, tmp.y, 0);
+                pos = transform.localPosition + pos;
+                transform.DOLocalMove(pos, 8f).SetEase(Ease.Linear);
+                return;
+            }
+
+            //角度部分
+            float angle = FHUtility.Angle360(transform.localPosition, PlayerPlane.localPosition);
+            angle -= 90f;
+            transform.eulerAngles = new Vector3(transform.eulerAngles.x, transform.eulerAngles.y, angle);
+
+            //平移部分
+            Vector2 target_pos = FHUtility.HypotenuseAngle2Position(20f, angle - 90f);
+            float move_speed = 3.5f; //平移速度，越小越快
+            transform.Translate(target_pos.x / move_speed * Time.deltaTime, target_pos.y / move_speed * Time.deltaTime, 0);
+
+            //子弹部分
+            if (Time.time > NextFireTime && transform.localPosition.y > PlayerPlane.localPosition.y)
+            {
+                Transform bullet = Instantiate(HideLayer.Find("Bullet04_1"));
+                bullet.SetParent(BulletLayer);
+
+                Vector3 bullet_pos = transform.localPosition;
+                bullet.eulerAngles = transform.eulerAngles;
+
+                bullet.localPosition = bullet_pos;
+
+                Vector2 tmp = FHUtility.HypotenuseAngle2Position(20f, angle - 90f);
+                Vector3 pos = new Vector3(tmp.x, tmp.y, 0);
+                pos = bullet.localPosition + pos;
+                bullet.DOLocalMove(pos, 2.5f).SetEase(Ease.Linear);
+
+                NextFireTime = Time.time + FireTime;
+            }
+            else if (transform.localPosition.y <= PlayerPlane.localPosition.y)
+            {
+                Vector2 tmp = FHUtility.HypotenuseAngle2Position(20f, transform.eulerAngles.z - 90f);
+                Vector3 pos = new Vector3(tmp.x, tmp.y, 0);
+                pos = transform.localPosition - pos;
+                transform.DOLocalMove(pos, 8f).SetEase(Ease.Linear);
             }
 
         }

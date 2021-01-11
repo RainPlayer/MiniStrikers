@@ -37,9 +37,11 @@ public class Test : MonoBehaviour
         */
 
         Transform EnemyLayer = Camera.main.transform.Find("EnemyLayer");
-        EnemyLayer.GetComponent<EnemyLayer>().InitEnemy("Enemy25", 0f);
+        //EnemyLayer.GetComponent<EnemyLayer>().InitEnemy("Enemy25", 0f);
         //EnemyLayer.GetComponent<EnemyLayer>().InitEnemy("Enemy01_0", -2f);
         //EnemyLayer.GetComponent<EnemyLayer>().InitEnemy("Enemy01_1", 2.5f);
+        EnemyLayer.GetComponent<EnemyLayer>().InitEnemy("Enemy02", -2f);
+        EnemyLayer.GetComponent<EnemyLayer>().InitEnemy("Enemy03", 2.5f);
 
     }
 

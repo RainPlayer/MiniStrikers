@@ -40,6 +40,15 @@ public class Enemy : MonoBehaviour
             EnemyAnim.speed = 1f;
         }
 
+        //逃跑的敌机做销毁处理，-2f是为了缓冲一下位置
+        if (transform.localPosition.y < -Camera.main.orthographicSize - 2f)
+        {
+            transform.localScale = Vector3.zero;
+            transform.DOKill(true);
+            Destroy(gameObject);
+            return;
+        }
+
         if (CollisionObjects.Count > 0)
         {
             HP -= 1;

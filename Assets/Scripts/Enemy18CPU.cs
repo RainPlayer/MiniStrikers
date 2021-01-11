@@ -6,6 +6,11 @@ using DG.Tweening;
 
 public class Enemy18CPU : MonoBehaviour
 {
+	Transform PlayerLayer;
+    Transform BulletLayer;
+    Transform HideLayer;
+
+    Transform PlayerPlane;
 
     bool GameIsPause = false;
 
@@ -16,7 +21,11 @@ public class Enemy18CPU : MonoBehaviour
 		
 		if (transform.parent.name != "HideLayer")
         {
-			
+			PlayerLayer = Camera.main.transform.Find("PlayerLayer");
+            BulletLayer = transform.parent.Find("BulletLayer");
+            HideLayer = Camera.main.transform.Find("HideLayer");
+
+            PlayerPlane = PlayerLayer.Find(Constant.PlayerPlane);
 		}
     }
 

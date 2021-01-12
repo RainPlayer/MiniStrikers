@@ -31,4 +31,10 @@ public class Bullet : MonoBehaviour
             }
         }
     }
+
+    private void OnDestroy()
+    {
+        transform.DOKill(true);
+    }
+
 }

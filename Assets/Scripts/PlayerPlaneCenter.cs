@@ -9,27 +9,39 @@ public class PlayerPlaneCenter : MonoBehaviour
 {
     Collider2D CollisionObject = null; //确保一个Bullet Sprite对应一个爆炸Sprite
 
-    public float ForceTime = 0f; //无敌时间，大于0为无敌状态
+    public bool IsAlive = true; //是否活着
+    public bool IsForce = false; //无敌状态
+    float ForceTime = 3f; //无敌时间，秒
+    bool PrevIsForce = false; //上一帧是否为无敌状态
     float NextForceTime = 0f;
     float ForceAnimIntervalTime = 0.15f; //无敌状态闪烁的时间间隔
 
     Animator PlaneCenterAnimator;
+
+    private void Awake()
+    {
+        //DOTween.Init(true, true, LogBehaviour.Verbose).SetCapacity(200, 10);
+    }
 
     // Start is called before the first frame update
     void Start()
     {
 		Constant.ObjectIsPlayingSound(this);
 
+        if (transform.parent.parent.name == "HideLayer") return;
+        
         PlaneCenterAnimator = GetComponent<Animator>();
 
-        //无敌时间
-        ForceTime = 0.25f;
+        //测试无敌状态
+        IsForce = true;
 
     }
 
     // Update is called once per frame
     void Update()
     {
+        if (transform.parent.parent.name == "HideLayer") return;
+
         if (Constant.GameIsPause)
         {
             PlaneCenterAnimator.speed = 0f;
@@ -42,21 +54,29 @@ public class PlayerPlaneCenter : MonoBehaviour
         }
 
         //无敌状态的处理
-        if (ForceTime > 0f && Time.time > NextForceTime)
+        if (IsForce)
         {
-            if (transform.parent.localScale.x != 0f)
+            if (!PrevIsForce)
             {
-                transform.parent.localScale = new Vector3(0f, 0f, 1f);
-            }
-            else
-            {
-                transform.parent.localScale = Vector3.one;
+                StartCoroutine(ForceDisable());
+                PrevIsForce = true;
             }
 
-            NextForceTime = Time.time + ForceAnimIntervalTime;
-            ForceTime -= Time.deltaTime;
+            if (Time.time > NextForceTime)
+            {
+                if (transform.parent.localScale.x != 0f)
+                {
+                    transform.parent.localScale = new Vector3(0f, 0f, 1f);
+                }
+                else
+                {
+                    transform.parent.localScale = Vector3.one;
+                }
+
+                NextForceTime = Time.time + ForceAnimIntervalTime;
+            }
         }
-        else if(ForceTime <= 0f && transform.parent.localScale.x == 0f)
+        else if(!IsForce && transform.parent.localScale.x == 0f)
         {
             transform.parent.localScale = Vector3.one;
         }
@@ -82,13 +102,15 @@ public class PlayerPlaneCenter : MonoBehaviour
             {
                 CollisionObject.gameObject.transform.DOKill(true);
             }
+
+            IsAlive = false; //挂了!
             CollisionObject = null;
         }
     }
 
     private void OnDestroy()
     {
-        
+        //Debug.Log("PlayerPlaneCenter::OnDestroy");
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
@@ -98,11 +120,19 @@ public class PlayerPlaneCenter : MonoBehaviour
         //判断2：碰撞体不是player本身
         //判断3：不是来自隐藏层的元素
         //判断4：player没有被碰撞过
-        if (ForceTime <= 0f && collision.transform.name != "plane_center" && transform.parent.parent.name != "HideLayer" && CollisionObject == null)
+        if (!IsForce && collision.transform.name != "plane_center" && transform.parent.parent.name != "HideLayer" && CollisionObject == null)
         {
             CollisionObject = collision;
         }
 
+    }
+
+    IEnumerator ForceDisable()
+    {
+        //Debug.Log("等待无敌时间取消");
+        yield return new WaitForSeconds(ForceTime);
+        IsForce = false;
+        //Debug.Log("已取消无敌时间");
     }
 
     void OnAudioCallBack()

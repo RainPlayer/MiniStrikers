@@ -118,7 +118,7 @@ public class StageCommon : MonoBehaviour
             Transform PlayerPlane = Instantiate(HideLayer.Find(Constant.PlayerPlane));
             PlayerPlane.name = Constant.PlayerPlane;
             PlayerPlane.SetParent(PlayerLayer);
-            PlayerPlane.localPosition = new Vector3(0, -4.5f, 12f);
+            PlayerPlane.localPosition = Constant.PlayerPlaneInitPosition;
         }
     }
 

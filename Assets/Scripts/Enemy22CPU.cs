@@ -42,10 +42,13 @@ public class Enemy22CPU : MonoBehaviour
     {
         if (transform.parent.name != "HideLayer")
         {
-            if (Constant.GameIsPause && !GameIsPause)
+            if (Constant.GameIsPause)
             {
-                transform.DOPause();
-                GameIsPause = Constant.GameIsPause;
+                if (!GameIsPause)
+                {
+                    transform.DOPause();
+                    GameIsPause = Constant.GameIsPause;
+                }
                 return;
             }
             else if (!Constant.GameIsPause && GameIsPause)
@@ -58,6 +61,11 @@ public class Enemy22CPU : MonoBehaviour
         }
     }
 
+	private void OnDestroy()
+    {
+        transform.DOKill(true);
+    }
+	
     void EnemyMove()
     {
         if (transform.localPosition.x < 0)

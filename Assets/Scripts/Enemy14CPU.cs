@@ -34,10 +34,13 @@ public class Enemy14CPU : MonoBehaviour
     {
         if (transform.parent.name != "HideLayer")
         {
-            if (Constant.GameIsPause && !GameIsPause)
+            if (Constant.GameIsPause)
             {
-                transform.DOPause();
-                GameIsPause = Constant.GameIsPause;
+                if (!GameIsPause)
+                {
+                    transform.DOPause();
+                    GameIsPause = Constant.GameIsPause;
+                }
                 return;
             }
             else if (!Constant.GameIsPause && GameIsPause)
@@ -49,4 +52,10 @@ public class Enemy14CPU : MonoBehaviour
 
         }
     }
+	
+	private void OnDestroy()
+    {
+        transform.DOKill(true);
+    }
+	
 }

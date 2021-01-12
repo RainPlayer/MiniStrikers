@@ -46,8 +46,11 @@ public class Constant
     //游戏中是否播放声音
     public static bool GameIsPlayingSound = true;
 
-    //Player
+    //已经选中的PlayerPlane
     public static string PlayerPlane = "Plane0";
+
+    //Player在关卡场景的初始位置
+    public static readonly Vector3 PlayerPlaneInitPosition = new Vector3(0, -4.5f, 12f);
 
     //异步加载场景时用到
     public static readonly string NextSceneIndex = "next_scene_index";

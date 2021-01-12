@@ -6,6 +6,12 @@ using DG.Tweening;
 
 public class Enemy02CPU : MonoBehaviour
 {
+    enum ActionStep
+    {
+        One, //追着player攻击
+        Two, //逃跑
+    }
+
     public float FireTime = 0.6f; //子弹发射时间密度，越小越多子弹
     float NextFireTime = 0f;
 
@@ -14,6 +20,7 @@ public class Enemy02CPU : MonoBehaviour
     Transform HideLayer;
 
     Transform PlayerPlane;
+    ActionStep CurrActionStep;
 
     bool GameIsPause = false;
 
@@ -29,6 +36,7 @@ public class Enemy02CPU : MonoBehaviour
             HideLayer = Camera.main.transform.Find("HideLayer");
 
             PlayerPlane = PlayerLayer.Find(Constant.PlayerPlane);
+            CurrActionStep = ActionStep.One;
         }
     }
 
@@ -60,40 +68,51 @@ public class Enemy02CPU : MonoBehaviour
                 return;
             }
 
-            //角度部分
-            float angle = FHUtility.Angle360(transform.localPosition, PlayerPlane.localPosition);
-            angle -= 90f;
-            transform.eulerAngles = new Vector3(transform.eulerAngles.x, transform.eulerAngles.y, angle);
-
-            //平移部分
-            Vector2 target_pos = FHUtility.HypotenuseAngle2Position(20f, angle - 90f);
-            float move_speed = 3.5f; //平移速度，越小越快
-            transform.Translate(target_pos.x / move_speed * Time.deltaTime, target_pos.y / move_speed * Time.deltaTime, 0);
-
-            //子弹部分
-            if (Time.time > NextFireTime && transform.localPosition.y > PlayerPlane.localPosition.y)
+            if (CurrActionStep == ActionStep.One)
             {
-                Transform bullet = Instantiate(HideLayer.Find("Bullet04_0"));
-                bullet.SetParent(BulletLayer);
+                //角度部分
+                float angle = FHUtility.Angle360(transform.localPosition, PlayerPlane.localPosition);
+                angle -= 90f;
+                //控制在一个范围值，确保不会死死缠着player不放
+                float angle_range = 20f;
+                if (angle < -angle_range) angle = -angle_range;
+                if (angle > angle_range) angle = angle_range;
+                transform.eulerAngles = new Vector3(transform.eulerAngles.x, transform.eulerAngles.y, angle);
 
-                Vector3 bullet_pos = transform.localPosition;
-                bullet.eulerAngles = transform.eulerAngles;
+                //平移部分
+                Vector2 target_pos = FHUtility.HypotenuseAngle2Position(20f, angle - 90f);
+                float move_speed = 3.5f; //平移速度，越小越快
+                transform.Translate(target_pos.x / move_speed * Time.deltaTime, target_pos.y / move_speed * Time.deltaTime, 0);
 
-                bullet.localPosition = bullet_pos;
+                //子弹部分
+                if (Time.time > NextFireTime && transform.localPosition.y > PlayerPlane.localPosition.y)
+                {
+                    Transform bullet = Instantiate(HideLayer.Find("Bullet04_0"));
+                    bullet.SetParent(BulletLayer);
 
-                Vector2 tmp = FHUtility.HypotenuseAngle2Position(20f, angle - 90f);
-                Vector3 pos = new Vector3(tmp.x, tmp.y, 0);
-                pos = bullet.localPosition + pos;
-                bullet.DOLocalMove(pos, 2.5f).SetEase(Ease.Linear);
+                    Vector3 bullet_pos = transform.localPosition;
+                    bullet.eulerAngles = transform.eulerAngles;
 
-                NextFireTime = Time.time + FireTime;
+                    bullet.localPosition = bullet_pos;
+
+                    Vector2 tmp = FHUtility.HypotenuseAngle2Position(20f, angle - 90f);
+                    Vector3 pos = new Vector3(tmp.x, tmp.y, 0);
+                    pos = bullet.localPosition + pos;
+                    bullet.DOLocalMove(pos, 2.5f).SetEase(Ease.Linear);
+
+                    NextFireTime = Time.time + FireTime;
+                }
+                else if (transform.localPosition.y <= PlayerPlane.localPosition.y)
+                {
+                    CurrActionStep = ActionStep.Two;
+                }
             }
-            else if (transform.localPosition.y <= PlayerPlane.localPosition.y)
+            else if (CurrActionStep == ActionStep.Two)
             {
-                Vector2 tmp = FHUtility.HypotenuseAngle2Position(20f, transform.eulerAngles.z - 90f);
-                Vector3 pos = new Vector3(tmp.x, tmp.y, 0);
-                pos = transform.localPosition - pos;
-                transform.DOLocalMove(pos, 8f).SetEase(Ease.Linear);
+                Vector2 target_pos = FHUtility.HypotenuseAngle2Position(20f, transform.eulerAngles.z - 90f);
+                float move_speed = 3.5f; //平移速度，越小越快
+                transform.Translate(target_pos.x / move_speed * Time.deltaTime, target_pos.y / move_speed * Time.deltaTime, 0);
+
             }
 
         }

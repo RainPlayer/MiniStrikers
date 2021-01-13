@@ -26,7 +26,6 @@ public class Enemy01CPU : MonoBehaviour
     Transform HideLayer;
 
     Transform PlayerPlane;
-    Vector3 PlayerPlanePos;
 
     bool GameIsPause = false;
 
@@ -42,7 +41,6 @@ public class Enemy01CPU : MonoBehaviour
             HideLayer = Camera.main.transform.Find("HideLayer");
 
             PlayerPlane = PlayerLayer.Find(Constant.PlayerPlane);
-            PlayerPlanePos = new Vector3(9999, 9999, 9999);
 
             CurrActionStep = ActionStep.One;
             transform.DOLocalMoveY(MoveTargetY, MoveTargetY * MoveTime).SetEase(Ease.Linear).OnComplete(() =>
@@ -78,17 +76,14 @@ public class Enemy01CPU : MonoBehaviour
             //角度
             if (CurrActionStep != ActionStep.Three)
             {
-                if (PlayerPlane != null)
-                {
-                    PlayerPlanePos = PlayerPlane.localPosition;
-                }
-                else if (PlayerPlane == null && PlayerPlanePos.x == 9999)
+                if (PlayerPlane == null || PlayerPlane.localPosition.x <= -500)
                 {
                     StopCoroutine(GoToEndDelay());
                     GoToEnd();
+                    return;
                 }
 
-                float angle = FHUtility.Angle360(transform.localPosition, PlayerPlanePos);
+                float angle = FHUtility.Angle360(transform.localPosition, PlayerPlane.localPosition);
                 angle += 90f;
                 transform.eulerAngles = new Vector3(transform.eulerAngles.x, transform.eulerAngles.y, angle);
 

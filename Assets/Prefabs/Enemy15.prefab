@@ -147,8 +147,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   BlastName: Blast01
   BlastMode: 0
-  Score: 100
-  HP: 1
+  Score: 200
+  HP: 10
   EnemyLevel: 0
 --- !u!114 &6306965371816562565
 MonoBehaviour:
@@ -162,6 +162,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8d40c12f403628e44aba38314125f91f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  RotateSpeed: 20
 --- !u!82 &6507738994833028957
 AudioSource:
   m_ObjectHideFlags: 0

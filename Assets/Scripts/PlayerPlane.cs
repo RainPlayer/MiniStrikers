@@ -253,6 +253,38 @@ public class PlayerPlane : MonoBehaviour
                     DoBulletA = true;
                 }
             }
+            else if (gameObject.name == "Plane1")
+            {
+                //布局子弹A
+                int bullet_count = 8;
+
+                for (int i = 0; i < bullet_count; i++)
+                {
+                    Transform bullet = Instantiate(HideLayer.Find("Bullet01"));
+                    SpriteRenderer bullet_sprite_renderer = bullet.GetComponent<SpriteRenderer>();
+                    bullet.SetParent(BulletLayer);
+
+                    Vector3 bullet_pos = transform.localPosition;
+                    float size_x = bullet.localScale.x * bullet_sprite_renderer.size.x; //子弹的sprite的宽度
+                    float start_step = (bullet_count - 1) * 0.5f;
+                    bullet_pos.x = transform.localPosition.x - (size_x * start_step); //计算初始位置
+                    bullet_pos.x += size_x * i;
+                    bullet.localPosition = bullet_pos;
+
+                    float target_y = 10f + (MainCamera.orthographicSize + bullet.localPosition.y);
+                    bullet.DOLocalMoveY(target_y, 1.2f);
+
+                    DoBulletA = true;
+                }
+            }
+            else if (gameObject.name == "Plane2")
+            {
+
+            }
+            else if (gameObject.name == "Plane3")
+            {
+
+            }
 
             NextFireATime = Time.time + FireATime;
         }
@@ -292,6 +324,68 @@ public class PlayerPlane : MonoBehaviour
                         float target_y = 10f + (MainCamera.orthographicSize + bullet.localPosition.y); //上面的简化版本
                         bullet.DOLocalMoveY(target_y, 1.2f);
                     }
+                }
+                else if (gameObject.name == "Plane1")
+                {
+                    //布局子弹B
+                    //=========================
+                    //中间
+                    {
+                        Transform bullet = Instantiate(HideLayer.Find("Bullet02"));
+                        SpriteRenderer bullet_sprite_renderer = bullet.GetComponent<SpriteRenderer>();
+                        bullet.SetParent(BulletLayer);
+
+                        Vector3 bullet_pos = transform.localPosition;
+                        bullet.localPosition = bullet_pos;
+
+                        float target_y = 10f + (MainCamera.orthographicSize + bullet.localPosition.y); //上面的简化版本
+                        bullet.DOLocalMoveY(target_y, 1.2f);
+                    }
+
+                    //=========================
+                    {
+                        //=========================
+                        //左边
+                        Transform bullet_left = Instantiate(HideLayer.Find("Bullet02"));
+                        SpriteRenderer bullet_sprite_renderer = bullet_left.GetComponent<SpriteRenderer>();
+                        bullet_left.SetParent(BulletLayer);
+
+                        Vector3 bullet_pos = transform.localPosition;
+                        bullet_left.localPosition = bullet_pos;
+
+                        float target_y = 10f + (MainCamera.orthographicSize + bullet_left.localPosition.y);
+                        Vector3 target_pos = bullet_pos;
+                        target_pos.x -= 5f;
+                        target_pos.y = target_y;
+
+                        float r = FHUtility.Angle360(bullet_left.localPosition, target_pos);
+                        bullet_left.Rotate(0, 0, r + 90f);
+
+                        bullet_left.DOLocalMove(target_pos, 1.2f);
+
+                        //=========================
+                        //右边
+
+                        Transform bullet_right = Instantiate(HideLayer.Find("Bullet02"));
+                        bullet_right.SetParent(BulletLayer);
+
+                        bullet_right.localPosition = bullet_pos;
+
+                        target_pos.x += 10f;
+
+                        r = FHUtility.Angle360(bullet_right.localPosition, target_pos);
+                        bullet_right.Rotate(0, 0, r + 90f);
+
+                        bullet_right.DOLocalMove(target_pos, 1.2f);
+                    }
+
+                }
+                else if (gameObject.name == "Plane2")
+                {
+
+                }
+                else if (gameObject.name == "Plane3")
+                {
 
                 }
 

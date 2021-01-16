@@ -148,7 +148,7 @@ MonoBehaviour:
   BlastName: Blast01
   BlastMode: 0
   Score: 100
-  HP: 1
+  HP: 10
   EnemyLevel: 0
 --- !u!114 &-5514464059474896932
 MonoBehaviour:

@@ -48,6 +48,12 @@ public class PlayerPlane : MonoBehaviour
         MainCamera = FindObjectOfType<Camera>();
         PlaneAnimator = transform.Find(gameObject.name.ToLower()).GetComponent<Animator>();
 
+        if (transform.parent.name == "HideLayer")
+        {
+            PlaneAnimator.speed = 0f;
+            return;
+        }
+
         SpriteRenderer plane_center = transform.Find("plane_center").GetComponent<SpriteRenderer>();
         PlaneCenterSize = plane_center.size * plane_center.gameObject.transform.localScale;
 
@@ -64,6 +70,8 @@ public class PlayerPlane : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (transform.parent.name == "HideLayer") return;
+
         if (Constant.GameIsPause)
         {
             PlaneAnimator.speed = 0f;
@@ -224,66 +232,24 @@ public class PlayerPlane : MonoBehaviour
             if (gameObject.name == "Plane0")
             {
                 //布局子弹A
-                int bullet_count = 4;
-
-                for (int i = 0; i < bullet_count; i++)
-                {
-                    Transform bullet = Instantiate(HideLayer.Find("Bullet01"));
-                    SpriteRenderer bullet_sprite_renderer = bullet.GetComponent<SpriteRenderer>();
-                    bullet.SetParent(BulletLayer);
-
-                    Vector3 bullet_pos = transform.localPosition;
-                    float size_x = bullet.localScale.x * bullet_sprite_renderer.size.x; //子弹的sprite的宽度
-                    float start_step = (bullet_count - 1) * 0.5f;
-                    bullet_pos.x = transform.localPosition.x - (size_x * start_step); //计算初始位置
-                    bullet_pos.x += size_x * i;
-                    bullet.localPosition = bullet_pos;
-
-                    //子弹A在当前位置往上移动10，这样才能保证看到的发射效果是匀速的
-                    //把当前子弹y坐标的转换为原点为最下面的形式
-                    //float target_y = 10f + (-MainCamera.orthographicSize + (MainCamera.orthographicSize * 2f) + bullet.localPosition.y);
-                    float target_y = 10f + (MainCamera.orthographicSize + bullet.localPosition.y); //上面的简化版本
-                    /*bullet.DOLocalMoveY(target_y, 1.2f).OnKill(() => {
-                        Debug.Log("OnKill");
-                    }).OnComplete(() => {
-                        Debug.Log("OnComplete");
-                    });*/
-                    bullet.DOLocalMoveY(target_y, 1.2f);
-
-                    DoBulletA = true;
-                }
+                Bullet01(4);
             }
             else if (gameObject.name == "Plane1")
             {
                 //布局子弹A
-                int bullet_count = 8;
-
-                for (int i = 0; i < bullet_count; i++)
-                {
-                    Transform bullet = Instantiate(HideLayer.Find("Bullet01"));
-                    SpriteRenderer bullet_sprite_renderer = bullet.GetComponent<SpriteRenderer>();
-                    bullet.SetParent(BulletLayer);
-
-                    Vector3 bullet_pos = transform.localPosition;
-                    float size_x = bullet.localScale.x * bullet_sprite_renderer.size.x; //子弹的sprite的宽度
-                    float start_step = (bullet_count - 1) * 0.5f;
-                    bullet_pos.x = transform.localPosition.x - (size_x * start_step); //计算初始位置
-                    bullet_pos.x += size_x * i;
-                    bullet.localPosition = bullet_pos;
-
-                    float target_y = 10f + (MainCamera.orthographicSize + bullet.localPosition.y);
-                    bullet.DOLocalMoveY(target_y, 1.2f);
-
-                    DoBulletA = true;
-                }
+                Bullet01(6);
             }
             else if (gameObject.name == "Plane2")
             {
+                //布局子弹A
+                Bullet01(2);
 
+                Bullet03(3f);
+                Bullet03(4f);
             }
             else if (gameObject.name == "Plane3")
             {
-
+                Bullet01(4);
             }
 
             NextFireATime = Time.time + FireATime;
@@ -305,25 +271,7 @@ public class PlayerPlane : MonoBehaviour
                 if (gameObject.name == "Plane0")
                 {
                     //布局子弹B
-                    int bullet_count = 4;
-                    for (int i = 0; i < bullet_count; i++)
-                    {
-                        Transform bullet = Instantiate(HideLayer.Find("Bullet02"));
-                        SpriteRenderer bullet_sprite_renderer = bullet.GetComponent<SpriteRenderer>();
-                        bullet.SetParent(BulletLayer);
-                        
-                        Vector3 bullet_pos = transform.localPosition;
-                        float size_x = bullet.localScale.x * bullet_sprite_renderer.size.x; //子弹的sprite的宽度
-                        float start_step = (bullet_count - 1) * 0.5f;
-                        bullet_pos.x = transform.localPosition.x - (size_x * start_step); //计算初始位置
-                        bullet_pos.x += size_x * i;
-                        bullet.localPosition = bullet_pos;
-
-                        //子弹B在当前位置往上移动10，这样才能保证看到的发射效果是匀速的
-                        //把当前子弹y坐标的转换为原点为最下面的形式
-                        float target_y = 10f + (MainCamera.orthographicSize + bullet.localPosition.y); //上面的简化版本
-                        bullet.DOLocalMoveY(target_y, 1.2f);
-                    }
+                    Bullet02(4);
                 }
                 else if (gameObject.name == "Plane1")
                 {
@@ -382,59 +330,19 @@ public class PlayerPlane : MonoBehaviour
                 }
                 else if (gameObject.name == "Plane2")
                 {
-
+                    //布局子弹B
+                    Bullet02(3);
                 }
                 else if (gameObject.name == "Plane3")
                 {
-
+                    //布局子弹B
+                    Bullet02(2);
+                    Bullet03(4f);
+                    Bullet03(5f);
                 }
 
                 NextFireBTime = Time.time + FireBTime;
             }
-
-            /*if (Time.time > NextFireBTime2)
-            {
-                if (gameObject.name == "Plane0")
-                {
-                    //布局子弹B(2)
-
-                    //==================================================================================
-                    //左边
-
-                    Transform bullet_left = Instantiate(HideLayer.Find("Bullet03"));
-                    bullet_left.SetParent(BulletLayer);
-
-                    Vector3 bullet_pos = transform.localPosition;
-                    bullet_left.localPosition = bullet_pos;
-
-                    float target_y = 10f + (MainCamera.orthographicSize + bullet_left.localPosition.y);
-                    Vector3 target_pos = bullet_pos;
-                    target_pos.x -= 5f;
-                    target_pos.y = target_y;
-
-                    float r = FHUtility.Angle360(bullet_left.localPosition, target_pos);
-                    bullet_left.Rotate(0, 0, r + 90f);
-
-                    bullet_left.DOLocalMove(target_pos, 1.2f);
-
-                    //==================================================================================
-                    //右边
-
-                    Transform bullet_right = Instantiate(HideLayer.Find("Bullet03"));
-                    bullet_right.SetParent(BulletLayer);
-
-                    bullet_right.localPosition = bullet_pos;
-
-                    target_pos.x += 10f;
-
-                    r = FHUtility.Angle360(bullet_right.localPosition, target_pos);
-                    bullet_right.Rotate(0, 0, r + 90f);
-
-                    bullet_right.DOLocalMove(target_pos, 1.2f);
-                }
-
-                NextFireBTime2 = Time.time + (FireBTime * 2.5f);
-            }*/
 
             //子弹B使用慢速移动模式
             if (PlaneSpeedMode == SpeedMode.Normal)
@@ -455,6 +363,98 @@ public class PlayerPlane : MonoBehaviour
         //子弹B
         //======================================
 
+    }
+
+    //直线发出
+    void Bullet01(int bullet_count)
+    {
+        for (int i = 0; i < bullet_count; i++)
+        {
+            Transform bullet = Instantiate(HideLayer.Find("Bullet01"));
+            SpriteRenderer bullet_sprite_renderer = bullet.GetComponent<SpriteRenderer>();
+            bullet.SetParent(BulletLayer);
+
+            Vector3 bullet_pos = transform.localPosition;
+            float size_x = bullet.localScale.x * bullet_sprite_renderer.size.x; //子弹的sprite的宽度
+            float start_step = (bullet_count - 1) * 0.5f;
+            bullet_pos.x = transform.localPosition.x - (size_x * start_step); //计算初始位置
+            bullet_pos.x += size_x * i;
+            bullet.localPosition = bullet_pos;
+
+            //子弹A在当前位置往上移动10，这样才能保证看到的发射效果是匀速的
+            //把当前子弹y坐标的转换为原点为最下面的形式
+            //float target_y = 10f + (-MainCamera.orthographicSize + (MainCamera.orthographicSize * 2f) + bullet.localPosition.y);
+            float target_y = 10f + (MainCamera.orthographicSize + bullet.localPosition.y); //上面的简化版本
+            /*bullet.DOLocalMoveY(target_y, 1.2f).OnKill(() => {
+                Debug.Log("OnKill");
+            }).OnComplete(() => {
+                Debug.Log("OnComplete");
+            });*/
+            bullet.DOLocalMoveY(target_y, 1.2f);
+
+            DoBulletA = true;
+        }
+    }
+
+    //直线发出
+    void Bullet02(int bullet_count)
+    {
+        for (int i = 0; i < bullet_count; i++)
+        {
+            Transform bullet = Instantiate(HideLayer.Find("Bullet02"));
+            SpriteRenderer bullet_sprite_renderer = bullet.GetComponent<SpriteRenderer>();
+            bullet.SetParent(BulletLayer);
+
+            Vector3 bullet_pos = transform.localPosition;
+            float size_x = bullet.localScale.x * bullet_sprite_renderer.size.x; //子弹的sprite的宽度
+            float start_step = (bullet_count - 1) * 0.5f;
+            bullet_pos.x = transform.localPosition.x - (size_x * start_step); //计算初始位置
+            bullet_pos.x += size_x * i;
+            bullet.localPosition = bullet_pos;
+
+            //子弹B在当前位置往上移动10，这样才能保证看到的发射效果是匀速的
+            //把当前子弹y坐标的转换为原点为最下面的形式
+            float target_y = 10f + (MainCamera.orthographicSize + bullet.localPosition.y); //上面的简化版本
+            bullet.DOLocalMoveY(target_y, 1.2f);
+        }
+    }
+
+    //从两边发出
+    void Bullet03(float target_x)
+    {
+        //==================================================================================
+        //左边
+
+        Transform bullet_left = Instantiate(HideLayer.Find("Bullet03"));
+        bullet_left.SetParent(BulletLayer);
+
+        Vector3 bullet_pos = transform.localPosition;
+        bullet_left.localPosition = bullet_pos;
+
+        float target_y = 10f + (MainCamera.orthographicSize + bullet_left.localPosition.y);
+        Vector3 target_pos = bullet_pos;
+        target_pos.x -= target_x;
+        target_pos.y = target_y;
+
+        float r = FHUtility.Angle360(bullet_left.localPosition, target_pos);
+        bullet_left.Rotate(0, 0, r + 90f);
+
+        bullet_left.DOLocalMove(target_pos, 1.2f);
+
+        //==================================================================================
+        //右边
+
+        Transform bullet_right = Instantiate(HideLayer.Find("Bullet03"));
+        bullet_right.SetParent(BulletLayer);
+
+        bullet_right.localPosition = bullet_pos;
+
+        target_pos.x += target_x * 2;
+
+        r = FHUtility.Angle360(bullet_right.localPosition, target_pos);
+        bullet_right.Rotate(0, 0, r + 90f);
+
+        bullet_right.DOLocalMove(target_pos, 1.2f);
     }
 
 }

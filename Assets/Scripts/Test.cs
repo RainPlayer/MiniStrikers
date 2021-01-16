@@ -37,24 +37,40 @@ public class Test : MonoBehaviour
         */
 
         Transform EnemyLayer = Camera.main.transform.Find("EnemyLayer");
-        //EnemyLayer.GetComponent<EnemyLayer>().InitEnemy("Enemy21", 0f);
-        //EnemyLayer.GetComponent<EnemyLayer>().InitEnemy("Enemy22", 0f);
-        //EnemyLayer.GetComponent<EnemyLayer>().InitEnemy("Enemy23", 0f);
-        //EnemyLayer.GetComponent<EnemyLayer>().InitEnemy("Enemy24", 0f);
-        //EnemyLayer.GetComponent<EnemyLayer>().InitEnemy("Enemy25", 0f);
-        //EnemyLayer.GetComponent<EnemyLayer>().InitEnemy("Enemy10", 0f);
-        //EnemyLayer.GetComponent<EnemyLayer>().InitEnemy("Enemy25", 0f);
         //EnemyLayer.GetComponent<EnemyLayer>().InitEnemy("Enemy01_0", -2f); //!!!
         //EnemyLayer.GetComponent<EnemyLayer>().InitEnemy("Enemy01_1", 2.5f); //!!!
         //EnemyLayer.GetComponent<EnemyLayer>().InitEnemy("Enemy02", -2f); //!!!
         //EnemyLayer.GetComponent<EnemyLayer>().InitEnemy("Enemy03", 2.5f); //!!!
-        EnemyLayer.GetComponent<EnemyLayer>().InitEnemy("Enemy04", -2f);
-        EnemyLayer.GetComponent<EnemyLayer>().InitEnemy("Enemy05", 1f);
+        //EnemyLayer.GetComponent<EnemyLayer>().InitEnemy("Enemy04", -0.5f); //!!!
+        //EnemyLayer.GetComponent<EnemyLayer>().InitEnemy("Enemy05", 1f); //!!!
         //EnemyLayer.GetComponent<EnemyLayer>().InitEnemy("Enemy06", 2.5f); //!!!
+        //EnemyLayer.GetComponent<EnemyLayer>().InitEnemy("Enemy07", 1f); //!!!
+        //EnemyLayer.GetComponent<EnemyLayer>().InitEnemy("Enemy08", 0f); //!!!
+        //EnemyLayer.GetComponent<EnemyLayer>().InitEnemy("Enemy09", -1f); //!!!
+        //EnemyLayer.GetComponent<EnemyLayer>().InitEnemy("Enemy10", 0f);
+        //EnemyLayer.GetComponent<EnemyLayer>().InitEnemy("Enemy11", -1f); //!!!
+        //EnemyLayer.GetComponent<EnemyLayer>().InitEnemy("Enemy12", 0f); //!!!
+        //EnemyLayer.GetComponent<EnemyLayer>().InitEnemy("Enemy13", 1f); //!!!
         //EnemyLayer.GetComponent<EnemyLayer>().InitEnemy("Enemy14", -2f); //!!!
         //EnemyLayer.GetComponent<EnemyLayer>().InitEnemy("Enemy15", 1f); //!!!
+        //EnemyLayer.GetComponent<EnemyLayer>().InitEnemy("Enemy16", 1f); //!!!
+        //EnemyLayer.GetComponent<EnemyLayer>().InitEnemy("Enemy17", -1f); //!!!
+        //EnemyLayer.GetComponent<EnemyLayer>().InitEnemy("Enemy18", -1f); //!!!
+        //EnemyLayer.GetComponent<EnemyLayer>().InitEnemy("Enemy19", 0); //!!!
+        //EnemyLayer.GetComponent<EnemyLayer>().InitEnemy("Enemy20", -1f); //!!!
+        EnemyLayer.GetComponent<EnemyLayer>().InitEnemy("Enemy21", 0f);
+        //EnemyLayer.GetComponent<EnemyLayer>().InitEnemy("Enemy22", 0f);
+        //EnemyLayer.GetComponent<EnemyLayer>().InitEnemy("Enemy23", 0f);
+        //EnemyLayer.GetComponent<EnemyLayer>().InitEnemy("Enemy24", 0f);
+        //EnemyLayer.GetComponent<EnemyLayer>().InitEnemy("Enemy25", 0f);
         //EnemyLayer.GetComponent<EnemyLayer>().InitEnemy("EnemyOther0", 2.5f); //!!!
-
+        //EnemyLayer.GetComponent<EnemyLayer>().InitEnemy("EnemyOther1", 2.5f); //!!!
+        //EnemyLayer.GetComponent<EnemyLayer>().InitEnemy("EnemyOther2", 2.5f); //!!!
+        //EnemyLayer.GetComponent<EnemyLayer>().InitEnemy("EnemyOther3", 2.5f); //!!!
+        //EnemyLayer.GetComponent<EnemyLayer>().InitEnemy("EnemyOther4", 2.5f); //!!!
+        //EnemyLayer.GetComponent<EnemyLayer>().InitEnemy("EnemyOther5", 2.5f); //!!!
+        //EnemyLayer.GetComponent<EnemyLayer>().InitEnemy("EnemyOther6", 2.5f); //!!!
+        //EnemyLayer.GetComponent<EnemyLayer>().InitEnemy("EnemyOther7", 2.5f); //!!!
     }
 
     // Update is called once per frame

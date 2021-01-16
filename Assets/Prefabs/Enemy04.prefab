@@ -183,6 +183,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: eb08512efd2f23048b012009a1a52b14, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  FireTime: 0.5
+  MoveTargetY: 3
+  MoveTime: 0.35
+  GoToEndTime: 8
 --- !u!82 &-4341714897938605942
 AudioSource:
   m_ObjectHideFlags: 0

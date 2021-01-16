@@ -72,8 +72,7 @@ public class Enemy01CPU : MonoBehaviour
                 GameIsPause = Constant.GameIsPause;
                 return;
             }
-
-            //角度
+            
             if (CurrActionStep != ActionStep.Three)
             {
                 if (PlayerPlane == null || PlayerPlane.localPosition.x <= -500)
@@ -83,8 +82,9 @@ public class Enemy01CPU : MonoBehaviour
                     return;
                 }
 
+                //角度
                 float angle = FHUtility.Angle360(transform.localPosition, PlayerPlane.localPosition);
-                angle += 90f;
+                angle -= 90f;
                 transform.eulerAngles = new Vector3(transform.eulerAngles.x, transform.eulerAngles.y, angle);
 
                 //子弹部分
@@ -98,7 +98,7 @@ public class Enemy01CPU : MonoBehaviour
 
                     bullet.localPosition = bullet_pos;
 
-                    Vector2 tmp = FHUtility.HypotenuseAngle2Position(20f, angle + 90f);
+                    Vector2 tmp = FHUtility.HypotenuseAngle2Position(20f, angle - 90f);
                     Vector3 pos = new Vector3(tmp.x, tmp.y, 0);
                     pos = bullet.localPosition + pos;
                     bullet.DOLocalMove(pos, 3.0f).SetEase(Ease.Linear);

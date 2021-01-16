@@ -6,7 +6,9 @@ using DG.Tweening;
 
 public class Enemy18CPU : MonoBehaviour
 {
-	Transform PlayerLayer;
+    public float MoveSpeed = 1f; //移动速度
+
+    Transform PlayerLayer;
     Transform BulletLayer;
     Transform HideLayer;
 
@@ -26,7 +28,9 @@ public class Enemy18CPU : MonoBehaviour
             HideLayer = Camera.main.transform.Find("HideLayer");
 
             PlayerPlane = PlayerLayer.Find(Constant.PlayerPlane);
-		}
+
+            transform.DOLocalMoveY(-20, 20 * MoveSpeed).SetEase(Ease.Linear);
+        }
     }
 
     // Update is called once per frame

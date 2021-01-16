@@ -27,12 +27,16 @@ public class PlayerPlaneCenter : MonoBehaviour
     void Start()
     {
 		Constant.ObjectIsPlayingSound(this);
-
-        if (transform.parent.parent.name == "HideLayer") return;
         
         PlaneCenterAnimator = GetComponent<Animator>();
 
-        //测试无敌状态
+        if (transform.parent.parent.name == "HideLayer")
+        {
+            PlaneCenterAnimator.speed = 0f;
+            return;
+        }
+
+        //出场的时候进入一下无敌状态
         IsForce = true;
 
     }

@@ -86,13 +86,12 @@ public class PlayerSelect : MonoBehaviour
             {
                 IsDirectionRight = false;
 
-                //目前只有一个可以选择
-                /*if (PlayerSelectedIndex + 1 < PlayerLayer.childCount)
+                if (PlayerSelectedIndex + 1 < PlayerLayer.childCount)
                 {
                     GetComponents<AudioSource>()[1].Play();
                     PlayerSelectedIndex++;
                     SelectedPlane();
-                }*/
+                }
             }
         }
         //方向右

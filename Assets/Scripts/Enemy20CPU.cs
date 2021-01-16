@@ -50,6 +50,30 @@ public class Enemy20CPU : MonoBehaviour
                 return;
             }
 
+            //找不到player的处理
+            if (PlayerPlane == null)
+            {
+                Vector2 tmp = FHUtility.HypotenuseAngle2Position(20f, transform.eulerAngles.z - 90f);
+                Vector3 pos = new Vector3(tmp.x, tmp.y, 0);
+                pos = transform.localPosition + pos;
+                transform.DOLocalMove(pos, 8f).SetEase(Ease.Linear);
+                return;
+            }
+
+            //角度部分
+            float angle = FHUtility.Angle360(transform.localPosition, PlayerPlane.localPosition);
+            angle -= 90f;
+            //控制在一个范围值，确保不会死死缠着player不放
+            float angle_range = 30f;
+            if (angle < -angle_range) angle = -angle_range;
+            if (angle > angle_range) angle = angle_range;
+            transform.eulerAngles = new Vector3(transform.eulerAngles.x, transform.eulerAngles.y, angle);
+
+            //平移部分
+            Vector2 target_pos = FHUtility.HypotenuseAngle2Position(20f, angle - 90f);
+            float move_speed = 3.5f; //平移速度，越小越快
+            transform.Translate(target_pos.x / move_speed * Time.deltaTime, target_pos.y / move_speed * Time.deltaTime, 0);
+
         }
     }
 	

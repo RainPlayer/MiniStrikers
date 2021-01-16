@@ -168,8 +168,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   BlastName: Blast01
   BlastMode: 0
-  Score: 100
-  HP: 1
+  Score: 200
+  HP: 30
   EnemyLevel: 0
 --- !u!114 &3156500821433978156
 MonoBehaviour:

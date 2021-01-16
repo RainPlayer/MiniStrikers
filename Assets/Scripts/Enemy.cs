@@ -22,11 +22,18 @@ public class Enemy : MonoBehaviour
 		
         EnemyAnim = GetComponent<Animator>();
         CollisionObjects = new List<Collider2D>();
+
+        if (EnemyAnim != null && transform.parent.name == "HideLayer")
+        {
+            EnemyAnim.speed = 0f;
+        }
     }
 
     // Update is called once per frame
     void Update()
     {
+        if (transform.parent.name == "HideLayer") return;
+
         if (Constant.GameIsPause)
         {
             if (EnemyAnim != null)

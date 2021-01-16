@@ -71,12 +71,14 @@ public class StageCommon : MonoBehaviour
             {
                 //暂停游戏的情况下继续游戏
                 audios[bgm_index].Play();
+                Time.timeScale = 1;
                 Constant.GameIsPause = false;
             }
             else
             {
                 //正常游戏的情况下暂停游戏
                 audios[bgm_index].Pause();
+                Time.timeScale = 0;
                 Constant.GameIsPause = true;
             }
             

@@ -41,7 +41,7 @@ public class Constant
     public static int ScoreCurr = 0;
 
     //当前关卡，对应上面的场景索引
-    public static int StageSurr = Stage01Scene;
+    public static int StageCurr = Stage01Scene;
 
     //游戏中是否播放声音
     public static bool GameIsPlayingSound = true;
@@ -50,7 +50,10 @@ public class Constant
     public static string PlayerPlane = "Plane0";
 
     //Player在关卡场景的初始位置
-    public static readonly Vector3 PlayerPlaneInitPosition = new Vector3(0, -4.5f, 12f);
+    public static readonly Vector3 PlayerPlaneInitPosition = new Vector3(0, -4.5f, 30f);
+	
+	//敌机的子弹对象名称组，主要用来随机发出子弹的
+	public static readonly string[] EnemyBullets01 = new string[] { "Bullet04_0", "Bullet04_1", "Bullet05_0", "Bullet05_1" };
 
     //异步加载场景时用到
     public static readonly string NextSceneIndex = "next_scene_index";

@@ -6,11 +6,19 @@ using DG.Tweening;
 
 public class Enemy : MonoBehaviour
 {
+    public enum Status
+    {
+        Normal, //正常状态
+        Force //无敌状态
+    }
+
     public string BlastName = "Blast01";
     public int BlastMode = 0;
     public int Score = 100;
     public int HP = 1;
     public int EnemyLevel = 0;
+
+    public Status StatusCurr;
 
     Animator EnemyAnim;
     IList<Collider2D> CollisionObjects = null; //确保一个Bullet Sprite对应一个爆炸Sprite
@@ -19,7 +27,9 @@ public class Enemy : MonoBehaviour
     void Start()
     {
 		Constant.ObjectIsPlayingSound(this);
-		
+
+        StatusCurr = Status.Normal;
+
         EnemyAnim = GetComponent<Animator>();
         CollisionObjects = new List<Collider2D>();
 
@@ -58,60 +68,84 @@ public class Enemy : MonoBehaviour
 
         if (CollisionObjects.Count > 0)
         {
-            HP -= 1;
-
             Transform hide_layer = transform.root.Find("HideLayer");
-            if (HP <= 0)
+            if (StatusCurr == Status.Normal)
             {
-                //加分逻辑
-                StageCommon stage_common = Camera.main.GetComponent<StageCommon>();
-                int score_int = stage_common.GetScore();
-                score_int += Score;
-                stage_common.SetScore(score_int);
+                //正常状态
 
-                //爆炸效果对象相关
-                if (BlastMode == 1)
+                HP -= 1;
+                if (HP <= 0)
                 {
-                    //用在中敌机的爆炸效果
-                    Transform blast = Instantiate(hide_layer.Find(BlastName));
-                    blast.SetParent(transform.parent);
-                    blast.localPosition = transform.localPosition;
-                    blast.localScale = new Vector3(3f, 3f, 3f);
+                    //加分逻辑
+                    StageCommon stage_common = Camera.main.GetComponent<StageCommon>();
+                    int score_int = stage_common.GetScore();
+                    score_int += Score;
+                    stage_common.SetScore(score_int);
 
-                    Blast blast_s = blast.GetComponent<Blast>();
-                    blast_s.Play();
+                    //爆炸效果对象相关
+                    if (BlastMode == 1)
+                    {
+                        //用在中敌机的爆炸效果
+                        Transform blast = Instantiate(hide_layer.Find(BlastName));
+                        blast.SetParent(transform.parent);
+                        blast.localPosition = transform.localPosition;
+                        blast.localScale = new Vector3(3f, 3f, 3f);
+
+                        Blast blast_s = blast.GetComponent<Blast>();
+                        blast_s.Play();
+                    }
+                    else if (BlastMode == 2)
+                    {
+                        //用在boss级的爆炸效果
+                        Transform blast = Instantiate(hide_layer.Find(BlastName));
+                        blast.SetParent(transform.parent);
+                        blast.localPosition = transform.localPosition;
+                        blast.localScale = new Vector3(6f, 6f, 6f);
+
+                        Blast blast_s = blast.GetComponent<Blast>();
+                        blast_s.Play();
+                    }
+                    else
+                    {
+                        //用在小敌机的爆炸效果
+                        Transform blast = Instantiate(hide_layer.Find(BlastName));
+                        blast.SetParent(transform.parent);
+                        blast.localPosition = transform.localPosition;
+
+                        Blast blast_s = blast.GetComponent<Blast>();
+                        blast_s.Play();
+                    }
+                    //爆炸效果对象相关 end
+
+                    transform.localPosition = new Vector3(5000f, 5000f, 5000f);
+                    transform.localScale = Vector3.zero;
+                    transform.DOKill(true);
+                    PlayAudioCallback(GetComponent<AudioSource>(), OnAudioCallBack);
+
                 }
-                else if (BlastMode == 2)
+                else
                 {
-                    //用在boss级的爆炸效果
-                    Transform blast = Instantiate(hide_layer.Find(BlastName));
-                    blast.SetParent(transform.parent);
-                    blast.localPosition = transform.localPosition;
-                    blast.localScale = new Vector3(6f, 6f, 6f);
+                    //Bullet打中的效果
+                    foreach (var item in CollisionObjects)
+                    {
+                        string name = item.gameObject.name.Replace("(Clone)", "") + "Effect";
 
-                    Blast blast_s = blast.GetComponent<Blast>();
-                    blast_s.Play();
+                        Transform bullet_effect_src = hide_layer.Find(name);
+                        if (bullet_effect_src != null)
+                        {
+                            Transform bullet_effect = Instantiate(bullet_effect_src);
+
+                            bullet_effect.SetParent(transform);
+                            bullet_effect.position = new Vector3(item.transform.localPosition.x, item.transform.localPosition.y + Camera.main.transform.position.y + 0.3f, -1f);
+                            bullet_effect.GetComponent<BulletEffect>().Play();
+                        }
+
+                    }
                 }
-				else
-				{
-					//用在小敌机的爆炸效果
-                    Transform blast = Instantiate(hide_layer.Find(BlastName));
-                    blast.SetParent(transform.parent);
-                    blast.localPosition = transform.localPosition;
-
-                    Blast blast_s = blast.GetComponent<Blast>();
-                    blast_s.Play();
-				}
-                //爆炸效果对象相关 end
-
-                transform.localPosition = new Vector3(5000f, 5000f, 5000f);
-                transform.localScale = Vector3.zero;
-                transform.DOKill(true);
-                PlayAudioCallback(GetComponent<AudioSource>(), OnAudioCallBack);
-
             }
             else
             {
+                //无敌状态
                 //Bullet打中的效果
                 foreach (var item in CollisionObjects)
                 {
@@ -126,7 +160,7 @@ public class Enemy : MonoBehaviour
                         bullet_effect.position = new Vector3(item.transform.localPosition.x, item.transform.localPosition.y + Camera.main.transform.position.y + 0.3f, -1f);
                         bullet_effect.GetComponent<BulletEffect>().Play();
                     }
-                    
+
                 }
             }
 

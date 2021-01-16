@@ -102,8 +102,7 @@ public class EnemyOther7CPU : MonoBehaviour
 
                     if (DoFire)
                     {
-                        string[] bullet_arr = new string[] { "Bullet04_0", "Bullet04_1", "Bullet05_0", "Bullet05_1" };
-                        string bullet_n = bullet_arr[Random.Range(0, bullet_arr.Length - 1)];
+                        string bullet_n = Constant.EnemyBullets01[Random.Range(0, Constant.EnemyBullets01.Length - 1)];
 
                         //中间
                         Transform bullet = Instantiate(HideLayer.Find(bullet_n));

@@ -171,6 +171,7 @@ MonoBehaviour:
   Score: 5000
   HP: 8000
   EnemyLevel: 10
+  StatusCurr: 0
 --- !u!114 &938544048105521429
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -183,6 +184,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5daa9c36134435d498fa0c06105b3b99, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  FireTime: 0.05
+  FireTime03: 0.3
 --- !u!82 &350939964976863080
 AudioSource:
   m_ObjectHideFlags: 0

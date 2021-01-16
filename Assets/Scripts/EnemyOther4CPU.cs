@@ -90,8 +90,7 @@ public class EnemyOther4CPU : MonoBehaviour
                 //子弹部分
                 if (Time.time > NextFireTime && transform.localPosition.y > PlayerPlane.localPosition.y)
                 {
-                    string[] bullet_arr = new string[] { "Bullet04_0", "Bullet04_1", "Bullet05_0", "Bullet05_1" };
-                    string bullet_n = bullet_arr[Random.Range(0, bullet_arr.Length - 1)];
+                    string bullet_n = Constant.EnemyBullets01[Random.Range(0, Constant.EnemyBullets01.Length - 1)];
                     Transform bullet = Instantiate(HideLayer.Find(bullet_n));
                     bullet.SetParent(BulletLayer);
 

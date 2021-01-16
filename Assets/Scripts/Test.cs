@@ -36,6 +36,8 @@ public class Test : MonoBehaviour
         });
         */
 
+        Camera.main.transform.GetComponent<StageCommon>().ChnageGameProgress(StageCommon.GameProgress.Boss);
+
         Transform EnemyLayer = Camera.main.transform.Find("EnemyLayer");
         //EnemyLayer.GetComponent<EnemyLayer>().InitEnemy("Enemy01_0", -2f); //!!!
         //EnemyLayer.GetComponent<EnemyLayer>().InitEnemy("Enemy01_1", 2.5f); //!!!

@@ -8,8 +8,8 @@ public class StageCommon : MonoBehaviour
     //游戏进行到什么状态
     public enum GameProgress
     {
-        Normal,
-        Boss //boss战
+        Normal = 0,
+        Boss = 1 //boss战
     };
 
     FHSpriteText Score;
@@ -18,14 +18,12 @@ public class StageCommon : MonoBehaviour
     Transform PlayerLayer;
     Transform HideLayer;
 
-    GameProgress CurrGameProgress;
+    GameProgress CurrGameProgress = GameProgress.Normal;
 
     // Start is called before the first frame update
     void Start()
     {
         Constant.ObjectIsPlayingSound(this);
-
-        CurrGameProgress = GameProgress.Normal;
 
         PlayerLayer = transform.root.Find("PlayerLayer");
         HideLayer = transform.root.Find("HideLayer");
@@ -65,19 +63,17 @@ public class StageCommon : MonoBehaviour
             //按了暂停游戏
             audios[2].Play();
 
-            int bgm_index = CurrGameProgress == GameProgress.Boss ? 1 : 0;
-
             if (Constant.GameIsPause)
             {
                 //暂停游戏的情况下继续游戏
-                audios[bgm_index].Play();
+                audios[(int)CurrGameProgress].Play();
                 Time.timeScale = 1;
                 Constant.GameIsPause = false;
             }
             else
             {
                 //正常游戏的情况下暂停游戏
-                audios[bgm_index].Pause();
+                audios[(int)CurrGameProgress].Pause();
                 Time.timeScale = 0;
                 Constant.GameIsPause = true;
             }
@@ -115,13 +111,34 @@ public class StageCommon : MonoBehaviour
 
     public void PlayerPlaneGo()
     {
-        if (PlayerLayer.Find("Constant.PlayerPlane") == null)
+        Transform player_plane = PlayerLayer.Find(Constant.PlayerPlane);
+        if (player_plane != null)
         {
-            Transform PlayerPlane = Instantiate(HideLayer.Find(Constant.PlayerPlane));
-            PlayerPlane.name = Constant.PlayerPlane;
-            PlayerPlane.SetParent(PlayerLayer);
-            PlayerPlane.localPosition = Constant.PlayerPlaneInitPosition;
+            Destroy(player_plane);
         }
+
+        Transform PlayerPlane = Instantiate(HideLayer.Find(Constant.PlayerPlane));
+        PlayerPlane.name = Constant.PlayerPlane;
+        PlayerPlane.SetParent(PlayerLayer);
+        PlayerPlane.localPosition = Constant.PlayerPlaneInitPosition;
+    }
+
+    public void ChnageGameProgress(GameProgress game_progress)
+    {
+        CurrGameProgress = game_progress;
+
+        //切换BGM
+        AudioSource[] audios = GetComponents<AudioSource>();
+        if (CurrGameProgress == GameProgress.Normal)
+        {
+            audios[1].Stop();
+            audios[0].Play();
+            return;
+        }
+
+        //boss
+        audios[0].Stop();
+        audios[1].Play();
     }
 
 }

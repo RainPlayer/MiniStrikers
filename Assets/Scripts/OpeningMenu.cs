@@ -19,7 +19,17 @@ public class OpeningMenu : MonoBehaviour
     {
         Constant.ObjectIsPlayingSound(this);
 
+        //恢复初始状态
         Constant.GameIsPause = false;
+        Constant.PlayerPlane = "Plane0";
+        Constant.PlayerLifeCurr = Constant.PlayerLife;
+        Constant.ScoreCurr = 0;
+        Constant.StageCurr = Constant.Stage01Scene;
+        if (Time.timeScale == 0)
+        {
+            Time.timeScale = 1;
+        }
+        //恢复初始状态 end
 
         Items = transform.Find("Items");
         MenuCursor = transform.Find("MenuCursor");

@@ -103,11 +103,19 @@ public class GameOverMenu : MonoBehaviour
             if (MenuSelectedIndex == 0)
             {
                 //Continue，初始化
+                //恢复初始状态
                 Constant.GameIsPause = false;
+                Constant.PlayerPlane = "Plane0";
                 Constant.PlayerLifeCurr = Constant.PlayerLife;
                 Constant.ScoreCurr = 0;
+                Constant.StageCurr = Constant.Stage01Scene;
+                if (Time.timeScale == 0)
+                {
+                    Time.timeScale = 1;
+                }
+                //恢复初始状态 end
 
-                PlayerPrefs.SetInt(Constant.NextSceneIndex, Constant.StageSurr);
+                PlayerPrefs.SetInt(Constant.NextSceneIndex, Constant.StageCurr);
                 SceneManager.LoadScene(Constant.LoadingScene);
             }
             else if (MenuSelectedIndex == 1)

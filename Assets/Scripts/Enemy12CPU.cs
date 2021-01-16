@@ -104,10 +104,9 @@ public class Enemy12CPU : MonoBehaviour
                         int c = 8; //同时发出的子弹数
                         float f = 10f; //子弹发出的角度浮动
 
-                        string[] bullet_arr = new string[] { "Bullet04_0", "Bullet04_1", "Bullet05_0", "Bullet05_1" };
                         for (int i = 0; i < c; i++)
                         {
-                            string bullet_n = bullet_arr[Random.Range(0, bullet_arr.Length - 1)];
+                            string bullet_n = Constant.EnemyBullets01[Random.Range(0, Constant.EnemyBullets01.Length - 1)];
                             Transform bullet = Instantiate(HideLayer.Find(bullet_n));
                             bullet.SetParent(BulletLayer);
 

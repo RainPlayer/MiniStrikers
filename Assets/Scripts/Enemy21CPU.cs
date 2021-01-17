@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using DG;
 using DG.Tweening;
+using System.Reflection;
+using System.Text.RegularExpressions;
 
 public class Enemy21CPU : MonoBehaviour
 {
@@ -20,8 +22,14 @@ public class Enemy21CPU : MonoBehaviour
     Vector3 GunOffsetPosLeft;
     Vector3 GunOffsetPosRight;
 
+    //动态执行攻击方法
+    int CurrAttackModeIndex = 0; //当前执行攻击的方法索引
+    IList<MethodInfo> AttackModeMethods = null; //攻击方法组
+    System.Type ThisType = null;
+    float ChangeAttackModeTime = 10f; //切换攻击模式的时间
+
     public float FireTime = 0.05f; //子弹发射时间密度，越小越多子弹
-    public float FireTime03 = 0.3f; //子弹发射时间密度，越小越多子弹
+    public float FireTime03 = 0.3f; //子弹发射时间密度，越小越多子弹，这里AttackMode03会用到
     float FireStartTime = 0.5f;
     float FireStopTime = 1f;
     float NextFireTime = 0f;
@@ -35,7 +43,8 @@ public class Enemy21CPU : MonoBehaviour
     Transform BulletLayer;
 
     Transform PlayerPlane;
-    Vector3 BulletPlayerPlanePos;
+    PlayerPlaneCenter PlayerPlaneCenterObject;
+    Vector3 PlayerPlanePos;
     Enemy EnemyScriptObject;
 
     bool GameIsPause = false;
@@ -44,9 +53,21 @@ public class Enemy21CPU : MonoBehaviour
     void Start()
     {
 		Constant.ObjectIsPlayingSound(this);
-		
-		if (transform.parent.name != "HideLayer")
+
+        if (transform.parent.name != "HideLayer")
         {
+            //动态加入攻击方法
+            AttackModeMethods = new List<MethodInfo>();
+            ThisType = GetType();
+            foreach (var item in ThisType.GetMethods(BindingFlags.NonPublic | BindingFlags.Instance))
+            {
+                if (Regex.IsMatch(item.Name, @"AttackMode(\d+)"))
+                {
+                    MethodInfo m = ThisType.GetMethod(item.Name, BindingFlags.NonPublic | BindingFlags.Instance);
+                    AttackModeMethods.Add(m);
+                    //Debug.Log(item.Name);
+                }
+            }
 
             GunOffsetPosBottomLeft = new Vector3(-0.5f, -0.75f, 0);
             GunOffsetPosBottomRight = new Vector3(0.5f, -0.75f, 0);
@@ -58,6 +79,7 @@ public class Enemy21CPU : MonoBehaviour
             HideLayer = Camera.main.transform.Find("HideLayer");
 
             PlayerPlane = PlayerLayer.Find(Constant.PlayerPlane);
+            PlayerPlaneCenterObject = PlayerPlane.Find("plane_center").GetComponent<PlayerPlaneCenter>();
             EnemyScriptObject = transform.GetComponent<Enemy>();
             EnemyScriptObject.StatusCurr = Enemy.Status.Force;
 
@@ -67,6 +89,8 @@ public class Enemy21CPU : MonoBehaviour
             transform.DOLocalMove(target_pos, 3.0f).SetEase(Ease.Linear).OnComplete(() =>
             {
                 EnemyScriptObject.StatusCurr = Enemy.Status.Normal;
+
+                StartCoroutine(ChangeAttackMode());
                 transform.DOLocalMoveX(-1.3f, 5.0f).SetEase(Ease.Linear).OnComplete(() => EnemyMove());
             });
         }
@@ -94,11 +118,12 @@ public class Enemy21CPU : MonoBehaviour
             }
 
             //子弹部分
-            if (EnemyScriptObject.StatusCurr == Enemy.Status.Normal)
+            if (EnemyScriptObject.StatusCurr == Enemy.Status.Normal && CurrAttackModeIndex >= 0)
             {
-                //AttackMode01();
-                //AttackMode02();
-                //AttackMode03();
+                
+                //var obj = AttackModeMethods[CurrAttackModeIndex].Invoke(this, null);
+                AttackModeMethods[CurrAttackModeIndex].Invoke(this, null);
+
             }
 
         }
@@ -107,6 +132,7 @@ public class Enemy21CPU : MonoBehaviour
 	
 	private void OnDestroy()
     {
+        if (AttackModeMethods != null) AttackModeMethods.Clear();
         transform.DOKill(true);
     }
 
@@ -149,10 +175,10 @@ public class Enemy21CPU : MonoBehaviour
 
             if (DoFire)
             {
-                float angle = FHUtility.Angle360(transform.localPosition + GunOffsetPosBottomLeft, BulletPlayerPlanePos);
+                float angle = FHUtility.Angle360(transform.localPosition + GunOffsetPosBottomLeft, PlayerPlanePos);
                 Fire01(Gun.BottomLeft, angle);
 
-                angle = FHUtility.Angle360(transform.localPosition + GunOffsetPosBottomRight, BulletPlayerPlanePos);
+                angle = FHUtility.Angle360(transform.localPosition + GunOffsetPosBottomRight, PlayerPlanePos);
                 Fire01(Gun.BottomRight, angle);
             }
 
@@ -278,7 +304,11 @@ public class Enemy21CPU : MonoBehaviour
     {
         if (DoFire)
         {
-            BulletPlayerPlanePos = PlayerPlane != null ? PlayerPlane.localPosition : Constant.PlayerPlaneInitPosition;
+            //找到player的位置
+            PlayerPlane = PlayerLayer.Find(Constant.PlayerPlane);
+            PlayerPlaneCenterObject = PlayerPlane.Find("plane_center").GetComponent<PlayerPlaneCenter>();
+            PlayerPlanePos = PlayerPlane != null && PlayerPlaneCenterObject.IsAlive ? PlayerPlane.localPosition : Constant.PlayerPlaneInitPosition;
+
             yield return new WaitForSeconds(FireStartTime);
             DoFire = false;
         }
@@ -288,6 +318,31 @@ public class Enemy21CPU : MonoBehaviour
             DoFire = true;
         }
         StartCoroutine(ChangeFireStatus());
+    }
+
+    IEnumerator ChangeAttackMode()
+    {
+        yield return new WaitForSeconds(ChangeAttackModeTime);
+        StartCoroutine(PauseAttackMode());
+    }
+    IEnumerator PauseAttackMode()
+    {
+        int tmp = CurrAttackModeIndex;
+        CurrAttackModeIndex = -1;
+
+        //临时暂停攻击
+        yield return new WaitForSeconds(2f);
+
+        CurrAttackModeIndex = tmp;
+        if (CurrAttackModeIndex + 1 < AttackModeMethods.Count)
+        {
+            CurrAttackModeIndex++;
+        }
+        else
+        {
+            CurrAttackModeIndex = 0;
+        }
+        StartCoroutine(ChangeAttackMode());
     }
 
     void EnemyMove()

@@ -61,7 +61,7 @@ public class Enemy21CPU : MonoBehaviour
             ThisType = GetType();
             foreach (var item in ThisType.GetMethods(BindingFlags.NonPublic | BindingFlags.Instance))
             {
-                if (Regex.IsMatch(item.Name, @"AttackMode(\d+)"))
+                if (Regex.IsMatch(item.Name, @"^AttackMode(\d+)$"))
                 {
                     MethodInfo m = ThisType.GetMethod(item.Name, BindingFlags.NonPublic | BindingFlags.Instance);
                     AttackModeMethods.Add(m);
@@ -255,7 +255,10 @@ public class Enemy21CPU : MonoBehaviour
         Vector2 tmp = FHUtility.HypotenuseAngle2Position(20f, angle);
         Vector3 pos = new Vector3(tmp.x, tmp.y, 0);
         pos = bullet.localPosition - pos;
-        bullet.DOLocalMove(pos, bullet_speed).SetEase(Ease.Linear);
+        bullet.DOLocalMove(pos, bullet_speed).SetEase(Ease.Linear).OnComplete(() =>
+        {
+            Destroy(bullet.gameObject);
+        });
     }
 
     //往指定角度直线攻击，使用Bullet06
@@ -297,7 +300,10 @@ public class Enemy21CPU : MonoBehaviour
         Vector2 tmp = FHUtility.HypotenuseAngle2Position(20f, angle);
         Vector3 pos = new Vector3(tmp.x, tmp.y, 0);
         pos = bullet.localPosition - pos;
-        bullet.DOLocalMove(pos, bullet_speed).SetEase(Ease.Linear);
+        bullet.DOLocalMove(pos, bullet_speed).SetEase(Ease.Linear).OnComplete(() =>
+        {
+            Destroy(bullet.gameObject);
+        });
     }
 
     IEnumerator ChangeFireStatus()

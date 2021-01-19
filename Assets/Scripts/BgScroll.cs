@@ -7,7 +7,6 @@ public class BgScroll : MonoBehaviour
 {
     //纵向卷轴背景
 
-    Camera MainCamera;
     int CurrBgIndex;
     Transform Bg1, Bg2;
 
@@ -16,7 +15,6 @@ public class BgScroll : MonoBehaviour
     {
 		Constant.ObjectIsPlayingSound(this);
 		
-        MainCamera = FindObjectOfType<Camera>();
         CurrBgIndex = 0;
 
         Bg1 = transform.Find("stage_bg_1");
@@ -31,11 +29,11 @@ public class BgScroll : MonoBehaviour
             return;
         }
 
-        MainCamera.transform.Translate(new Vector3(0, Constant.BgScroll * Time.deltaTime, 0));
+        Camera.main.transform.Translate(new Vector3(0, Constant.BgScroll * Time.deltaTime, 0));
 
-        float size2 = MainCamera.orthographicSize * 2f;
+        float size2 = Camera.main.orthographicSize * 2f;
 
-        int bg_index = Mathf.FloorToInt(MainCamera.transform.localPosition.y / size2);
+        int bg_index = Mathf.FloorToInt(Camera.main.transform.localPosition.y / size2);
         if (bg_index > CurrBgIndex)
         {
             CurrBgIndex = bg_index;

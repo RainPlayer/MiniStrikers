@@ -209,6 +209,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1852665079}
     m_Modifications:
+    - target: {fileID: 2846387671132849970, guid: 805c5ffa5afa3b640a9fa215043b86a6,
+        type: 3}
+      propertyPath: FireTime01
+      value: 0.1
+      objectReference: {fileID: 0}
     - target: {fileID: 8006823387857040860, guid: 805c5ffa5afa3b640a9fa215043b86a6,
         type: 3}
       propertyPath: m_Name
@@ -2465,6 +2470,21 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1852665079}
     m_Modifications:
+    - target: {fileID: -7357807184813011974, guid: 0e5497e6f51b5ad498cedac5bcf9aa42,
+        type: 3}
+      propertyPath: FireTime01
+      value: 0.025
+      objectReference: {fileID: 0}
+    - target: {fileID: -7357807184813011974, guid: 0e5497e6f51b5ad498cedac5bcf9aa42,
+        type: 3}
+      propertyPath: FireTime02
+      value: 0.4
+      objectReference: {fileID: 0}
+    - target: {fileID: -7357807184813011974, guid: 0e5497e6f51b5ad498cedac5bcf9aa42,
+        type: 3}
+      propertyPath: FireTime03
+      value: 0.1
+      objectReference: {fileID: 0}
     - target: {fileID: 4486198135322491718, guid: 0e5497e6f51b5ad498cedac5bcf9aa42,
         type: 3}
       propertyPath: m_Name
@@ -2650,6 +2670,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1852665079}
     m_Modifications:
+    - target: {fileID: 5479752816634358229, guid: 4c2231450e8a7134ea7273882c632146,
+        type: 3}
+      propertyPath: FireTime01
+      value: 0.2
+      objectReference: {fileID: 0}
     - target: {fileID: 5920094748557348954, guid: 4c2231450e8a7134ea7273882c632146,
         type: 3}
       propertyPath: m_Name
@@ -3803,6 +3828,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1852665079}
     m_Modifications:
+    - target: {fileID: 2684761071027260471, guid: 659a5d90abaa7f341824f55707ada427,
+        type: 3}
+      propertyPath: FireTime03
+      value: 0.8
+      objectReference: {fileID: 0}
     - target: {fileID: 6805009158924777006, guid: 659a5d90abaa7f341824f55707ada427,
         type: 3}
       propertyPath: m_Name
@@ -4091,7 +4121,7 @@ AudioSource:
   m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1
-  Loop: 0
+  Loop: 1
   Mute: 0
   Spatialize: 0
   SpatializePostEffects: 0

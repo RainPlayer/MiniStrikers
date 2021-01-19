@@ -49,7 +49,7 @@ public class Test : MonoBehaviour
         //EnemyLayer.GetComponent<EnemyLayer>().InitEnemy("Enemy07", 1f); //!!!
         //EnemyLayer.GetComponent<EnemyLayer>().InitEnemy("Enemy08", 0f); //!!!
         //EnemyLayer.GetComponent<EnemyLayer>().InitEnemy("Enemy09", -1f); //!!!
-        //EnemyLayer.GetComponent<EnemyLayer>().InitEnemy("Enemy10", 0f);
+        EnemyLayer.GetComponent<EnemyLayer>().InitEnemy("Enemy10", 0f);
         //EnemyLayer.GetComponent<EnemyLayer>().InitEnemy("Enemy11", -1f); //!!!
         //EnemyLayer.GetComponent<EnemyLayer>().InitEnemy("Enemy12", 0f); //!!!
         //EnemyLayer.GetComponent<EnemyLayer>().InitEnemy("Enemy13", 1f); //!!!
@@ -60,11 +60,11 @@ public class Test : MonoBehaviour
         //EnemyLayer.GetComponent<EnemyLayer>().InitEnemy("Enemy18", -1f); //!!!
         //EnemyLayer.GetComponent<EnemyLayer>().InitEnemy("Enemy19", 0); //!!!
         //EnemyLayer.GetComponent<EnemyLayer>().InitEnemy("Enemy20", -1f); //!!!
-        EnemyLayer.GetComponent<EnemyLayer>().InitEnemy("Enemy21", 0f);
-        //EnemyLayer.GetComponent<EnemyLayer>().InitEnemy("Enemy22", 0f);
-        //EnemyLayer.GetComponent<EnemyLayer>().InitEnemy("Enemy23", 0f);
-        //EnemyLayer.GetComponent<EnemyLayer>().InitEnemy("Enemy24", 0f);
-        //EnemyLayer.GetComponent<EnemyLayer>().InitEnemy("Enemy25", 0f);
+        //EnemyLayer.GetComponent<EnemyLayer>().InitEnemy("Enemy21", 0f); //!!!
+        //EnemyLayer.GetComponent<EnemyLayer>().InitEnemy("Enemy22", 0f); //!!!
+        //EnemyLayer.GetComponent<EnemyLayer>().InitEnemy("Enemy23", 0f); //!!!
+        //EnemyLayer.GetComponent<EnemyLayer>().InitEnemy("Enemy24", 0f); //!!!
+        //EnemyLayer.GetComponent<EnemyLayer>().InitEnemy("Enemy25", 0f); //!!!
         //EnemyLayer.GetComponent<EnemyLayer>().InitEnemy("EnemyOther0", 2.5f); //!!!
         //EnemyLayer.GetComponent<EnemyLayer>().InitEnemy("EnemyOther1", 2.5f); //!!!
         //EnemyLayer.GetComponent<EnemyLayer>().InitEnemy("EnemyOther2", 2.5f); //!!!

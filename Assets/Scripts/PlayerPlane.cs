@@ -19,7 +19,6 @@ public class PlayerPlane : MonoBehaviour
     bool IsDirectionLeft = false;
     bool IsDirectionRight = false;
 
-    Camera MainCamera;
     Animator PlaneAnimator;
     Vector2 PlaneCenterSize;
 
@@ -45,7 +44,6 @@ public class PlayerPlane : MonoBehaviour
     {
 		Constant.ObjectIsPlayingSound(this);
 		
-        MainCamera = FindObjectOfType<Camera>();
         PlaneAnimator = transform.Find(gameObject.name.ToLower()).GetComponent<Animator>();
 
         if (transform.parent.name == "HideLayer")
@@ -127,7 +125,7 @@ public class PlayerPlane : MonoBehaviour
             }
             else
             {
-                if (transform.localPosition.y <= MainCamera.orthographicSize - (PlaneCenterSize.y / 2f))
+                if (transform.localPosition.y <= Camera.main.orthographicSize - (PlaneCenterSize.y / 2f))
                 {
                     transform.Translate(new Vector3(0, PlaneSpeed * Time.deltaTime, 0));
                 }
@@ -153,7 +151,7 @@ public class PlayerPlane : MonoBehaviour
             }
             else
             {
-                if (transform.localPosition.y >= -MainCamera.orthographicSize + (PlaneCenterSize.y / 2f))
+                if (transform.localPosition.y >= -Camera.main.orthographicSize + (PlaneCenterSize.y / 2f))
                 {
                     transform.Translate(new Vector3(0, -PlaneSpeed * Time.deltaTime, 0));
                 }
@@ -286,7 +284,7 @@ public class PlayerPlane : MonoBehaviour
                         Vector3 bullet_pos = transform.localPosition;
                         bullet.localPosition = bullet_pos;
 
-                        float target_y = 10f + (MainCamera.orthographicSize + bullet.localPosition.y); //上面的简化版本
+                        float target_y = 10f + (Camera.main.orthographicSize + bullet.localPosition.y); //上面的简化版本
                         bullet.DOLocalMoveY(target_y, 1.2f);
                     }
 
@@ -301,7 +299,7 @@ public class PlayerPlane : MonoBehaviour
                         Vector3 bullet_pos = transform.localPosition;
                         bullet_left.localPosition = bullet_pos;
 
-                        float target_y = 10f + (MainCamera.orthographicSize + bullet_left.localPosition.y);
+                        float target_y = 10f + (Camera.main.orthographicSize + bullet_left.localPosition.y);
                         Vector3 target_pos = bullet_pos;
                         target_pos.x -= 5f;
                         target_pos.y = target_y;
@@ -384,7 +382,7 @@ public class PlayerPlane : MonoBehaviour
             //子弹A在当前位置往上移动10，这样才能保证看到的发射效果是匀速的
             //把当前子弹y坐标的转换为原点为最下面的形式
             //float target_y = 10f + (-MainCamera.orthographicSize + (MainCamera.orthographicSize * 2f) + bullet.localPosition.y);
-            float target_y = 10f + (MainCamera.orthographicSize + bullet.localPosition.y); //上面的简化版本
+            float target_y = 10f + (Camera.main.orthographicSize + bullet.localPosition.y); //上面的简化版本
             /*bullet.DOLocalMoveY(target_y, 1.2f).OnKill(() => {
                 Debug.Log("OnKill");
             }).OnComplete(() => {
@@ -414,7 +412,7 @@ public class PlayerPlane : MonoBehaviour
 
             //子弹B在当前位置往上移动10，这样才能保证看到的发射效果是匀速的
             //把当前子弹y坐标的转换为原点为最下面的形式
-            float target_y = 10f + (MainCamera.orthographicSize + bullet.localPosition.y); //上面的简化版本
+            float target_y = 10f + (Camera.main.orthographicSize + bullet.localPosition.y); //上面的简化版本
             bullet.DOLocalMoveY(target_y, 1.2f);
         }
     }
@@ -431,7 +429,7 @@ public class PlayerPlane : MonoBehaviour
         Vector3 bullet_pos = transform.localPosition;
         bullet_left.localPosition = bullet_pos;
 
-        float target_y = 10f + (MainCamera.orthographicSize + bullet_left.localPosition.y);
+        float target_y = 10f + (Camera.main.orthographicSize + bullet_left.localPosition.y);
         Vector3 target_pos = bullet_pos;
         target_pos.x -= target_x;
         target_pos.y = target_y;

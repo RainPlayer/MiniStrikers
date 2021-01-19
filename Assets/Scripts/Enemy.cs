@@ -104,6 +104,8 @@ public class Enemy : MonoBehaviour
 
                         Blast blast_s = blast.GetComponent<Blast>();
                         blast_s.Play();
+
+                        CameraShake.ShakeFor(0.8f, 0.1f);
                     }
                     else
                     {

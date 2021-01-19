@@ -49,7 +49,7 @@ public class Test : MonoBehaviour
         //EnemyLayer.GetComponent<EnemyLayer>().InitEnemy("Enemy07", 1f); //!!!
         //EnemyLayer.GetComponent<EnemyLayer>().InitEnemy("Enemy08", 0f); //!!!
         //EnemyLayer.GetComponent<EnemyLayer>().InitEnemy("Enemy09", -1f); //!!!
-        EnemyLayer.GetComponent<EnemyLayer>().InitEnemy("Enemy10", 0f);
+        EnemyLayer.GetComponent<EnemyLayer>().InitEnemy("Enemy10", 0f); //!!!
         //EnemyLayer.GetComponent<EnemyLayer>().InitEnemy("Enemy11", -1f); //!!!
         //EnemyLayer.GetComponent<EnemyLayer>().InitEnemy("Enemy12", 0f); //!!!
         //EnemyLayer.GetComponent<EnemyLayer>().InitEnemy("Enemy13", 1f); //!!!

@@ -17,11 +17,17 @@ public class Enemy : MonoBehaviour
     public int Score = 100;
     public int HP = 1;
     public int EnemyLevel = 0;
+    public Material EnemyVersionMat = null; //这个是在unity编辑器的，不需要在代码修改
+    public Material EnemyHitMat = null; //同上
+    Material EnemyTmpMat = null;
+    bool DoHit = false;
 
     public Status StatusCurr;
 
     Animator EnemyAnim;
     IList<Collider2D> CollisionObjects = null; //确保一个Bullet Sprite对应一个爆炸Sprite
+
+    SpriteRenderer EnemySpriteRenderer = null;
 
     // Start is called before the first frame update
     void Start()
@@ -36,6 +42,12 @@ public class Enemy : MonoBehaviour
         if (EnemyAnim != null && transform.parent.name == "HideLayer")
         {
             EnemyAnim.speed = 0f;
+        }
+
+        EnemySpriteRenderer = GetComponent<SpriteRenderer>();
+        if (EnemyVersionMat != null && transform.parent.name != "HideLayer")
+        {
+            EnemySpriteRenderer.material = EnemyVersionMat;
         }
     }
 
@@ -68,6 +80,8 @@ public class Enemy : MonoBehaviour
 
         if (CollisionObjects.Count > 0)
         {
+            //被打中的时候
+
             Transform hide_layer = transform.root.Find("HideLayer");
             if (StatusCurr == Status.Normal)
             {
@@ -143,6 +157,18 @@ public class Enemy : MonoBehaviour
                         }
 
                     }
+
+                    //调用闪光shader
+                    if (EnemyHitMat != null && !DoHit)
+                    {
+                        //Debug.Log("调用闪光shader");
+                        if (EnemyTmpMat == null) EnemyTmpMat = EnemySpriteRenderer.material;
+                        EnemySpriteRenderer.material = EnemyHitMat;
+                        DoHit = true;
+
+                        StartCoroutine(DelayRestoreDoHit());
+                    }
+                    
                 }
             }
             else
@@ -191,6 +217,20 @@ public class Enemy : MonoBehaviour
             CollisionObjects.Add(collision);
         }
         
+    }
+
+    IEnumerator DelayRestoreDoHit()
+    {
+        yield return new WaitForSeconds(0.5f);
+
+        if (EnemyTmpMat != null && DoHit)
+        {
+            //Debug.Log("恢复原材质");
+            EnemySpriteRenderer.material = EnemyTmpMat;
+            EnemyTmpMat = null;
+        }
+
+        DoHit = false;
     }
 
     void OnAudioCallBack()

@@ -150,6 +150,9 @@ MonoBehaviour:
   Score: 100
   HP: 10
   EnemyLevel: 0
+  EnemyVersionMat: {fileID: 0}
+  EnemyHitMat: {fileID: 2100000, guid: 105efa0598bf54e37a350e54ace43b89, type: 2}
+  StatusCurr: 0
 --- !u!114 &8541138409633672620
 MonoBehaviour:
   m_ObjectHideFlags: 0

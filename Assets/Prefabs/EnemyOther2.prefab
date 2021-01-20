@@ -151,6 +151,9 @@ MonoBehaviour:
   Score: 100
   HP: 1
   EnemyLevel: 0
+  EnemyVersionMat: {fileID: 0}
+  EnemyHitMat: {fileID: 2100000, guid: 105efa0598bf54e37a350e54ace43b89, type: 2}
+  StatusCurr: 0
 --- !u!114 &-6255421862295432303
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -163,6 +166,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8134681e974e2504ba2962c7e7761497, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  FireTime: 0.05
+  MoveTargetY: 3
+  MoveTime: 0.35
+  GoToEndTime: 5
 --- !u!82 &2034891108429732235
 AudioSource:
   m_ObjectHideFlags: 0

@@ -54,7 +54,13 @@
                 // apply fog
                 UNITY_APPLY_FOG(i.fogCoord, col);
                 
-                return fixed4(col.rgb * abs(sin(_Time * 20)), col.a);
+                //跟白色相差的值
+                fixed4 s = 1 - col;
+
+                //取0到1，用来步增上面的相差，然后跟纹理的值相加到白色
+                float4 a = abs(sin(_Time * 10));
+
+                return fixed4(col.rgb + (s.rgb * a), col.a);
             }
             ENDCG
         }

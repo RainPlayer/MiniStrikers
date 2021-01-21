@@ -183,7 +183,7 @@ public class OptionMenu : MonoBehaviour
             if (MenuSelectedIndex == 2)
             {
                 //Exit
-                PlayerPrefs.SetInt(Constant.NextSceneIndex, Constant.OpeningScene);
+                PlayerPrefs.SetInt(Constant.NextSceneIndex, Constant.MainScene);
                 SceneManager.LoadScene(Constant.LoadingScene);
             }
         }

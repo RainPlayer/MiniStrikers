@@ -82,7 +82,7 @@ public class StageCommon : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Escape) && Constant.GameIsPause)
         {
             //暂停游戏的时候按ESC键就退出游戏
-            PlayerPrefs.SetInt(Constant.NextSceneIndex, Constant.OpeningScene);
+            PlayerPrefs.SetInt(Constant.NextSceneIndex, Constant.MainScene);
             SceneManager.LoadScene(Constant.LoadingScene);
         }
     }

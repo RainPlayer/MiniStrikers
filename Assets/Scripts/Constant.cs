@@ -4,7 +4,7 @@ using UnityEngine;
 public class Constant
 {
     //场景索引
-    public static readonly int OpeningScene = 0;
+    public static readonly int MainScene = 0;
     public static readonly int OptionScene = 1;
     public static readonly int PlayerSelectScene = 2;
     public static readonly int LoadingScene = 3;

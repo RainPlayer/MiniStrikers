@@ -35,7 +35,7 @@ public class LoadingScene : MonoBehaviour
 
         LoadingIco.localPosition = new Vector3(0f, -Camera.main.orthographicSize - ico_size_y2, 10f);
 
-        int next_scene_index = PlayerPrefs.GetInt(Constant.NextSceneIndex, Constant.OpeningScene);
+        int next_scene_index = PlayerPrefs.GetInt(Constant.NextSceneIndex, Constant.MainScene);
         StartCoroutine(LoadScene(next_scene_index));
     }
 

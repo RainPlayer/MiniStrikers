@@ -101,7 +101,7 @@ public class PlayerSelect : MonoBehaviour
         //按了取消键
         if (Input.GetKey(KeyCode.K) || Input.GetButton("Fire1_JS"))
         {
-            PlayerPrefs.SetInt(Constant.NextSceneIndex, Constant.OpeningScene);
+            PlayerPrefs.SetInt(Constant.NextSceneIndex, Constant.MainScene);
             SceneManager.LoadScene(Constant.LoadingScene);
         }
         //按了取消键

@@ -121,7 +121,7 @@ public class GameOverMenu : MonoBehaviour
             else if (MenuSelectedIndex == 1)
             {
                 //End
-                PlayerPrefs.SetInt(Constant.NextSceneIndex, Constant.OpeningScene);
+                PlayerPrefs.SetInt(Constant.NextSceneIndex, Constant.MainScene);
                 SceneManager.LoadScene(Constant.LoadingScene);
             }
 

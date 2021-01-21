@@ -34,7 +34,7 @@ public class GameClear : MonoBehaviour
 
     void ChangeScene()
     {
-        PlayerPrefs.SetInt(Constant.NextSceneIndex, Constant.OpeningScene);
+        PlayerPrefs.SetInt(Constant.NextSceneIndex, Constant.MainScene);
         SceneManager.LoadScene(Constant.LoadingScene);
     }
 

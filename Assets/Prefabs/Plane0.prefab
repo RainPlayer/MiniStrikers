@@ -150,7 +150,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.84, y: 0.84}
+  m_Size: {x: 0.3, y: 0.3}
   m_EdgeRadius: 0
 --- !u!114 &6764639076462177300
 MonoBehaviour:
@@ -164,7 +164,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0c5053f692b934457a484a6c88ecf5c0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ForceTime: 0
+  IsAlive: 1
+  IsForce: 0
 --- !u!82 &4994445431840347939
 AudioSource:
   m_ObjectHideFlags: 0
@@ -306,7 +307,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b7fde80975a23924eba5cc256d3d7d7d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  PlaneName: Plane0
   PlaneSpeed: 5
   FireATime: 0.05
   FireBTime: 0.04

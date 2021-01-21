@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
-public class OpeningMenu : MonoBehaviour
+public class MainMenu : MonoBehaviour
 {
     bool IsDirectionUp = false;
     bool IsDirectionDown = false;

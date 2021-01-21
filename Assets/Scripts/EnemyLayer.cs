@@ -32,7 +32,7 @@ public class EnemyLayer : MonoBehaviour
         SpriteRenderer enemy_sprite_renderer = enemy.GetComponent<SpriteRenderer>();
         float init_y = enemy_sprite_renderer.size.y * enemy.localScale.y / 2f;
         init_y += Camera.main.orthographicSize;
-        enemy.localPosition = new Vector3(init_x, init_y, enemy.localPosition.z);
+        enemy.localPosition = new Vector3(init_x, init_y + Camera.main.transform.localPosition.y, enemy.localPosition.z);
 
         //Camera.main.transform是目标对象的parent层
         enemy.SetParent(transform);

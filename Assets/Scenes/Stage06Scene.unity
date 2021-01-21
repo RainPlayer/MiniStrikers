@@ -874,6 +874,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7d91061a3db7756409cd59a9631cf66f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  StageCurr: Stage06
 --- !u!82 &347523776
 AudioSource:
   m_ObjectHideFlags: 0
@@ -1183,6 +1184,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 415108170}
+  - component: {fileID: 415108171}
   m_Layer: 0
   m_Name: EnemyLayer
   m_TagString: Untagged
@@ -1205,6 +1207,18 @@ Transform:
   m_Father: {fileID: 347523774}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &415108171
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 415108169}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 347da7279d553534c8e97e8773872ae2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &485140498
 PrefabInstance:
   m_ObjectHideFlags: 0

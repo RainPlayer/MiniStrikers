@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using System.Linq;
+using System.Reflection;
 
 public class StageCommon : MonoBehaviour
 {
@@ -12,11 +14,17 @@ public class StageCommon : MonoBehaviour
         Boss = 1 //boss战
     };
 
+    public string StageCurr = "Stage01";
+
     FHSpriteText Score;
     FHSpriteText PlayerLife;
 
     Transform PlayerLayer;
     Transform HideLayer;
+    EnemyLayer EnemyLayerScript;
+
+    //敌机的数据
+    IDictionary<float, string[]> EnemyData = null;
 
     GameProgress CurrGameProgress = GameProgress.Normal;
 
@@ -27,6 +35,9 @@ public class StageCommon : MonoBehaviour
 
         PlayerLayer = transform.root.Find("PlayerLayer");
         HideLayer = transform.root.Find("HideLayer");
+        Transform enemy_layer = transform.Find("EnemyLayer");
+        EnemyLayerScript = enemy_layer.GetComponent<EnemyLayer>();
+
         Transform player_info = transform.Find("PlayerInfo");
         Transform player_layer = transform.Find("PlayerLayer");
         Transform player_life_ico = player_info.Find("PlayerLifeIco");
@@ -44,14 +55,77 @@ public class StageCommon : MonoBehaviour
         Transform plane = player_layer.Find(Constant.PlayerPlane);
         player_life_ico.GetComponent<SpriteRenderer>().sprite = plane.Find(Constant.PlayerPlane.ToLower()).GetComponent<SpriteRenderer>().sprite;
 
+        //获取当前场景的敌机数据
+        Component stage_script = GetComponent(System.Type.GetType(StageCurr));
+        System.Type stage_script_type = stage_script.GetType();
+        EnemyData = (IDictionary<float, string[]>)stage_script_type.GetField("EnemyData").GetValue(stage_script);
+
     }
 
     // Update is called once per frame
     void Update()
     {
+        //敌机数据解析
+        IList<KeyValuePair<float, string[]>> curr_enemys_data = EnemyData.Where(t => t.Key <= transform.localPosition.y).ToList();
+        while (curr_enemys_data.Count > 0)
+        {
+            //1条敌机数据结构：显示y坐标,敌机组
+            KeyValuePair<float, string[]> enemys = curr_enemys_data[0];
+
+            //遍历敌机组
+            foreach (var enemy in enemys.Value)
+            {
+                string[] data = enemy.Split(',');
+
+                string enemy_name = ""; //敌机对象名称
+                float init_x = -1000f; //敌机出现的x坐标
+                IDictionary<string, object> enemy_params = new Dictionary<string, object>(); //需要设置的参数
+                foreach (var item in data)
+                {
+                    //如果是敌机对象名称或敌机出现的x坐标，则设置变量
+                    //除此之外均视为参数，然后加入参数组
+                    string[] tmp = item.Split(':');
+                    if (tmp[0] == "Name") enemy_name = tmp[1];
+                    else if (tmp[0] == "InitX") init_x = float.Parse(tmp[1]);
+                    else enemy_params.Add(tmp[0], tmp[1]);
+
+                }
+
+                //获取数据后，进行敌机初始化处理
+                if (enemy_name != "" && init_x > -1000f)
+                {
+                    Transform enemy_obj = EnemyLayerScript.InitEnemy(enemy_name, init_x);
+                    string enemy_script_name = enemy_obj.name.Replace("(Clone)", "").Split('_')[0] + "CPU";
+                    Component enemy_script = enemy_obj.GetComponent(System.Type.GetType(enemy_script_name));
+                    System.Type enemy_script_type = enemy_script.GetType();
+                    foreach (var enemy_param in enemy_params)
+                    {
+                        FieldInfo field = enemy_script_type.GetField(enemy_param.Key);
+                        field.SetValue(enemy_script, float.Parse(enemy_param.Value.ToString()));
+                    }
+
+                }
+            }
+
+            //已经使用过的敌机数据就删除
+            curr_enemys_data.Remove(enemys);
+            EnemyData.Remove(enemys);
+        }
+        //敌机数据解析 end
+
 #if UNITY_STANDALONE || UNITY_EDITOR
         UpdatePC();
 #endif
+
+    }
+
+    private void OnDestroy()
+    {
+        if (EnemyData != null)
+        {
+            EnemyData.Clear();
+        }
+
     }
 
     void UpdatePC()

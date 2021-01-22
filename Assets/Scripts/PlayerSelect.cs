@@ -156,6 +156,7 @@ public class PlayerSelect : MonoBehaviour
     {
         yield return new WaitForSeconds(3.0f);
 
+        //初始化自机数
         Constant.PlayerLifeCurr = Constant.PlayerLife;
 
         PlayerPrefs.SetInt(Constant.NextSceneIndex, Constant.Stage01Scene);

@@ -59,84 +59,89 @@ public class StageCommon : MonoBehaviour
 
         //获取当前场景的敌机数据
         Component stage_script = GetComponent(System.Type.GetType(StageCurr));
-        System.Type stage_script_type = stage_script.GetType();
-        EnemyData = (IDictionary<float, string[]>)stage_script_type.GetField("EnemyData").GetValue(stage_script);
-
+        if (stage_script != null)
+        {
+            System.Type stage_script_type = stage_script.GetType();
+            EnemyData = (IDictionary<float, string[]>)stage_script_type.GetField("EnemyData").GetValue(stage_script);
+        }
     }
 
     // Update is called once per frame
     void Update()
     {
         //敌机数据解析
-        IList<KeyValuePair<float, string[]>> curr_enemys_data = EnemyData.Where(t => t.Key <= transform.localPosition.y).ToList();
-        while (curr_enemys_data.Count > 0)
+        if (EnemyData != null)
         {
-            //1条敌机数据结构：显示y坐标,敌机组
-            KeyValuePair<float, string[]> enemys = curr_enemys_data[0];
-
-            //遍历敌机组
-            foreach (var enemy in enemys.Value)
+            IList<KeyValuePair<float, string[]>> curr_enemys_data = EnemyData.Where(t => t.Key <= transform.localPosition.y).ToList();
+            while (curr_enemys_data.Count > 0)
             {
-                string[] data = enemy.Split(',');
+                //1条敌机数据结构：显示y坐标,敌机组
+                KeyValuePair<float, string[]> enemys = curr_enemys_data[0];
 
-                string enemy_name = ""; //敌机对象名称
-                float init_x = -1000f; //敌机出现的x坐标
-                bool is_boss = false;
-                IDictionary<string, object> enemy_params = new Dictionary<string, object>(); //需要设置的参数
-                foreach (var item in data)
+                //遍历敌机组
+                foreach (var enemy in enemys.Value)
                 {
-                    //如果是Name、InitX、IsBoss，则设置变量
-                    //除此之外均视为参数，然后加入参数组
-                    string[] tmp = item.Split(':');
-                    if (tmp[0] == "Name") enemy_name = tmp[1];
-                    else if (tmp[0] == "InitX") init_x = float.Parse(tmp[1]);
-                    else if (tmp[0] == "IsBoss") is_boss = int.Parse(tmp[1]) == 1 ? true : false;
-                    else enemy_params.Add(tmp[0], tmp[1]);
+                    string[] data = enemy.Split(',');
 
-                }
-
-                //获取数据后，进行敌机初始化处理
-                if (enemy_name != "" && init_x > -1000f)
-                {
-                    Transform enemy_obj = EnemyLayerScript.InitEnemy(enemy_name, init_x);
-                    string enemy_script_name = enemy_obj.name.Replace("(Clone)", "").Split('_')[0] + "CPU"; //对应敌机程序名称
-                    Component enemy_script = enemy_obj.GetComponent(System.Type.GetType(enemy_script_name)); //对应敌机程序
-                    System.Type enemy_script_type = enemy_script.GetType();
-
-                    //对敌机程序设置解析过来的参数
-                    foreach (var enemy_param in enemy_params)
+                    string enemy_name = ""; //敌机对象名称
+                    float init_x = -1000f; //敌机出现的x坐标
+                    bool is_boss = false;
+                    IDictionary<string, object> enemy_params = new Dictionary<string, object>(); //需要设置的参数
+                    foreach (var item in data)
                     {
-                        FieldInfo field = enemy_script_type.GetField(enemy_param.Key);
-                        field.SetValue(enemy_script, float.Parse(enemy_param.Value.ToString()));
+                        //如果是Name、InitX、IsBoss，则设置变量
+                        //除此之外均视为参数，然后加入参数组
+                        string[] tmp = item.Split(':');
+                        if (tmp[0] == "Name") enemy_name = tmp[1];
+                        else if (tmp[0] == "InitX") init_x = float.Parse(tmp[1]);
+                        else if (tmp[0] == "IsBoss") is_boss = int.Parse(tmp[1]) == 1 ? true : false;
+                        else enemy_params.Add(tmp[0], tmp[1]);
+
                     }
 
+                    //获取数据后，进行敌机初始化处理
+                    if (enemy_name != "" && init_x > -1000f)
+                    {
+                        Transform enemy_obj = EnemyLayerScript.InitEnemy(enemy_name, init_x);
+                        string enemy_script_name = enemy_obj.name.Replace("(Clone)", "").Split('_')[0] + "CPU"; //对应敌机程序名称
+                        Component enemy_script = enemy_obj.GetComponent(System.Type.GetType(enemy_script_name)); //对应敌机程序
+                        System.Type enemy_script_type = enemy_script.GetType();
+
+                        //对敌机程序设置解析过来的参数
+                        foreach (var enemy_param in enemy_params)
+                        {
+                            FieldInfo field = enemy_script_type.GetField(enemy_param.Key);
+                            field.SetValue(enemy_script, float.Parse(enemy_param.Value.ToString()));
+                        }
+
+                    }
+
+                    //场景转换为boss状态
+                    if (is_boss)
+                    {
+                        ChnageGameProgress(GameProgress.Boss);
+                    }
                 }
 
-                //场景转换为boss状态
-                if(is_boss)
-                {
-                    ChnageGameProgress(GameProgress.Boss);
-                }
+                //已经使用过的敌机数据就删除
+                curr_enemys_data.Remove(enemys);
+                EnemyData.Remove(enemys);
             }
 
-            //已经使用过的敌机数据就删除
-            curr_enemys_data.Remove(enemys);
-            EnemyData.Remove(enemys);
+            //判断是否过关
+            //EnemyLayer.childCount里面还有一个用来放子弹的层，所以需要用<=1来判断
+            if (EnemyData.Count <= 0 && EnemyLayer.childCount <= 1 && !DoDelayStageClear)
+            {
+                Transform player_plane = PlayerLayer.Find(Constant.PlayerPlane);
+                PlayerPlaneCenter plane_center_script = player_plane.GetComponentInChildren<PlayerPlaneCenter>();
+                if (player_plane != null && plane_center_script != null && plane_center_script.IsAlive && !plane_center_script.IsForce)
+                {
+                    StartCoroutine(DelayStageClear());
+                    DoDelayStageClear = true;
+                }
+            }
         }
         //敌机数据解析 end
-
-        //判断是否过关
-        //EnemyLayer.childCount里面还有一个用来放子弹的层，所以需要用<=1来判断
-        if (EnemyData.Count <= 0 && EnemyLayer.childCount <= 1 && !DoDelayStageClear)
-        {
-            Transform player_plane = PlayerLayer.Find(Constant.PlayerPlane);
-            PlayerPlaneCenter plane_center_script = player_plane.GetComponentInChildren<PlayerPlaneCenter>();
-            if (player_plane != null && plane_center_script != null && plane_center_script.IsAlive && !plane_center_script.IsForce)
-            {
-                StartCoroutine(DelayStageClear());
-                DoDelayStageClear = true;
-            }
-        }
 
 #if UNITY_STANDALONE || UNITY_EDITOR
         UpdatePC();

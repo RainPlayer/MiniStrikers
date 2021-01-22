@@ -39,9 +39,18 @@ public class BgScroll : MonoBehaviour
             CurrBgIndex = bg_index;
 
             //这个判断是摄像头走到背景索引为奇数（奇数就走到了bg2背景）的时候就把bg1放到bg2上面，偶数就是bg2放到bg1上面
-            Transform bg = Convert.ToBoolean(CurrBgIndex % 2) ? Bg1 : Bg2;
-            bg.transform.localPosition = new Vector3(0f, ((float)CurrBgIndex + 1f) * size2, bg.transform.localPosition.z);
+            bool is_even = Convert.ToBoolean(CurrBgIndex % 2);
+            Transform bg = is_even ? Bg1 : Bg2;
+            float bg_y = ((float)CurrBgIndex + 1f) * size2;
+            bg.transform.localPosition = new Vector3(0f, bg_y, bg.transform.localPosition.z);
 
+            //如果另一个没有处理的bg的y坐标的位置跟计算出来的结果匹配不上则修正
+            bg = is_even ? Bg2 : Bg1;
+            bg_y = (float)CurrBgIndex * size2;
+            if (bg.transform.localPosition.y != bg_y)
+            {
+                bg.transform.localPosition = new Vector3(0f, bg_y, bg.transform.localPosition.z);
+            }
         }
 
     }

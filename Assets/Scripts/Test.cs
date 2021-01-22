@@ -15,6 +15,8 @@ public class Test : MonoBehaviour
     {
         Constant.ObjectIsPlayingSound(this);
 
+        Constant.PlayerLifeCurr = Constant.PlayerLife;
+
         /*Transform bullet = transform.Find("Bullet03");
         float r = FHUtility.Angle360(Vector2.zero, new Vector2(-100, 0));
         bullet.Rotate(0, 0, r + 90f);
@@ -49,7 +51,7 @@ public class Test : MonoBehaviour
         //EnemyLayer.GetComponent<EnemyLayer>().InitEnemy("Enemy07", 1f); //!!!
         //EnemyLayer.GetComponent<EnemyLayer>().InitEnemy("Enemy08", 0f); //!!!
         //EnemyLayer.GetComponent<EnemyLayer>().InitEnemy("Enemy09", -1f); //!!!
-        EnemyLayer.GetComponent<EnemyLayer>().InitEnemy("Enemy10", 0f); //!!!
+        //EnemyLayer.GetComponent<EnemyLayer>().InitEnemy("Enemy10", 0f); //!!!
         //EnemyLayer.GetComponent<EnemyLayer>().InitEnemy("Enemy11", -1f); //!!!
         //EnemyLayer.GetComponent<EnemyLayer>().InitEnemy("Enemy12", 0f); //!!!
         //EnemyLayer.GetComponent<EnemyLayer>().InitEnemy("Enemy13", 1f); //!!!
@@ -73,6 +75,8 @@ public class Test : MonoBehaviour
         //EnemyLayer.GetComponent<EnemyLayer>().InitEnemy("EnemyOther5", 2.5f); //!!!
         //EnemyLayer.GetComponent<EnemyLayer>().InitEnemy("EnemyOther6", 2.5f); //!!!
         //EnemyLayer.GetComponent<EnemyLayer>().InitEnemy("EnemyOther7", 2.5f); //!!!
+        
+        //CameraShake.ShakeFor(0.5f, 0.1f);
     }
 
     // Update is called once per frame

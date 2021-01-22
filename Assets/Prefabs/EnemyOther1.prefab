@@ -169,7 +169,7 @@ MonoBehaviour:
   BlastName: Blast01
   BlastMode: 0
   Score: 100
-  HP: 1
+  HP: 5
   EnemyLevel: 0
   EnemyVersionMat: {fileID: 0}
   EnemyHitMat: {fileID: 2100000, guid: 105efa0598bf54e37a350e54ace43b89, type: 2}

@@ -20,6 +20,8 @@ public class Stage01 : MonoBehaviour
         EnemyData.Add(3.5f, new string[] { "Name:Enemy02,InitX:1" });
         EnemyData.Add(8f, new string[] { "IsBoss:1" });
         EnemyData.Add(10f, new string[] { "Name:Enemy21,InitX:0" });
+
+
     }
 
     // Start is called before the first frame update

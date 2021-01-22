@@ -156,6 +156,8 @@ public class PlayerSelect : MonoBehaviour
     {
         yield return new WaitForSeconds(3.0f);
 
+        Constant.PlayerLifeCurr = Constant.PlayerLife;
+
         PlayerPrefs.SetInt(Constant.NextSceneIndex, Constant.Stage01Scene);
         SceneManager.LoadScene(Constant.LoadingScene);
     }

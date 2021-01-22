@@ -21,6 +21,7 @@ public class StageCommon : MonoBehaviour
 
     Transform PlayerLayer;
     Transform HideLayer;
+    Transform EnemyLayer;
     EnemyLayer EnemyLayerScript;
 
     //敌机的数据
@@ -38,8 +39,8 @@ public class StageCommon : MonoBehaviour
 
         PlayerLayer = transform.root.Find("PlayerLayer");
         HideLayer = transform.root.Find("HideLayer");
-        Transform enemy_layer = transform.Find("EnemyLayer");
-        EnemyLayerScript = enemy_layer.GetComponent<EnemyLayer>();
+        EnemyLayer = transform.Find("EnemyLayer");
+        EnemyLayerScript = EnemyLayer.GetComponent<EnemyLayer>();
 
         Transform player_info = transform.Find("PlayerInfo");
         Transform player_layer = transform.Find("PlayerLayer");
@@ -47,8 +48,6 @@ public class StageCommon : MonoBehaviour
 
         Score = player_info.Find("Score").GetComponent<FHSpriteText>();
         PlayerLife = player_life_ico.Find("PlayerLife").GetComponent<FHSpriteText>();
-
-        Constant.PlayerLifeCurr = Constant.PlayerLife;
 
         SetScore(Constant.ScoreCurr);
         SetPlayerLife(Constant.PlayerLifeCurr);
@@ -127,10 +126,16 @@ public class StageCommon : MonoBehaviour
         //敌机数据解析 end
 
         //判断是否过关
-        if (EnemyData.Count <= 0 && !DoDelayStageClear)
+        //EnemyLayer.childCount里面还有一个用来放子弹的层，所以需要用<=1来判断
+        if (EnemyData.Count <= 0 && EnemyLayer.childCount <= 1 && !DoDelayStageClear)
         {
-            StartCoroutine(DelayStageClear());
-            DoDelayStageClear = true;
+            Transform player_plane = PlayerLayer.Find(Constant.PlayerPlane);
+            PlayerPlaneCenter plane_center_script = player_plane.GetComponentInChildren<PlayerPlaneCenter>();
+            if (player_plane != null && plane_center_script != null && plane_center_script.IsAlive && !plane_center_script.IsForce)
+            {
+                StartCoroutine(DelayStageClear());
+                DoDelayStageClear = true;
+            }
         }
 
 #if UNITY_STANDALONE || UNITY_EDITOR
@@ -233,7 +238,7 @@ public class StageCommon : MonoBehaviour
 
     IEnumerator DelayStageClear()
     {
-        yield return new WaitForSeconds(5f);
+        yield return new WaitForSeconds(3f);
 
         //过关
         if (StageCurr == "Stage07")

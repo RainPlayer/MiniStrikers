@@ -26,6 +26,9 @@ public class StageCommon : MonoBehaviour
     //敌机的数据
     IDictionary<float, string[]> EnemyData = null;
 
+    //是否正在延迟执行DelayStageClear方法
+    bool DoDelayStageClear = false;
+
     GameProgress CurrGameProgress = GameProgress.Normal;
 
     // Start is called before the first frame update
@@ -79,14 +82,16 @@ public class StageCommon : MonoBehaviour
 
                 string enemy_name = ""; //敌机对象名称
                 float init_x = -1000f; //敌机出现的x坐标
+                bool is_boss = false;
                 IDictionary<string, object> enemy_params = new Dictionary<string, object>(); //需要设置的参数
                 foreach (var item in data)
                 {
-                    //如果是敌机对象名称或敌机出现的x坐标，则设置变量
+                    //如果是Name、InitX、IsBoss，则设置变量
                     //除此之外均视为参数，然后加入参数组
                     string[] tmp = item.Split(':');
                     if (tmp[0] == "Name") enemy_name = tmp[1];
                     else if (tmp[0] == "InitX") init_x = float.Parse(tmp[1]);
+                    else if (tmp[0] == "IsBoss") is_boss = int.Parse(tmp[1]) == 1 ? true : false;
                     else enemy_params.Add(tmp[0], tmp[1]);
 
                 }
@@ -95,15 +100,23 @@ public class StageCommon : MonoBehaviour
                 if (enemy_name != "" && init_x > -1000f)
                 {
                     Transform enemy_obj = EnemyLayerScript.InitEnemy(enemy_name, init_x);
-                    string enemy_script_name = enemy_obj.name.Replace("(Clone)", "").Split('_')[0] + "CPU";
-                    Component enemy_script = enemy_obj.GetComponent(System.Type.GetType(enemy_script_name));
+                    string enemy_script_name = enemy_obj.name.Replace("(Clone)", "").Split('_')[0] + "CPU"; //对应敌机程序名称
+                    Component enemy_script = enemy_obj.GetComponent(System.Type.GetType(enemy_script_name)); //对应敌机程序
                     System.Type enemy_script_type = enemy_script.GetType();
+
+                    //对敌机程序设置解析过来的参数
                     foreach (var enemy_param in enemy_params)
                     {
                         FieldInfo field = enemy_script_type.GetField(enemy_param.Key);
                         field.SetValue(enemy_script, float.Parse(enemy_param.Value.ToString()));
                     }
 
+                }
+
+                //场景转换为boss状态
+                if(is_boss)
+                {
+                    ChnageGameProgress(GameProgress.Boss);
                 }
             }
 
@@ -112,6 +125,13 @@ public class StageCommon : MonoBehaviour
             EnemyData.Remove(enemys);
         }
         //敌机数据解析 end
+
+        //判断是否过关
+        if (EnemyData.Count <= 0 && !DoDelayStageClear)
+        {
+            StartCoroutine(DelayStageClear());
+            DoDelayStageClear = true;
+        }
 
 #if UNITY_STANDALONE || UNITY_EDITOR
         UpdatePC();
@@ -203,16 +223,36 @@ public class StageCommon : MonoBehaviour
 
         //切换BGM
         AudioSource[] audios = GetComponents<AudioSource>();
-        if (CurrGameProgress == GameProgress.Normal)
+        foreach (var audio in audios)
         {
-            audios[1].Stop();
-            audios[0].Play();
-            return;
+            if (audio.isPlaying) audio.Stop();
         }
+        audios[CurrGameProgress == GameProgress.Normal ? 0 : 1].Play();
+        
+    }
 
-        //boss
-        audios[0].Stop();
-        audios[1].Play();
+    IEnumerator DelayStageClear()
+    {
+        yield return new WaitForSeconds(5f);
+
+        //过关
+        if (StageCurr == "Stage07")
+        {
+            //过了最后1关，则进入爆机场景
+
+            //加载资源少，用同步加载高效一点
+            SceneManager.LoadScene(Constant.GameClearScene);
+        }
+        else
+        {
+            //往下1关走
+            int scene = Constant.Stage01Scene;
+            scene++;
+            Constant.StageCurr = scene;
+
+            PlayerPrefs.SetInt(Constant.NextSceneIndex, scene);
+            SceneManager.LoadScene(Constant.LoadingScene);
+        }
     }
 
 }

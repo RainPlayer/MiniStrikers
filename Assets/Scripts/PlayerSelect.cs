@@ -52,13 +52,6 @@ public class PlayerSelect : MonoBehaviour
             if (!IsDirectionLeft)
             {
                 IsDirectionLeft = true;
-            }
-        }
-        else
-        {
-            if (IsDirectionLeft)
-            {
-                IsDirectionLeft = false;
 
                 if (PlayerSelectedIndex > 0)
                 {
@@ -66,6 +59,13 @@ public class PlayerSelect : MonoBehaviour
                     PlayerSelectedIndex--;
                     SelectedPlane();
                 }
+            }
+        }
+        else
+        {
+            if (IsDirectionLeft)
+            {
+                IsDirectionLeft = false;
             }
         }
         //方向左
@@ -78,13 +78,6 @@ public class PlayerSelect : MonoBehaviour
             if (!IsDirectionRight)
             {
                 IsDirectionRight = true;
-            }
-        }
-        else
-        {
-            if (IsDirectionRight)
-            {
-                IsDirectionRight = false;
 
                 if (PlayerSelectedIndex + 1 < PlayerLayer.childCount)
                 {
@@ -92,6 +85,13 @@ public class PlayerSelect : MonoBehaviour
                     PlayerSelectedIndex++;
                     SelectedPlane();
                 }
+            }
+        }
+        else
+        {
+            if (IsDirectionRight)
+            {
+                IsDirectionRight = false;
             }
         }
         //方向右

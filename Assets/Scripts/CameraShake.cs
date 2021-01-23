@@ -25,12 +25,15 @@ public class CameraShake : MonoBehaviour
     // Update is called once per frame
     void LateUpdate()
     {
-        camPOS = transform.localPosition;
-
         if (startShake)
         {
             transform.localPosition = camPOS + Random.insideUnitSphere * quake;
         }
+        else
+        {
+            camPOS = transform.localPosition;
+        }
+
 
         if (started)
         {

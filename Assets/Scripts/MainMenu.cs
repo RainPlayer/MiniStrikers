@@ -60,13 +60,6 @@ public class MainMenu : MonoBehaviour
             if (!IsDirectionUp)
             {
                 IsDirectionUp = true;
-            }
-        }
-        else
-        {
-            if (IsDirectionUp)
-            {
-                IsDirectionUp = false;
 
                 if (MenuSelectedIndex > 0)
                 {
@@ -76,6 +69,13 @@ public class MainMenu : MonoBehaviour
                     Transform MenuSelectedItem = Items.GetChild(MenuSelectedIndex);
                     MenuCursor.localPosition = new Vector3(MenuCursor.localPosition.x, MenuSelectedItem.localPosition.y, MenuCursor.localPosition.z);
                 }
+            }
+        }
+        else
+        {
+            if (IsDirectionUp)
+            {
+                IsDirectionUp = false;
             }
         }
         //方向上
@@ -88,13 +88,6 @@ public class MainMenu : MonoBehaviour
             if (!IsDirectionDown)
             {
                 IsDirectionDown = true;
-            }
-        }
-        else
-        {
-            if (IsDirectionDown)
-            {
-                IsDirectionDown = false;
 
                 if (MenuSelectedIndex + 1 < MenuLength)
                 {
@@ -104,6 +97,13 @@ public class MainMenu : MonoBehaviour
                     Transform MenuSelectedItem = Items.GetChild(MenuSelectedIndex);
                     MenuCursor.localPosition = new Vector3(MenuCursor.localPosition.x, MenuSelectedItem.localPosition.y, MenuCursor.localPosition.z);
                 }
+            }
+        }
+        else
+        {
+            if (IsDirectionDown)
+            {
+                IsDirectionDown = false;
             }
         }
         //方向下

@@ -61,13 +61,6 @@ public class OptionMenu : MonoBehaviour
             if (!IsDirectionUp)
             {
                 IsDirectionUp = true;
-            }
-        }
-        else
-        {
-            if (IsDirectionUp)
-            {
-                IsDirectionUp = false;
 
                 if (MenuSelectedIndex > 0)
                 {
@@ -77,6 +70,13 @@ public class OptionMenu : MonoBehaviour
                     Transform MenuSelectedItem = Items.GetChild(MenuSelectedIndex);
                     MenuCursor.localPosition = new Vector3(MenuCursor.localPosition.x, MenuSelectedItem.localPosition.y, MenuCursor.localPosition.z);
                 }
+            }
+        }
+        else
+        {
+            if (IsDirectionUp)
+            {
+                IsDirectionUp = false;
             }
         }
         //方向上
@@ -89,13 +89,6 @@ public class OptionMenu : MonoBehaviour
             if (!IsDirectionDown)
             {
                 IsDirectionDown = true;
-            }
-        }
-        else
-        {
-            if (IsDirectionDown)
-            {
-                IsDirectionDown = false;
 
                 if (MenuSelectedIndex + 1 < MenuLength)
                 {
@@ -105,6 +98,13 @@ public class OptionMenu : MonoBehaviour
                     Transform MenuSelectedItem = Items.GetChild(MenuSelectedIndex);
                     MenuCursor.localPosition = new Vector3(MenuCursor.localPosition.x, MenuSelectedItem.localPosition.y, MenuCursor.localPosition.z);
                 }
+            }
+        }
+        else
+        {
+            if (IsDirectionDown)
+            {
+                IsDirectionDown = false;
             }
         }
         //方向下
@@ -117,13 +117,6 @@ public class OptionMenu : MonoBehaviour
             if (!IsDirectionLeft)
             {
                 IsDirectionLeft = true;
-            }
-        }
-        else
-        {
-            if (IsDirectionLeft)
-            {
-                IsDirectionLeft = false;
 
                 if (MenuSelectedIndex == 0)
                 {
@@ -140,6 +133,13 @@ public class OptionMenu : MonoBehaviour
                 }
             }
         }
+        else
+        {
+            if (IsDirectionLeft)
+            {
+                IsDirectionLeft = false;
+            }
+        }
         //方向左
         //======================================
 
@@ -150,13 +150,6 @@ public class OptionMenu : MonoBehaviour
             if (!IsDirectionRight)
             {
                 IsDirectionRight = true;
-            }
-        }
-        else
-        {
-            if (IsDirectionRight)
-            {
-                IsDirectionRight = false;
 
                 if (MenuSelectedIndex == 0)
                 {
@@ -171,6 +164,13 @@ public class OptionMenu : MonoBehaviour
                     Constant.GameIsPlayingSound = !Constant.GameIsPlayingSound;
                     ItemSoundText.GetComponent<Text>().text = Constant.GameIsPlayingSound ? "On" : "Off";
                 }
+            }
+        }
+        else
+        {
+            if (IsDirectionRight)
+            {
+                IsDirectionRight = false;
             }
         }
         //方向右

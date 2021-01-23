@@ -60,7 +60,7 @@ public class PlayerPlaneCenter : MonoBehaviour
         //无敌状态的处理
         if (IsForce)
         {
-            if (!PrevIsForce)
+            if (!PrevIsForce && !Constant.IsDebug)
             {
                 StartCoroutine(ForceDisable());
                 PrevIsForce = true;

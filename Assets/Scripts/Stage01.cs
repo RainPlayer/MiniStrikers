@@ -31,16 +31,10 @@ public class Stage01 : MonoBehaviour
             "Name:Enemy01_1,InitX:1,MoveTargetY:1,MoveTime:1",
             "Name:Enemy01_1,InitX:2,MoveTargetY:1,MoveTime:1",
             "Name:Enemy01_0,InitX:3,MoveTargetY:1,MoveTime:1",
-            "Name:Enemy01_0,InitX:-1,MoveTargetY:1,MoveTime:1",
-            "Name:Enemy01_1,InitX:-2,MoveTargetY:1,MoveTime:1",
-            "Name:Enemy01_1,InitX:-3,MoveTargetY:1,MoveTime:1",
         });
         EnemyData.Add(2.2f, new string[]
         {
             "Name:Enemy01_0,InitX:0,MoveTargetY:2,MoveTime:0.7",
-            "Name:Enemy01_1,InitX:1,MoveTargetY:2,MoveTime:0.7",
-            "Name:Enemy01_1,InitX:2,MoveTargetY:2,MoveTime:0.7",
-            "Name:Enemy01_0,InitX:3,MoveTargetY:2,MoveTime:0.7",
             "Name:Enemy01_0,InitX:-1,MoveTargetY:2,MoveTime:0.7",
             "Name:Enemy01_1,InitX:-2,MoveTargetY:2,MoveTime:0.7",
             "Name:Enemy01_1,InitX:-3,MoveTargetY:2,MoveTime:0.7",
@@ -50,10 +44,8 @@ public class Stage01 : MonoBehaviour
             "Name:Enemy01_0,InitX:0,MoveTargetY:3",
             "Name:Enemy01_1,InitX:1,MoveTargetY:3",
             "Name:Enemy01_1,InitX:2,MoveTargetY:3",
-            "Name:Enemy01_0,InitX:3,MoveTargetY:3",
             "Name:Enemy01_0,InitX:-1,MoveTargetY:3",
             "Name:Enemy01_1,InitX:-2,MoveTargetY:3",
-            "Name:Enemy01_1,InitX:-3,MoveTargetY:3",
         });
         EnemyData.Add(3f, new string[]
         {
@@ -64,7 +56,6 @@ public class Stage01 : MonoBehaviour
         EnemyData.Add(3.4f, new string[]
         {
             "Name:Enemy05,InitX:-3,MoveTargetY:4",
-            "Name:Enemy05,InitX:3,MoveTargetY:4",
         });
         EnemyData.Add(3.6f, new string[]
         {
@@ -108,17 +99,11 @@ public class Stage01 : MonoBehaviour
         });
         EnemyData.Add(4.8f, new string[]
         {
-            "Name:Enemy05,InitX:-1,MoveTargetY:4",
-            "Name:Enemy05,InitX:1,MoveTargetY:4",
-            "Name:Enemy05,InitX:-3,MoveTargetY:4",
             "Name:Enemy05,InitX:3,MoveTargetY:4",
         });
         EnemyData.Add(5.0f, new string[]
         {
-            "Name:Enemy05,InitX:-1,MoveTargetY:2",
-            "Name:Enemy05,InitX:1,MoveTargetY:2",
-            "Name:Enemy05,InitX:-3,MoveTargetY:2",
-            "Name:Enemy05,InitX:3,MoveTargetY:2",
+            "Name:Enemy05,InitX:3,MoveTargetY:2,MoveTime:0.7",
         });
         EnemyData.Add(5.3f, new string[]
         {
@@ -128,7 +113,7 @@ public class Stage01 : MonoBehaviour
         });
         EnemyData.Add(5.6f, new string[]
         {
-            "Name:Enemy05,InitX:-0.5",
+            "Name:Enemy05,InitX:0",
             "Name:Enemy01_1,InitX:2.8,MoveTargetY:3",
             "Name:Enemy01_0,InitX:3.2,MoveTargetY:3",
         });
@@ -137,6 +122,276 @@ public class Stage01 : MonoBehaviour
             "Name:Enemy02,InitX:2.8",
             "Name:Enemy02,InitX:3.2",
         });
+        EnemyData.Add(6f, new string[]
+        {
+            "Name:Enemy02,InitX:-2.8",
+            "Name:Enemy02,InitX:-3.2",
+        });
+        EnemyData.Add(6.3f, new string[]
+        {
+            "Name:Enemy18,InitX:-2.6",
+        });
+        EnemyData.Add(6.8f, new string[]
+        {
+            "Name:Enemy05,InitX:-1,MoveTargetY:4",
+            "Name:Enemy05,InitX:1,MoveTargetY:4",
+        });
+        EnemyData.Add(7.0f, new string[]
+        {
+            "Name:Enemy05,InitX:-1,MoveTargetY:2,MoveTime:0.7",
+            "Name:Enemy05,InitX:1,MoveTargetY:2,MoveTime:0.7",
+        });
+        EnemyData.Add(7.3f, new string[]
+        {
+            "Name:Enemy01_0,InitX:0,MoveTargetY:3",
+            "Name:Enemy01_0,InitX:-1,MoveTargetY:3",
+            "Name:Enemy01_1,InitX:-2,MoveTargetY:3",
+            "Name:Enemy01_1,InitX:-3,MoveTargetY:3",
+        });
+        EnemyData.Add(8.5f, new string[]
+        {
+            "Name:Enemy01_0,InitX:0,MoveTargetY:1,MoveTime:1",
+            "Name:Enemy01_1,InitX:1,MoveTargetY:1,MoveTime:1",
+            "Name:Enemy01_1,InitX:2,MoveTargetY:1,MoveTime:1",
+            "Name:Enemy01_0,InitX:3,MoveTargetY:1,MoveTime:1",
+        });
+        EnemyData.Add(8.8f, new string[]
+        {
+            "Name:Enemy01_0,InitX:0,MoveTargetY:2,MoveTime:0.7",
+            "Name:Enemy01_0,InitX:-1,MoveTargetY:2,MoveTime:0.7",
+            "Name:Enemy01_1,InitX:-2,MoveTargetY:2,MoveTime:0.7",
+            "Name:Enemy01_1,InitX:-3,MoveTargetY:2,MoveTime:0.7",
+        });
+        EnemyData.Add(9.1f, new string[]
+        {
+            "Name:Enemy01_0,InitX:0,MoveTargetY:3",
+            "Name:Enemy01_1,InitX:1,MoveTargetY:3",
+            "Name:Enemy01_1,InitX:2,MoveTargetY:3",
+            "Name:Enemy01_0,InitX:-1,MoveTargetY:3",
+            "Name:Enemy01_1,InitX:-2,MoveTargetY:3",
+        });
+        EnemyData.Add(9.7f, new string[]
+        {
+            "Name:Enemy02,InitX:0",
+            "Name:Enemy02,InitX:0.5",
+            "Name:Enemy02,InitX:-2",
+        });
+        EnemyData.Add(10.1f, new string[]
+        {
+            "Name:Enemy05,InitX:3,MoveTargetY:4",
+        });
+        EnemyData.Add(10.3f, new string[]
+        {
+            "Name:EnemyOther0,InitX:-3.5",
+            "Name:EnemyOther0,InitX:3.5",
+        });
+        EnemyData.Add(10.4f, new string[]
+        {
+            "Name:EnemyOther1,InitX:-2.5",
+            "Name:EnemyOther1,InitX:2.5",
+        });
+        EnemyData.Add(10.8f, new string[]
+        {
+            "Name:Enemy02,InitX:-1",
+            "Name:Enemy02,InitX:0",
+            "Name:Enemy02,InitX:1",
+        });
+        EnemyData.Add(11f, new string[]
+        {
+            "Name:Enemy02,InitX:-1",
+            "Name:Enemy02,InitX:0",
+            "Name:Enemy02,InitX:1",
+        });
+        EnemyData.Add(11.2f, new string[]
+        {
+            "Name:Enemy02,InitX:-1",
+            "Name:Enemy02,InitX:0",
+            "Name:Enemy02,InitX:1",
+        });
+        EnemyData.Add(11.3f, new string[]
+        {
+            "Name:Enemy02,InitX:-1",
+            "Name:Enemy02,InitX:0",
+            "Name:Enemy02,InitX:1",
+        });
+        EnemyData.Add(11.5f, new string[]
+        {
+            "Name:Enemy02,InitX:-1",
+            "Name:Enemy02,InitX:0",
+            "Name:Enemy02,InitX:1",
+        });
+        EnemyData.Add(11.8f, new string[]
+        {
+            "Name:Enemy05,InitX:-3,MoveTargetY:4",
+        });
+        EnemyData.Add(12f, new string[]
+        {
+            "Name:Enemy05,InitX:3,MoveTargetY:2,MoveTime:0.7",
+        });
+        EnemyData.Add(12.3f, new string[]
+        {
+            "Name:Enemy02,InitX:-3.3",
+            "Name:Enemy02,InitX:0",
+            "Name:Enemy02,InitX:3.3",
+        });
+        EnemyData.Add(12.6f, new string[]
+        {
+            "Name:Enemy05,InitX:0",
+            "Name:Enemy01_1,InitX:2.8,MoveTargetY:3",
+            "Name:Enemy01_0,InitX:3.2,MoveTargetY:3",
+        });
+        EnemyData.Add(12.8f, new string[]
+        {
+            "Name:Enemy02,InitX:2.8",
+            "Name:Enemy02,InitX:3.2",
+        });
+        EnemyData.Add(13f, new string[]
+        {
+            "Name:Enemy02,InitX:-2.8",
+            "Name:Enemy02,InitX:-3.2",
+        });
+        EnemyData.Add(13.3f, new string[]
+        {
+            "Name:Enemy18,InitX:-2.6",
+        });
+        EnemyData.Add(13.8f, new string[]
+        {
+            "Name:Enemy05,InitX:1,MoveTargetY:4",
+        });
+        EnemyData.Add(14.0f, new string[]
+        {
+            "Name:Enemy05,InitX:-1,MoveTargetY:2,MoveTime:0.7",
+        });
+        EnemyData.Add(14.3f, new string[]
+        {
+            "Name:Enemy01_0,InitX:0,MoveTargetY:3",
+            "Name:Enemy01_0,InitX:-1,MoveTargetY:3",
+            "Name:Enemy01_1,InitX:-2,MoveTargetY:3",
+            "Name:Enemy01_1,InitX:-3,MoveTargetY:3",
+        });
+        EnemyData.Add(15f, new string[]
+        {
+            "Name:Enemy01_0,InitX:0,MoveTargetY:1,MoveTime:1",
+            "Name:Enemy01_1,InitX:1,MoveTargetY:1,MoveTime:1",
+            "Name:Enemy01_1,InitX:2,MoveTargetY:1,MoveTime:1",
+            "Name:Enemy01_0,InitX:3,MoveTargetY:1,MoveTime:1",
+        });
+        EnemyData.Add(15.2f, new string[]
+        {
+            "Name:Enemy01_0,InitX:0,MoveTargetY:2,MoveTime:0.7",
+            "Name:Enemy01_0,InitX:-1,MoveTargetY:2,MoveTime:0.7",
+            "Name:Enemy01_1,InitX:-2,MoveTargetY:2,MoveTime:0.7",
+            "Name:Enemy01_1,InitX:-3,MoveTargetY:2,MoveTime:0.7",
+        });
+        EnemyData.Add(15.4f, new string[]
+        {
+            "Name:Enemy01_0,InitX:0,MoveTargetY:3",
+            "Name:Enemy01_1,InitX:1,MoveTargetY:3",
+            "Name:Enemy01_1,InitX:2,MoveTargetY:3",
+            "Name:Enemy01_0,InitX:-1,MoveTargetY:3",
+            "Name:Enemy01_1,InitX:-2,MoveTargetY:3",
+        });
+        EnemyData.Add(16f, new string[]
+        {
+            "Name:Enemy02,InitX:0",
+            "Name:Enemy02,InitX:0.5",
+            "Name:Enemy02,InitX:-2",
+        });
+        EnemyData.Add(16.4f, new string[]
+        {
+            "Name:Enemy05,InitX:-3,MoveTargetY:4",
+        });
+        EnemyData.Add(16.6f, new string[]
+        {
+            "Name:EnemyOther0,InitX:-3.5",
+            "Name:EnemyOther0,InitX:3.5",
+        });
+        EnemyData.Add(16.7f, new string[]
+        {
+            "Name:EnemyOther1,InitX:-2.5",
+            "Name:EnemyOther1,InitX:2.5",
+        });
+        EnemyData.Add(17.0f, new string[]
+        {
+            "Name:Enemy02,InitX:-1",
+            "Name:Enemy02,InitX:0",
+            "Name:Enemy02,InitX:1",
+        });
+        EnemyData.Add(17.1f, new string[]
+        {
+            "Name:Enemy02,InitX:-1",
+            "Name:Enemy02,InitX:0",
+            "Name:Enemy02,InitX:1",
+        });
+        EnemyData.Add(17.2f, new string[]
+        {
+            "Name:Enemy02,InitX:-1",
+            "Name:Enemy02,InitX:0",
+            "Name:Enemy02,InitX:1",
+        });
+        EnemyData.Add(17.3f, new string[]
+        {
+            "Name:Enemy02,InitX:-1",
+            "Name:Enemy02,InitX:0",
+            "Name:Enemy02,InitX:1",
+        });
+        EnemyData.Add(17.5f, new string[]
+        {
+            "Name:Enemy02,InitX:-1",
+            "Name:Enemy02,InitX:0",
+            "Name:Enemy02,InitX:1",
+        });
+        EnemyData.Add(17.8f, new string[]
+        {
+            "Name:Enemy05,InitX:3,MoveTargetY:4",
+        });
+        EnemyData.Add(18.0f, new string[]
+        {
+            "Name:Enemy05,InitX:-3,MoveTargetY:2,MoveTime:0.7",
+        });
+        EnemyData.Add(18.3f, new string[]
+        {
+            "Name:Enemy02,InitX:-3.3",
+            "Name:Enemy02,InitX:0",
+            "Name:Enemy02,InitX:3.3",
+        });
+        EnemyData.Add(18.6f, new string[]
+        {
+            "Name:Enemy05,InitX:0",
+            "Name:Enemy01_1,InitX:2.8,MoveTargetY:3",
+            "Name:Enemy01_0,InitX:3.2,MoveTargetY:3",
+        });
+        EnemyData.Add(18.8f, new string[]
+        {
+            "Name:Enemy02,InitX:2.8",
+            "Name:Enemy02,InitX:3.2",
+        });
+        EnemyData.Add(19f, new string[]
+        {
+            "Name:Enemy02,InitX:-2.8",
+            "Name:Enemy02,InitX:-3.2",
+        });
+        EnemyData.Add(19.3f, new string[]
+        {
+            "Name:Enemy18,InitX:-2.6",
+        });
+        EnemyData.Add(19.8f, new string[]
+        {
+            "Name:Enemy05,InitX:1,MoveTargetY:4",
+        });
+        EnemyData.Add(20.0f, new string[]
+        {
+            "Name:Enemy05,InitX:-1,MoveTargetY:2,MoveTime:0.7",
+        });
+        EnemyData.Add(20.3f, new string[]
+        {
+            "Name:Enemy01_0,InitX:0,MoveTargetY:3",
+            "Name:Enemy01_0,InitX:-1,MoveTargetY:3",
+            "Name:Enemy01_1,InitX:-2,MoveTargetY:3",
+            "Name:Enemy01_1,InitX:-3,MoveTargetY:3",
+        });
+        EnemyData.Add(24f, new string[] { "IsBoss:1" });
+        EnemyData.Add(26f, new string[] { "Name:Enemy21,InitX:0" });
 
     }
 

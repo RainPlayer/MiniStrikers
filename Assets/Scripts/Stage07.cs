@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class Stage07 : MonoBehaviour
 {
@@ -13,6 +14,8 @@ public class Stage07 : MonoBehaviour
     void Start()
     {
         EnemyLayer = Camera.main.transform.Find("EnemyLayer");
+
+        //最后1关连续跟之前的boss打1次
         BossData = new Queue<string>();
         BossData.Enqueue("Enemy21");
         BossData.Enqueue("Enemy22");
@@ -29,6 +32,7 @@ public class Stage07 : MonoBehaviour
     {
         if (EnemyLayer.childCount <= 1 && IsBossGo)
         {
+            IsBossGo = false;
             StartCoroutine(BossGo());
         }
     }
@@ -48,12 +52,21 @@ public class Stage07 : MonoBehaviour
     
     IEnumerator BossGo()
     {
-        if (!IsBossGo)
-        {
-            IsBossGo = true;
-        }
-
         yield return new WaitForSeconds(3f);
-        EnemyLayer.GetComponent<EnemyLayer>().InitEnemy(BossData.Dequeue(), 0f);
+        if (BossData.Count > 0)
+        {
+            if (!IsBossGo)
+            {
+                IsBossGo = true;
+            }
+            EnemyLayer.GetComponent<EnemyLayer>().InitEnemy(BossData.Dequeue(), 0f);
+        }
+        else
+        {
+            //爆机了
+            //过了最后1关，则进入爆机场景
+            //加载资源少，用同步加载高效一点
+            SceneManager.LoadScene(Constant.GameClearScene);
+        }
     }
 }

@@ -138,7 +138,7 @@ public class StageCommon : MonoBehaviour
             {
                 Transform player_plane = PlayerLayer.Find(Constant.PlayerPlane);
                 PlayerPlaneCenter plane_center_script = player_plane.GetComponentInChildren<PlayerPlaneCenter>();
-                if (player_plane != null && plane_center_script != null && plane_center_script.IsAlive && !plane_center_script.IsForce)
+                if (player_plane != null && plane_center_script != null && plane_center_script.IsAlive && (!plane_center_script.IsForce || Constant.IsDebug))
                 {
                     StartCoroutine(DelayStageClear());
                     DoDelayStageClear = true;
@@ -252,8 +252,9 @@ public class StageCommon : MonoBehaviour
         //过关
         if (StageCurr == "Stage07")
         {
-            //过了最后1关，则进入爆机场景
+            //这个分支并不会进入，因为Stage07.cs没有使用EnemyData这个字段
 
+            //过了最后1关，则进入爆机场景
             //加载资源少，用同步加载高效一点
             SceneManager.LoadScene(Constant.GameClearScene);
         }

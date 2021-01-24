@@ -62,7 +62,11 @@ public class StageCommon : MonoBehaviour
         if (stage_script != null)
         {
             System.Type stage_script_type = stage_script.GetType();
-            EnemyData = (IDictionary<float, string[]>)stage_script_type.GetField("EnemyData").GetValue(stage_script);
+            FieldInfo enemy_data_field = stage_script_type.GetField("EnemyData");
+            if (enemy_data_field != null)
+            {
+                EnemyData = (IDictionary<float, string[]>)enemy_data_field.GetValue(stage_script);
+            }
         }
     }
 

@@ -4,31 +4,56 @@ using UnityEngine;
 
 public class Stage07 : MonoBehaviour
 {
-    public IDictionary<float, string[]> EnemyData;
 
-    private void Awake()
-    {
-        EnemyData = new Dictionary<float, string[]>();
-
-        EnemyData.Add(8f, new string[] { "IsBoss:1" });
-        //EnemyData.Add(10f, new string[] { "Name:Enemy22,InitX:0" });
-        EnemyData.Add(10f, new string[] { "Name:Enemy02,InitX:1" });
-    }
+    Transform EnemyLayer;
+    Queue<string> BossData;
+    bool IsBossGo = false;
 
     // Start is called before the first frame update
     void Start()
     {
-        
+        EnemyLayer = Camera.main.transform.Find("EnemyLayer");
+        BossData = new Queue<string>();
+        BossData.Enqueue("Enemy21");
+        BossData.Enqueue("Enemy22");
+        BossData.Enqueue("Enemy23");
+        BossData.Enqueue("Enemy24");
+        BossData.Enqueue("Enemy25");
+        BossData.Enqueue("Enemy10");
+
+        StartCoroutine(ChangeBossBattle());
     }
 
     // Update is called once per frame
     void Update()
     {
-        
+        if (EnemyLayer.childCount <= 1 && IsBossGo)
+        {
+            StartCoroutine(BossGo());
+        }
     }
 
     private void OnDestroy()
     {
-        EnemyData.Clear();
+
+    }
+
+    IEnumerator ChangeBossBattle()
+    {
+        yield return new WaitForSeconds(3f);
+
+        Camera.main.transform.GetComponent<StageCommon>().ChnageGameProgress(StageCommon.GameProgress.Boss);
+        StartCoroutine(BossGo());
+    }
+    
+    IEnumerator BossGo()
+    {
+        if (!IsBossGo)
+        {
+            IsBossGo = true;
+        }
+
+        yield return new WaitForSeconds(3f);
+        EnemyLayer.GetComponent<EnemyLayer>().InitEnemy(BossData.Dequeue(), 0f);
     }
 }

@@ -197,10 +197,10 @@ public class Enemy10CPU : MonoBehaviour
             {
                 //中间
                 float angle = FHUtility.Angle360(transform.localPosition + GunOffsetPosMiddle, PlayerPlanePos);
-                Fire02(Gun.Middle, angle - 6);
                 Fire02(Gun.Middle, angle - 12);
-                Fire02(Gun.Middle, angle + 6);
+                Fire02(Gun.Middle, angle - 18);
                 Fire02(Gun.Middle, angle + 12);
+                Fire02(Gun.Middle, angle + 18);
             }
 
             NextFireTime = Time.time + FireTime;

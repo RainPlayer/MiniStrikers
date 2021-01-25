@@ -139,11 +139,6 @@ public class Stage03 : MonoBehaviour
         {
             "Name:Enemy12,InitX:-3.1",
         });
-        EnemyData.Add(6.4f, new string[]
-        {
-            "Name:Enemy12,InitX:3,MoveTargetY:5",
-            "Name:Enemy12,InitX:-2,MoveTargetY:5",
-        });
         EnemyData.Add(6.7f, new string[]
         {
             "Name:Enemy17,InitX:1,MoveTargetY:5",
@@ -278,11 +273,6 @@ public class Stage03 : MonoBehaviour
         {
             "Name:Enemy12,InitX:-3.1",
         });
-        EnemyData.Add(11.4f, new string[]
-        {
-            "Name:Enemy12,InitX:3,MoveTargetY:5",
-            "Name:Enemy12,InitX:-2,MoveTargetY:5",
-        });
         EnemyData.Add(11.7f, new string[]
         {
             "Name:Enemy17,InitX:1,MoveTargetY:5",
@@ -416,11 +406,6 @@ public class Stage03 : MonoBehaviour
         EnemyData.Add(16f, new string[]
         {
             "Name:Enemy12,InitX:-3.1",
-        });
-        EnemyData.Add(16.4f, new string[]
-        {
-            "Name:Enemy12,InitX:3,MoveTargetY:5",
-            "Name:Enemy12,InitX:-2,MoveTargetY:5",
         });
         EnemyData.Add(16.7f, new string[]
         {

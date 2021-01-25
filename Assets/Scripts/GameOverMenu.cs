@@ -100,27 +100,26 @@ public class GameOverMenu : MonoBehaviour
         //按了确认键
         if (Input.GetKey(KeyCode.L) || Input.GetButton("Fire2_JS"))
         {
+            //恢复初始状态
+            Constant.GameIsPause = false;
+            Constant.PlayerLifeCurr = Constant.PlayerLife;
+            Constant.ScoreCurr = 0;
+            if (Time.timeScale == 0)
+            {
+                Time.timeScale = 1;
+            }
+            //恢复初始状态 end
+
             if (MenuSelectedIndex == 0)
             {
                 //Continue，初始化
-                //恢复初始状态
-                Constant.GameIsPause = false;
-                Constant.PlayerPlane = "Plane0";
-                Constant.PlayerLifeCurr = Constant.PlayerLife;
-                Constant.ScoreCurr = 0;
-                Constant.StageCurr = Constant.Stage01Scene;
-                if (Time.timeScale == 0)
-                {
-                    Time.timeScale = 1;
-                }
-                //恢复初始状态 end
-
                 PlayerPrefs.SetInt(Constant.NextSceneIndex, Constant.StageCurr);
                 SceneManager.LoadScene(Constant.LoadingScene);
             }
             else if (MenuSelectedIndex == 1)
             {
                 //End
+                Constant.StageCurr = Constant.Stage01Scene;
                 PlayerPrefs.SetInt(Constant.NextSceneIndex, Constant.MainScene);
                 SceneManager.LoadScene(Constant.LoadingScene);
             }

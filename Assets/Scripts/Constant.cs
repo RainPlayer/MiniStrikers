@@ -59,7 +59,7 @@ public class Constant
     public static readonly string NextSceneIndex = "next_scene_index";
 
     //开启调式后，player一直处在无敌状态
-    public static readonly bool IsDebug = true;
+    public static readonly bool IsDebug = false;
 
     //在每个需要处理声音开关的程序的Start方法最前面执行
     public static void ObjectIsPlayingSound(MonoBehaviour obj)

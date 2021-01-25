@@ -35,7 +35,7 @@ public class PlayerPlane : MonoBehaviour
     float NextFireBTime = 0f;
     //float NextFireBTime2 = 0f;
 
-    bool DoBulletA = false; //防止子弹AB的冲突
+    bool DoBulletB = false; //防止子弹AB的冲突
 
     SpeedMode PlaneSpeedMode = SpeedMode.Normal;
 
@@ -224,45 +224,8 @@ public class PlayerPlane : MonoBehaviour
         //======================================
 
         //======================================
-        //子弹A
-        if ((Input.GetKey(KeyCode.K) || Input.GetButton("Fire1_JS")) && Time.time > NextFireATime)
-        {
-            if (gameObject.name == "Plane0")
-            {
-                //布局子弹A
-                Bullet01(4);
-            }
-            else if (gameObject.name == "Plane1")
-            {
-                //布局子弹A
-                Bullet01(6);
-            }
-            else if (gameObject.name == "Plane2")
-            {
-                //布局子弹A
-                Bullet01(2);
-
-                Bullet03(3f);
-                Bullet03(4f);
-            }
-            else if (gameObject.name == "Plane3")
-            {
-                Bullet01(4);
-            }
-
-            NextFireATime = Time.time + FireATime;
-        }
-        if (Input.GetKeyUp(KeyCode.K) || Input.GetButtonUp("Fire1_JS"))
-        {
-            DoBulletA = false;
-        }
-
-        //子弹A
-        //======================================
-
-        //======================================
         //子弹B
-        if (!DoBulletA && (Input.GetKey(KeyCode.L) || Input.GetButton("Fire2_JS")))
+        if (Input.GetKey(KeyCode.L) || Input.GetButton("Fire2_JS"))
         {
             if (Time.time > NextFireBTime)
             {
@@ -348,6 +311,8 @@ public class PlayerPlane : MonoBehaviour
                 PlaneSpeed /= 2.5f;
                 PlaneSpeedMode = SpeedMode.Slow;
             }
+
+            DoBulletB = true;
         }
         else
         {
@@ -357,8 +322,41 @@ public class PlayerPlane : MonoBehaviour
                 PlaneSpeed *= 2.5f;
                 PlaneSpeedMode = SpeedMode.Normal;
             }
+            DoBulletB = false;
         }
         //子弹B
+        //======================================
+
+        //======================================
+        //子弹A
+        if (!DoBulletB && (Input.GetKey(KeyCode.K) || Input.GetButton("Fire1_JS")) && Time.time > NextFireATime)
+        {
+            if (gameObject.name == "Plane0")
+            {
+                //布局子弹A
+                Bullet01(4);
+            }
+            else if (gameObject.name == "Plane1")
+            {
+                //布局子弹A
+                Bullet01(6);
+            }
+            else if (gameObject.name == "Plane2")
+            {
+                //布局子弹A
+                Bullet01(2);
+
+                Bullet03(3f);
+                Bullet03(4f);
+            }
+            else if (gameObject.name == "Plane3")
+            {
+                Bullet01(4);
+            }
+
+            NextFireATime = Time.time + FireATime;
+        }
+        //子弹A
         //======================================
 
     }
@@ -389,8 +387,6 @@ public class PlayerPlane : MonoBehaviour
                 Debug.Log("OnComplete");
             });*/
             bullet.DOLocalMoveY(target_y, 1.2f);
-
-            DoBulletA = true;
         }
     }
 

@@ -261,7 +261,7 @@ public class StageCommon : MonoBehaviour
         else
         {
             //往下1关走
-            int scene = Constant.Stage01Scene;
+            int scene = Constant.StageCurr;
             scene++;
             Constant.StageCurr = scene;
 

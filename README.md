@@ -26,3 +26,7 @@ Unity版本为2019.4.15，目前在Windows、Mac、Ubuntu环境下进行过测�
 在游戏暂停状态下按ESC键可返回游戏开始界面
 
 ================
+
+运行状况：
+
+![](https://raw.github.com/ouzhigang/MiniStrikers/main/screenshot.gif)

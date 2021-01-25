@@ -392,11 +392,6 @@ public class Stage05 : MonoBehaviour
             "Name:Enemy17,InitX:1,MoveTargetY:5",
             "Name:Enemy17,InitX:-1,MoveTargetY:5",
         });
-
-
-
-
-
         EnemyData.Add(17f, new string[]
         {
             "Name:Enemy02,InitX:0",

@@ -10,6 +10,7 @@ public class MainMenu : MonoBehaviour
     bool IsDirectionDown = false;
 
     int MenuSelectedIndex = 0;
+    Transform Menu;
     Transform Items;
     Transform MenuCursor;
     int MenuLength = 0;
@@ -31,8 +32,9 @@ public class MainMenu : MonoBehaviour
         }
         //恢复初始状态 end
 
-        Items = transform.Find("Items");
-        MenuCursor = transform.Find("MenuCursor");
+        Menu = transform.Find("Canvas/Menu");
+        Items = Menu.Find("Items");
+        MenuCursor = Menu.Find("MenuCursor");
         MenuLength = Items.childCount;
 
         //移动端不显示光标
@@ -64,7 +66,7 @@ public class MainMenu : MonoBehaviour
                 if (MenuSelectedIndex > 0)
                 {
                     MenuSelectedIndex--;
-                    GetComponent<AudioSource>().Play();
+                    GetComponents<AudioSource>()[1].Play();
 
                     Transform MenuSelectedItem = Items.GetChild(MenuSelectedIndex);
                     MenuCursor.localPosition = new Vector3(MenuCursor.localPosition.x, MenuSelectedItem.localPosition.y, MenuCursor.localPosition.z);
@@ -92,7 +94,7 @@ public class MainMenu : MonoBehaviour
                 if (MenuSelectedIndex + 1 < MenuLength)
                 {
                     MenuSelectedIndex++;
-                    GetComponent<AudioSource>().Play();
+                    GetComponents<AudioSource>()[1].Play();
 
                     Transform MenuSelectedItem = Items.GetChild(MenuSelectedIndex);
                     MenuCursor.localPosition = new Vector3(MenuCursor.localPosition.x, MenuSelectedItem.localPosition.y, MenuCursor.localPosition.z);

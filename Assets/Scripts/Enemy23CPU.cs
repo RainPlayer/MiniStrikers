@@ -92,7 +92,6 @@ public class Enemy23CPU : MonoBehaviour
 
             Vector3 target_pos = new Vector3(transform.localPosition.x, 4.6f, transform.localPosition.z);
 
-            //用DOTween.Sequence会报错，不知道是什么问题
             transform.DOLocalMove(target_pos, 3.0f).SetEase(Ease.Linear).OnComplete(() =>
             {
                 EnemyScriptObject.StatusCurr = Enemy.Status.Normal;

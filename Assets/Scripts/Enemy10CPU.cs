@@ -90,14 +90,18 @@ public class Enemy10CPU : MonoBehaviour
 
             Vector3 target_pos = new Vector3(transform.localPosition.x, 4.6f, transform.localPosition.z);
 
-            //用DOTween.Sequence会报错，不知道是什么问题
-            transform.DOLocalMove(target_pos, 3.0f).SetEase(Ease.Linear).OnComplete(() =>
-            {
+            //这部分代码跟别的boss代码不一样，但逻辑是一样的
+            Sequence sequence = DOTween.Sequence();
+            //sequence.OnKill(() => Debug.Log("OnKill")) ;
+            //sequence.OnComplete(() => Debug.Log("OnComplete"));
+            sequence.Append(transform.DOLocalMove(target_pos, 3.0f).SetEase(Ease.Linear));
+            sequence.AppendCallback(() => {
                 EnemyScriptObject.StatusCurr = Enemy.Status.Normal;
-
                 StartCoroutine(ChangeAttackMode());
-                transform.DOLocalMoveX(-1.3f, 5.0f).SetEase(Ease.Linear).OnComplete(() => EnemyMove());
             });
+            sequence.Append(transform.DOLocalMoveX(-1.3f, 5.0f).SetEase(Ease.Linear));
+            sequence.AppendCallback(() => EnemyMove());
+            
         }
     }
 

@@ -119,6 +119,14 @@ public class Enemy : MonoBehaviour
                         Blast blast_s = blast.GetComponent<Blast>();
                         blast_s.Play();
 
+                        //打败boss后全部清理子弹
+                        Transform bullet_layer = Camera.main.transform.Find("EnemyLayer/BulletLayer");
+                        for (int i = 0; i < bullet_layer.childCount; i++)
+                        {
+                            Destroy(bullet_layer.GetChild(i).gameObject);
+                        }
+
+                        //camera震动效果
                         CameraShake.ShakeFor(0.8f, 0.1f);
                     }
                     else

@@ -6,7 +6,7 @@ using UnityEngine.UI;
 
 public class LoadingScene : MonoBehaviour
 {
-    private AsyncOperation async;
+    private AsyncOperation Async;
     private Transform LoadingIco;
 
     private float MaxY = 0;
@@ -14,10 +14,10 @@ public class LoadingScene : MonoBehaviour
 
     private IEnumerator LoadScene(int scene)
     {
-        async = SceneManager.LoadSceneAsync(scene);
-        async.allowSceneActivation = false;
+        Async = SceneManager.LoadSceneAsync(scene);
+        Async.allowSceneActivation = false;
 
-        yield return async;
+        yield return Async;
     }
 
     // Start is called before the first frame update
@@ -43,30 +43,27 @@ public class LoadingScene : MonoBehaviour
     void Update()
     {
         //异步loading
-        if (async == null)
+        if (Async != null)
         {
-            return;
-        }
+            //坑爹的progress，最多到0.9f
+            CurrProcess = Async.progress * (1f / 0.9f);
 
-        //坑爹的progress，最多到0.9f
-        CurrProcess = async.progress * (1f / 0.9f);
+            //显示部分
+            if (LoadingIco.localPosition.y < MaxY / 2f)
+            {
+                LoadingIco.localPosition = new Vector3(0f, LoadingIco.localPosition.y + (CurrProcess * MaxY), 10f);
+            }
+            else
+            {
+                LoadingIco.localPosition = new Vector3(0f, MaxY, 10f);
+            }
+            //Debug.Log(LoadingIco.localPosition.y);
 
-        //显示部分
-        if (LoadingIco.localPosition.y < MaxY / 2f)
-        {
-            LoadingIco.localPosition = new Vector3(0f, LoadingIco.localPosition.y + (CurrProcess * MaxY), 10f);
+            if (CurrProcess == 1f) //async.isDone应该是在场景被激活时才为true
+            {
+                Async.allowSceneActivation = true;
+            }
         }
-        else
-        {
-            LoadingIco.localPosition = new Vector3(0f, MaxY, 10f);
-        }
-        //Debug.Log(LoadingIco.localPosition.y);
-
-        if (CurrProcess == 1f) //async.isDone应该是在场景被激活时才为true
-        {
-            async.allowSceneActivation = true;
-        }
-
         //异步loading end
     }
 }

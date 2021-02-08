@@ -31,10 +31,7 @@ public class FHUtility
         {
             return true;
         }
-        else
-        {
-            return false;
-        }
+        return false;
     }
 
     /// <summary>
@@ -81,7 +78,7 @@ public class FHUtility
         {
             angle = -angle;
         }
-        else if ((y == 0) && (x < 0))
+        else if (y == 0 && x < 0)
         {
             angle = 180;
         }

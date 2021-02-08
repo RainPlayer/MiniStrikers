@@ -25,6 +25,12 @@ public class CameraShake : MonoBehaviour
     // Update is called once per frame
     void LateUpdate()
     {
+        //游戏暂停的处理
+        if (Constant.GameIsPause)
+        {
+            return;
+        }
+
         if (startShake)
         {
             transform.localPosition = camPOS + Random.insideUnitSphere * quake;
